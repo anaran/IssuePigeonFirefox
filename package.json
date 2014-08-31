@@ -1,0 +1,16 @@
+{
+  "dependencies": [],
+  "title": "Issue Pilot",
+  "name": "issuepilot",
+  "id": "jid1-KfIXXp63ZIWlFg@jetpack",
+  "version": "0.1.1",
+  "description": "Report issues for supported sites, based on content extracted from webpage.",
+  "main": "lib/main.js",
+  "author": "anaran",
+  "engines": {
+    "firefox": ">=33.0a1",
+    "fennec": ">=33.0a1"
+  },
+  "license": "MIT",
+  "preferences": []
+}
