@@ -12,5 +12,13 @@
     "fennec": ">=33.0a1"
   },
   "license": "MIT",
-  "preferences": []
+  "preferences": [],
+  "homepage": "https://github.com/anaran/IssuePilotFirefox",
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/anaran/IssuePilotFirefox.git"
+  },
+  "bugs": {
+    "url" : "https://github.com/anaran/IssuePilotFirefox/issues"
+  }
 }
