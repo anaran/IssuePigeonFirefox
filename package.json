@@ -1,9 +1,9 @@
 {
   "dependencies": [],
-  "title": "Issue Pilot",
-  "name": "issuepilot",
-  "id": "issue-pilot@addons.mozilla.org",
-  "version": "0.1.5",
+  "title": "Issue Pigeon",
+  "name": "issue-pigeon",
+  "id": "issue-pigeon@addons.mozilla.org",
+  "version": "0.1.6",
   "description": "Report issues for supported sites, based on content extracted from webpage.\n\nContext menu entry on Android is only available on hyperlinks, because text selection is mutually exclusive with a context menu there.",
   "main": "lib/main.js",
   "author": "anaran",
@@ -13,12 +13,12 @@
   },
   "license": "MIT",
   "preferences": [],
-  "homepage": "https://github.com/anaran/IssuePilotFirefox",
+  "homepage": "https://github.com/anaran/IssuePigeonFirefox",
   "repository" : {
     "type" : "git",
-    "url" : "https://github.com/anaran/IssuePilotFirefox.git"
+    "url" : "https://github.com/anaran/IssuePigeonFirefox.git"
   },
   "bugs": {
-    "url" : "https://github.com/anaran/IssuePilotFirefox/issues"
+    "url" : "https://github.com/anaran/IssuePigeonFirefox/issues"
   }
 }
