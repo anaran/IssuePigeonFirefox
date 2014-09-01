@@ -95,8 +95,10 @@ try {
           'https://addons.allizom.org': amo,
           'https://developer.chrome.com/apps': dcca,
           'https://developer.chrome.com/extensions': dcce,
-          // github reporter uses argument passed to it to derive help and report URL.
-          'https://github.com/[^/]+/[^/]+': github,
+          // github reporter uses argument passed to it to derive help
+          // and report URL.
+          // NOTE Make sure not to include any fragment or query parts.
+          'https://github.com/[^/]+/[^/#?]+': github,
           'https://www.npmjs.org': npm,
           'http://dev.w3.org/html5': w3html5
         },
@@ -124,58 +126,12 @@ try {
       selection: window.getSelection().toString(),
       rangeLinks: extractLinksFromSelection()
     };
-    var div = document.querySelector('#reportFeedbackInformation');
-    if (div) {
-      document.body.removeChild(div);
-    }
-    efp = document.elementFromPoint(window.innerWidth / 2, window.innerHeight / 2);
-    div = document.createElement('div');
-    // var lastStyle = window.getComputedStyle(document.body.firstChild);
-    div.style.position = 'fixed';
-    console.log(efp, window.getComputedStyle(efp));
-    var a = div.querySelector('a') || div.appendChild(document.createElement('a'));
-    // div.style.background = 'transparent';
-    div.style.backgroundColor = window.getComputedStyle(efp).backgroundColor;
-    div.style.color = window.getComputedStyle(efp).color;
-    // div.style.background = window.getComputedStyle(document.querySelector('a')).backgroundColor;
-    // a.style.color = lastStyle.backgroundColor;
-    div.style.fontSize = window.getComputedStyle(document.querySelector('h1') || document.querySelector('h2') || document.querySelector('body')).fontSize;
-    // div.style.fontSize = 'x-large';
-    a.title = 'Report issue based on tab and selection(s)';
-    a.style.paddingLeft = '0.5em';
-    div.style.borderRadius = '3px';
-    div.style.opacity = 0.9;
-    div.id = 'reportFeedbackInformation';
     var handler = Object.keys(knownSites).some(function (value) {
       var captureGroups = value.match(/^\/?(.+?)(?:\/([gim]*))?$/);
       var regexp = new RegExp(captureGroups[1], captureGroups[2]);
       var match = window.location.href.match(regexp);
       if (match) {
-        // window.alert(JSON.stringify(match, Object.getOwnPropertyNames(match), 2));
-        document.body.appendChild(div);
-        a.textContent = knownSites[value].title || 'Issue Pilot';
-        // NOTE Make sure to set element content before getting its client rect!
-        div.style.transition = 'left 0.5s linear 0s';
-        div.style.top = (window.innerHeight - div.getBoundingClientRect().height) / 2 + 'px';
-        div.style.left = "-40em";
-        window.requestAnimationFrame(function(domHighResTimeStamp) {
-          div.style.left = (window.innerWidth - div.getBoundingClientRect().width) / 2 + 'px';
-});
-        console.log(div.getBoundingClientRect());
-        a.href = '';
-        a.addEventListener('click', function (event) {
-          console.log("selection", window.getSelection().toString());
-          event.preventDefault();
-          event.stopPropagation();
-          knownSites[value].reporter(match[0]);
-        }, true);
-        var close = div.querySelector('span') || div.appendChild(document.createElement('span'));
-        close.innerHTML = '&cross;';
-        close.style.padding = '0.25em';
-        close.addEventListener('click', function (event) {
-          event.preventDefault();
-          document.body.removeChild(div);
-        }, false);
+        knownSites[value].reporter(match[0]);
         return true;
       }
       return false;
@@ -186,9 +142,6 @@ try {
                        + JSON.stringify(data, null, 2));
     }
   };
-  // console.trace();
-  // console.log("new Error()", new Error());
-  // console.log("self", self);
   if (self.port) {
     console.log("self.port is true", self);
     self.port.on("show", function (node, data) {
@@ -203,10 +156,6 @@ try {
       reportFeedbackInformation();
     });
   }
-  // else {
-  //   reportFeedbackInformation();
-  // }
-  // reportFeedbackInformation();
 }
 catch (exception) {
   // DEBUG_ADDON &&

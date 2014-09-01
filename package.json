@@ -3,7 +3,7 @@
   "title": "Issue Pilot",
   "name": "issuepilot",
   "id": "issue-pilot@addons.mozilla.org",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Report issues for supported sites, based on content extracted from webpage.\n\nContext menu entry on Android is only available on hyperlinks, because text selection is mutually exclusive with a context menu there.",
   "main": "lib/main.js",
   "author": "anaran",
