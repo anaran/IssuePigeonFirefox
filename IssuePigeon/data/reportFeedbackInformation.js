@@ -101,6 +101,8 @@ try {
           'https://github.com/[^/]+/[^/#?]+': github,
           'https://www.npmjs.org': npm,
           'http://dev.w3.org/html5': w3html5
+          // 'https://groups.google.com/forum/#!forum/mozilla-labs-jetpack':
+          // 'https://groups.google.com/forum/#!forum/mozilla.dev.extensions':
         },
         mailtos = [
         ];
