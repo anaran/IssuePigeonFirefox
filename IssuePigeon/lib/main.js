@@ -1,4 +1,5 @@
-var self = require('sdk/self');
+let self = require('sdk/self');
+let { metadata } = require("@loader/options");
 
 let DEBUG_ADDON = true;
 let loading =
@@ -25,7 +26,8 @@ function testSelfProperty(property, callback) {
 }
 
 function dummy(callback) {
-  let { metadata } = require("sdk/self");
+  let { metadata } = require("@loader/options");
+  // let { metadata } = require("sdk/self");
   callback(metadata);
 }
 
@@ -64,12 +66,12 @@ var reportUnsupportedSite = function(data) {
 if (recent.NativeWindow) {
   let nw = require('./nativewindow');
   nw.addContextMenu({
-    name: self.name/*self.metadata.title*/,
+    name: self.title || metadata.title || self.name,
     context: nw.SelectorContext('a'),
     callback: function(target) {
       let worker = tabs.activeTab.attach({
         contentScriptFile: self.data.url('./reportFeedbackInformation.js'),
-        onMessage: reportUnsupportedSite,
+        onMessage: reportUnsupportedSite
         // TODO Implement this as clickable issue reporting notification
         // onError:
       });
@@ -78,7 +80,7 @@ if (recent.NativeWindow) {
 } else {
     let cm = require("sdk/context-menu");
     cm.Item({
-        label: self.name/*self.metadata.title*/,
+        label: self.title || metadata.title || self.name,
         context: cm.URLContext("*"),
         contentScriptFile: self.data.url('./reportFeedbackInformation.js'),
         onMessage: reportUnsupportedSite
