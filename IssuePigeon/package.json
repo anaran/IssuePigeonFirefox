@@ -8,8 +8,8 @@
   "dependencies": [],
   "description": "Report issues for supported sites, based on content extracted from webpage.\n\nContext menu entry on Android is only available on hyperlinks, because text selection is mutually exclusive with a context menu there.",
   "engines": {
-    "firefox": ">=33.0a1",
-    "fennec": ">=33.0a1"
+    "firefox": "19.0 - 35.0",
+    "fennec": "19.0 - 35.0"
   },
   "homepage": "https://github.com/anaran/IssuePigeonFirefox",
   "id": "issue-pigeon@addons.mozilla.org",
@@ -21,6 +21,6 @@
     "url" : "https://github.com/anaran/IssuePigeonFirefox.git"
   },
   "title": "Issue Pigeon",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "preferences": []
 }
