@@ -1,24 +1,26 @@
 {
-  "dependencies": [],
-  "title": "Issue Pigeon",
-  "name": "issue-pigeon",
-  "id": "issue-pigeon@addons.mozilla.org",
-  "version": "0.1.6",
-  "description": "Report issues for supported sites, based on content extracted from webpage.\n\nContext menu entry on Android is only available on hyperlinks, because text selection is mutually exclusive with a context menu there.",
-  "main": "lib/main.js",
+  "// Keep keys in alphabetical order and before preferences.":
+  "This provides for quicker lookup of addon information.",
   "author": "anaran",
+  "bugs": {
+    "url" : "https://github.com/anaran/IssuePigeonFirefox/issues"
+  },
+  "dependencies": [],
+  "description": "Report issues for supported sites, based on content extracted from webpage.\n\nContext menu entry on Android is only available on hyperlinks, because text selection is mutually exclusive with a context menu there.",
   "engines": {
     "firefox": ">=33.0a1",
     "fennec": ">=33.0a1"
   },
-  "license": "MIT",
-  "preferences": [],
   "homepage": "https://github.com/anaran/IssuePigeonFirefox",
+  "id": "issue-pigeon@addons.mozilla.org",
+  "license": "MIT",
+  "main": "lib/main.js",
+  "name": "issue-pigeon",
   "repository" : {
     "type" : "git",
     "url" : "https://github.com/anaran/IssuePigeonFirefox.git"
   },
-  "bugs": {
-    "url" : "https://github.com/anaran/IssuePigeonFirefox/issues"
-  }
+  "title": "Issue Pigeon",
+  "version": "0.1.7",
+  "preferences": []
 }
