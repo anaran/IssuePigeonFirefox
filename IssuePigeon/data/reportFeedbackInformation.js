@@ -19,8 +19,8 @@
     debugger;
     DEBUG_ADDON &&
       console.log('Logging enabled via debugger');
-    let loading = "content script $Format:%h%d$ loads in " + document.URL +
-        " using " + JSON.stringify(navigator.userAgent) + ' ' +
+    let loading = "content script $Format:%h%d$ loads in " + ((typeof document !== 'undefined' && document.URL) || 'no document (unit stesting?)') +
+        " using " + JSON.stringify((typeof navigator !== 'undefined' && navigator.userAgent) || 'no navigator (unit stesting?)') + ' ' +
         // NOTE: Introduce fragment specifier before line spec to make
         // clickable link work in console.log.
         (new Error).stack.replace(/:(\d+):(\d+)/g, '#L$1C$2');
@@ -37,14 +37,82 @@
       DEBUG_ADDON &&
         console.profile('content script profile');
     }
-    var reportFeedbackInformation = function () {
-      var copyright = document.querySelector('meta[name=copyright]'),
-          keywords = document.querySelector('meta[name=keywords]'),
-          description = document.querySelector('meta[name=description]'),
-          author = document.querySelector('meta[name=author]'),
-          generator = document.querySelector('meta[name=generator]'),
-          strWindowFeatures = 'resizable=yes,scrollbars=yes,toolbar=yes',
-          extractLinksFromSelection = function () {
+    let strWindowFeatures = 'resizable=yes,scrollbars=yes,toolbar=yes',
+        githubReporter = function (base) {
+          let rangeLinks = PigeonDispatcher.extractLinksFromSelection();
+          base && window.open(this.help || base + '/wiki', '_blank', strWindowFeatures);
+          base && window.open(base + '/issues/new'
+                              + '?title=' + window.encodeURIComponent('Summarise issue or request about ' + document.title)
+                              + '&body='
+                              + window.encodeURIComponent((rangeLinks.length ? 'See these links:\n\n'
+                                                           + rangeLinks.join('\n') + '\n\n  referenced from\n\n' : 'See:\n\n') + window.location.href + '\n\nDetails:\n\n' + window.getSelection().toString()), '_blank', strWindowFeatures
+                             );
+        },
+        npmReporter = function () {
+          PigeonDispatcher.githubReporter(this.report);
+        },
+        cmReporter = function () {
+          PigeonDispatcher.githubReporter(this.report);
+        },
+        mozillaReporter = function () {
+          let rangeLinks = PigeonDispatcher.extractLinksFromSelection();
+          this.help && window.open(this.help, '_blank', strWindowFeatures);
+          var link = this.report + '&comment='
+          + window.encodeURIComponent((rangeLinks.length ? 'See these links:\n\n'
+                                       + rangeLinks.join('\n') + '\n\n  referenced from\n\n' : 'See:\n\n') + window.location.href + '\n\nDetails:\n\n' + window.getSelection().toString())
+          + '&bug_file_loc=' + window.encodeURIComponent(window.location.href)
+          + '&short_desc=' + window.encodeURIComponent('Summarise issue or request about ' + document.title);
+          DEBUG_ADDON &&       console.log(this, link);
+          this.report && window.open(link, '_blank', strWindowFeatures);
+        },
+        chromiumReporter = function () {
+          let rangeLinks = PigeonDispatcher.extractLinksFromSelection();
+          this.help && window.open(this.help, null, strWindowFeatures);
+          this.report && window.open(this.report + '&comment='
+                                     + window.encodeURIComponent((rangeLinks.length ? 'See these links:\n\n'
+                                                                  + rangeLinks.join('\n') + '\n\n  referenced from\n\n' : 'See:\n\n') + window.location.href + '\n\nDetails:\n\n' + window.getSelection().toString())
+                                     + '&bug_file_loc=' + window.encodeURIComponent(window.location.href)
+                                     + '&summary=' + window.encodeURIComponent('Summarise issue or request about ' + document.title), null, strWindowFeatures
+                                    );
+        },
+        github = {
+          'reporter': githubReporter
+        },
+        mdn = {
+          'help': 'https://developer.mozilla.org/en-US/docs/MDN/About#Documentation_errors',
+          'report': 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&product=Developer%20Documentation',
+          'reporter': mozillaReporter
+        },
+        amo = {
+          'help': 'https://addons.mozilla.org/en-US/developers/docs/policies/contact',
+          'report': 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&product=addons.mozilla.org',
+          'reporter': mozillaReporter
+        },
+        dcca = {
+          'help': 'https://developer.chrome.com/apps/faq',
+          'report': 'https://code.google.com/p/chromium/issues/entry?label=Cr-Platform-Apps',
+          'reporter': chromiumReporter
+        },
+        dcce = {
+          'help': 'https://developer.chrome.com/extensions/faq',
+          'report': 'https://code.google.com/p/chromium/issues/entry?label=Cr-Platform-Extensions',
+          'reporter': chromiumReporter
+        },
+        npm = {
+          'report': 'https://github.com/npm/npm-www',
+          'reporter': npmReporter
+        },
+        w3html5 = {
+          report: 'https://www.w3.org/Bugs/Public/enter_bug.cgi?format=__default__&product=HTML%20WG&component=HTML5%20spec',
+          reporter: mozillaReporter
+        },
+        cm = {
+          help: 'https://github.com/marijnh/CodeMirror/blob/master/CONTRIBUTING.md#submitting-bug-reports',
+          report: 'https://github.com/marijnh/CodeMirror',
+          reporter: cmReporter
+        },
+        PigeonDispatcher = {
+          extractLinksFromSelection: function () {
             var s = window.getSelection();
             var rangeLinks = {
             };
@@ -57,72 +125,7 @@
             }
             return Object.keys(rangeLinks);
           },
-          githubReporter = function (base) {
-            let rangeLinks = extractLinksFromSelection();
-            base && window.open(base + '/wiki', '_blank', strWindowFeatures);
-            base && window.open(base + '/issues/new'
-                                + '?title=' + window.encodeURIComponent('Summarise issue or request about ' + document.title)
-                                + '&body='
-                                + window.encodeURIComponent((rangeLinks.length ? 'See these links:\n\n'
-                                                             + rangeLinks.join('\n') + '\n\n  referenced from\n\n' : 'See:\n\n') + window.location.href + '\n\nDetails:\n\n' + window.getSelection().toString()), '_blank', strWindowFeatures
-                               );
-          },
-          npmReporter = function () {
-            githubReporter(this.report);
-          },
-          mozillaReporter = function () {
-            let rangeLinks = extractLinksFromSelection();
-            this.help && window.open(this.help, '_blank', strWindowFeatures);
-            var link = this.report + '&comment='
-            + window.encodeURIComponent((rangeLinks.length ? 'See these links:\n\n'
-                                         + rangeLinks.join('\n') + '\n\n  referenced from\n\n' : 'See:\n\n') + window.location.href + '\n\nDetails:\n\n' + window.getSelection().toString())
-            + '&bug_file_loc=' + window.encodeURIComponent(window.location.href)
-            + '&short_desc=' + window.encodeURIComponent('Summarise issue or request about ' + document.title);
-            DEBUG_ADDON &&       console.log(this, link);
-            this.report && window.open(link, '_blank', strWindowFeatures);
-          },
-          chromiumReporter = function () {
-            let rangeLinks = extractLinksFromSelection();
-            this.help && window.open(this.help, null, strWindowFeatures);
-            this.report && window.open(this.report + '&comment='
-                                       + window.encodeURIComponent((rangeLinks.length ? 'See these links:\n\n'
-                                                                    + rangeLinks.join('\n') + '\n\n  referenced from\n\n' : 'See:\n\n') + window.location.href + '\n\nDetails:\n\n' + window.getSelection().toString())
-                                       + '&bug_file_loc=' + window.encodeURIComponent(window.location.href)
-                                       + '&summary=' + window.encodeURIComponent('Summarise issue or request about ' + document.title), null, strWindowFeatures
-                                      );
-          },
-          mdn = {
-            'help': 'https://developer.mozilla.org/en-US/docs/MDN/About#Documentation_errors',
-            'report': 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&product=Developer%20Documentation',
-            'reporter': mozillaReporter
-          },
-          amo = {
-            'help': 'https://addons.mozilla.org/en-US/developers/docs/policies/contact',
-            'report': 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&product=addons.mozilla.org',
-            'reporter': mozillaReporter
-          },
-          dcca = {
-            'help': 'https://developer.chrome.com/apps/faq',
-            'report': 'https://code.google.com/p/chromium/issues/entry?label=Cr-Platform-Apps',
-            'reporter': chromiumReporter
-          },
-          dcce = {
-            'help': 'https://developer.chrome.com/extensions/faq',
-            'report': 'https://code.google.com/p/chromium/issues/entry?label=Cr-Platform-Extensions',
-            'reporter': chromiumReporter
-          },
-          github = {
-            'reporter': githubReporter
-          },
-          npm = {
-            'report': 'https://github.com/npm/npm-www',
-            'reporter': npmReporter
-          },
-          w3html5 = {
-            report: 'https://www.w3.org/Bugs/Public/enter_bug.cgi?format=__default__&product=HTML%20WG&component=HTML5%20spec',
-            reporter: mozillaReporter
-          },
-          knownSites = {
+          knownSites: {
             'https://developer.mozilla.org': mdn,
             'https://addons.mozilla.org': amo,
             // staging site for AMO
@@ -134,13 +137,21 @@
             // NOTE Make sure not to include any fragment or query parts.
             'https://github.com/[^/]+/[^/#?]+': github,
             'https://www.npmjs.org': npm,
-            'http://dev.w3.org/html5': w3html5
+            'http://dev.w3.org/html5': w3html5,
             // 'https://groups.google.com/forum/#!forum/mozilla-labs-jetpack':
             // 'https://groups.google.com/forum/#!forum/mozilla.dev.extensions':
-          },
+            'http://codemirror.net/': cm
+          }
+        };
+    // TODO Please see http://www.w3.org/TR/2011/REC-css3-selectors-20110929/#attribute-substrings
+    var reportFeedbackInformation = function () {
+      let copyright = document.querySelector('meta[name=copyright]'),
+          keywords = document.querySelector('meta[name=keywords]'),
+          description = document.querySelector('meta[name=description]'),
+          author = document.querySelector('meta[name=author]'),
+          generator = document.querySelector('meta[name=generator]'),
           mailtos = [
           ];
-      // TODO Please see http://www.w3.org/TR/2011/REC-css3-selectors-20110929/#attribute-substrings
       Array.prototype.forEach.call(document.querySelectorAll('a[href^="mailto:"]'), function (value) {
         mailtos.push(value.href);
       });
@@ -150,7 +161,7 @@
         gpluses.push(value.href);
       });
       var data = {
-        knownSites: Object.getOwnPropertyNames(knownSites),
+        knownSites: Object.getOwnPropertyNames(PigeonDispatcher.knownSites),
         copyright: copyright && copyright.content,
         keywords: keywords && keywords.content,
         description: description && description.content,
@@ -160,14 +171,14 @@
         gpluses: gpluses,
         url: document.URL,
         selection: window.getSelection().toString(),
-        rangeLinks: extractLinksFromSelection()
+        rangeLinks: PigeonDispatcher.extractLinksFromSelection()
       };
-      var handler = Object.keys(knownSites).some(function (value) {
+      var handler = Object.keys(PigeonDispatcher.knownSites).some(function (value) {
         var captureGroups = value.match(/^\/?(.+?)(?:\/([gim]*))?$/);
         var regexp = new RegExp(captureGroups[1], captureGroups[2]);
         var match = window.location.href.match(regexp);
         if (match) {
-          knownSites[value].reporter(match[0]);
+          PigeonDispatcher.knownSites[value].reporter(match[0]);
           return true;
         }
         return false;
@@ -178,7 +189,7 @@
                          + JSON.stringify(data, null, 2));
       }
     };
-    if (self.port) {
+    if (typeof self !== 'undefined' && self.port) {
       DEBUG_ADDON &&
         console.log("self.port is true", self);
       self.port.on("show", function (node, data) {
@@ -187,7 +198,7 @@
         reportFeedbackInformation();
       });
     }
-    if (self.on) {
+    if (typeof self !== 'undefined' && self.on) {
       DEBUG_ADDON &&
         console.log("self is true", self);
       self.on("click", function (node, data) {
@@ -207,11 +218,12 @@
       DEBUG_ADDON &&
         console.profileEnd();
     }
+    exports.PigeonDispatcher = PigeonDispatcher;
   }
   catch (exception) {
     // DEBUG_ADDON &&
-    console.error(new Error());
-    DEBUG_ADDON &&
-      console.error(exception);
+    // console.error(new Error());
+    // DEBUG_ADDON &&
+    console.error(exception);
   }
 })();

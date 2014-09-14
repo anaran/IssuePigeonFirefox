@@ -25,12 +25,16 @@ if (console.profile) {
     console.profile('addon ' + self.name + ' ' + self.version + 'profile');
 }
 // jpm
-// var main = require("../lib/main");
-// cfx
 var main = require("../lib/main");
+// cfx
 // require("./main") || 
 
 exports["test main"] = function(assert) {
+  // Content scripts cannot export anything, but we can check for
+  // syntax errors this way.
+  let rfi = require('../data/reportFeedbackInformation');
+  assert.notEqual(typeof rfi, "undefined", "undefined !== require('../data/reportFeedbackInformation')");
+  assert.ok(true, rfi);
   assert.pass("Unit test running!");
 };
 

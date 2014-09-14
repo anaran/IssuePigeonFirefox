@@ -11,10 +11,11 @@
   debugger;
   DEBUG_ADDON &&
     console.log('Logging enabled via debugger');
-  let self = require('sdk/self');
-  let { metadata } = require("@loader/options");
+  const self = require('sdk/self');
+  const { metadata } = require("@loader/options");
+  const myTitle = self.title || metadata.title || self.name;
   let loading =
-      'addon ' + (self.title || metadata.title || self.name) + ' ' + self.version + ' $Format:%h%d$ loads ' +
+      'addon ' + myTitle + ' ' + self.version + ' $Format:%h%d$ loads ' +
       // NOTE: Introduce fragment specifier before line spec to make
       // clickable link work in console.log.
       (new Error).stack.replace(/:(\d+):(\d+)/g, '#L$1C$2');
@@ -77,7 +78,7 @@
   if (recent.NativeWindow) {
     let nw = require('./nativewindow');
     nw.addContextMenu({
-      name: self.title || metadata.title || self.name,
+      name: myTitle,
       context: nw.SelectorContext('a'),
       callback: function(target) {
         let worker = tabs.activeTab.attach({
@@ -91,7 +92,7 @@
   } else {
     let cm = require("sdk/context-menu");
     cm.Item({
-      label: self.title || metadata.title || self.name,
+      label: myTitle,
       context: cm.URLContext("*"),
       contentScriptFile: self.data.url('./reportFeedbackInformation.js'),
       onMessage: reportUnsupportedSite
