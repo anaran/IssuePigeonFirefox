@@ -1,0 +1,248 @@
+(time jpm test -b c:/programme/nightly/firefox.exe -v) >> jpm_test-b_c_programme_nightly_firefoxexe-v-20140916T122809+0200.txt 2>&1 &
+wd: /cygdrive/c/Users/AichnerAd/tmp/mozilla/IssuePigeonFirefox/IssuePigeon
+
+JPM [32minfo[39m binary set to c:/programme/nightly/firefox.exe
+JPM [32minfo[39m verbose set
+JPM [32minfo[39m Running test on Issue Pigeon
+JPM [32minfo[39m Creating compatability bootstrap.js and install.rdf for xpi
+JPM [32minfo[39m Creating XPI...
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\data
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\lib
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\#%2Ascratch%2A#2436Dor#
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\bootstrap.js
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\install.rdf
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\jpm_test-b_c_programme_nightly_firefoxexe-v-20140916T122809+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\manifest.webapp
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\notes.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\package.json
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\data\reportFeedbackInformation.js
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\lib\main.js
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\lib\nativewindow.js
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-20140909T143443+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-20140909T143545+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-20140909T143835+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-20140909T144208+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-20140909T144323+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-20140909T144404+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-20140909T144627+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-20140909T145056+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-20140909T145309+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-20140909T145410+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-20140909T150214+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-20140909T150610+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-20140909T150738+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-20140909T151016+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-20140909T151104+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-20140909T151314+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-20140909T152144+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-20140909T153151+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-20140909T153449+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-20140914T222754+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T141400+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T142513+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T143215+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T151419+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T153551+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T153934+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T154751+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T155013+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T155347+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T155559+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T160045+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T164604+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T165030+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T165142+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T165152+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T170353+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T170749+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T172657+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T172810+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T172916+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T173323+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T173540+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T173652+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T173942+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T174028+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T175648+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T182212+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-v-20140914T220614+0200.txt
+JPM [32minfo[39m Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\test-index.js
+JPM [32minfo[39m XPI created at C:\cygwin\tmp\issue-pigeon@addons.mozilla.org.xpi (323ms)
+JPM [32minfo[39m Creating a new profile at C:\cygwin\tmp\a511d1f6-9b4c-4844-ba74-2fa4dcf44f49
+JPM [32minfo[39m Executing Firefox binary: c:/programme/nightly/firefox.exe
+JPM [32minfo[39m Executing Firefox with args: -no-remote,-profile,C:\cygwin\tmp\a511d1f6-9b4c-4844-ba74-2fa4dcf44f49
+JPM [32minfo[39m 1410863292594	addons.manager	DEBUG	Application has been upgraded
+
+JPM [32minfo[39m 1410863292607	addons.manager	DEBUG	Loaded provider scope for resource://gre/modules/addons/XPIProvider.jsm: ["XPIProvider"]
+
+JPM [32minfo[39m 1410863292609	addons.manager	DEBUG	Loaded provider scope for resource://gre/modules/LightweightThemeManager.jsm: ["LightweightThemeManager"]
+
+JPM [32minfo[39m 1410863292614	addons.xpi	DEBUG	startup
+
+JPM [32minfo[39m 1410863292615	addons.xpi	INFO	Mapping {972ce4c6-7e08-4474-a285-3208198ce6fd} to c:\programme\nightly\browser\extensions\{972ce4c6-7e08-4474-a285-3208198ce6fd}
+
+JPM [32minfo[39m 1410863292616	addons.xpi	INFO	Mapping issue-pigeon@addons.mozilla.org to C:\cygwin\tmp\a511d1f6-9b4c-4844-ba74-2fa4dcf44f49\extensions\issue-pigeon@addons.mozilla.org.xpi
+
+JPM [32minfo[39m 1410863292617	addons.xpi	DEBUG	checkForChanges
+
+JPM [32minfo[39m 1410863292619	addons.xpi	DEBUG	Directory state JSON differs: cache [] state [{"name":"app-global","addons":{"{972ce4c6-7e08-4474-a285-3208198ce6fd}":{"descriptor":"c:\\programme\\nightly\\browser\\extensions\\{972ce4c6-7e08-4474-a285-3208198ce6fd}","mtime":1410615682015,"rdfTime":1410541220437}}},{"name":"app-profile","addons":{"issue-pigeon@addons.mozilla.org":{"descriptor":"C:\\cygwin\\tmp\\a511d1f6-9b4c-4844-ba74-2fa4dcf44f49\\extensions\\issue-pigeon@addons.mozilla.org.xpi","mtime":1410863291828}}}]
+
+JPM [32minfo[39m 1410863292625	addons.xpi-utils	DEBUG	Opening XPI database C:\cygwin\tmp\a511d1f6-9b4c-4844-ba74-2fa4dcf44f49\extensions.json
+JPM [32minfo[39m 
+
+JPM [32minfo[39m 1410863292627	addons.xpi	DEBUG	New add-on issue-pigeon@addons.mozilla.org installed in app-profile
+
+JPM [32minfo[39m *** Blocklist::_loadBlocklistFromFile: blocklist is disabled
+
+JPM [32minfo[39m 1410863292785	addons.xpi-utils	DEBUG	Make addon app-profile:issue-pigeon@addons.mozilla.org visible
+
+JPM [32minfo[39m 1410863292787	DeferredSave.extensions.json	DEBUG	Save changes
+
+JPM [32minfo[39m 1410863292787	DeferredSave.extensions.json	DEBUG	Save changes
+
+JPM [32minfo[39m 1410863292792	addons.xpi	DEBUG	Loading bootstrap scope from C:\cygwin\tmp\a511d1f6-9b4c-4844-ba74-2fa4dcf44f49\extensions\issue-pigeon@addons.mozilla.org.xpi
+
+JPM [32minfo[39m 1410863292800	addons.xpi	DEBUG	Calling bootstrap method install on issue-pigeon@addons.mozilla.org version 0.1.9
+
+JPM [32minfo[39m 1410863292800	addons.xpi	DEBUG	New add-on {972ce4c6-7e08-4474-a285-3208198ce6fd} installed in app-global
+
+JPM [32minfo[39m 1410863292804	addons.xpi-utils	DEBUG	Make addon app-global:{972ce4c6-7e08-4474-a285-3208198ce6fd} visible
+
+JPM [32minfo[39m 1410863292804	DeferredSave.extensions.json	DEBUG	Save changes
+
+JPM [32minfo[39m 1410863292804	DeferredSave.extensions.json	DEBUG	Save changes
+
+JPM [32minfo[39m 1410863292806	addons.xpi	DEBUG	Updating database with changes to installed add-ons
+
+JPM [32minfo[39m 1410863292806	addons.xpi-utils	DEBUG	Updating add-on states
+
+JPM [32minfo[39m 1410863292807	addons.xpi-utils	DEBUG	Writing add-ons list
+
+JPM [32minfo[39m 1410863292809	addons.xpi	DEBUG	Registering manifest for C:\cygwin\tmp\a511d1f6-9b4c-4844-ba74-2fa4dcf44f49\extensions\issue-pigeon@addons.mozilla.org.xpi
+
+JPM [32minfo[39m 1410863292810	addons.xpi	DEBUG	Calling bootstrap method startup on issue-pigeon@addons.mozilla.org version 0.1.9
+
+JPM [32minfo[39m 1410863294962	DeferredSave.extensions.json	DEBUG	Starting timer
+
+JPM [31merror[39m JavaScript strict warning: resource://gre/modules/addons/XPIProvider.jsm -> jar:file:///C:/cygwin/tmp/a511d1f6-9b4c-4844-ba74-2fa4dcf44f49/extensions/issue-pigeon@addons.mozilla.org.xpi!/bootstrap.js, line 249: ReferenceError: reference to undefined property options.staticArgs
+
+JPM [31merror[39m JavaScript strict warning: resource://gre/modules/addons/XPIProvider.jsm -> jar:file:///C:/cygwin/tmp/a511d1f6-9b4c-4844-ba74-2fa4dcf44f49/extensions/issue-pigeon@addons.mozilla.org.xpi!/bootstrap.js -> resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/self.js, line 50: ReferenceError: reference to undefined property permissions['private-browsing']
+
+JPM [32minfo[39m 1410863295164	DeferredSave.extensions.json	DEBUG	Starting write
+
+JPM [31merror[39m JavaScript strict warning: , line 0: TypeError: setting a property that has only a getter
+
+JPM [31merror[39m JavaScript strict warning: , line 0: TypeError: setting a property that has only a getter
+
+JPM [31merror[39m JavaScript strict warning: , line 0: TypeError: setting a property that has only a getter
+
+JPM [32minfo[39m 1410863295610	DeferredSave.extensions.json	DEBUG	Write succeeded
+
+JPM [32minfo[39m 1410863295610	addons.xpi-utils	DEBUG	XPI Database saved, setting schema version preference to 16
+
+JPM [31merror[39m JavaScript strict warning: , line 0: TypeError: setting a property that has only a getter
+
+JPM [31merror[39m JavaScript strict warning: , line 0: TypeError: setting a property that has only a getter
+
+JPM [31merror[39m JavaScript strict warning: , line 0: TypeError: setting a property that has only a getter
+
+JPM [31merror[39m JavaScript strict warning: , line 0: TypeError: setting a property that has only a getter
+JavaScript strict warning: , line 0: TypeError: setting a property that has only a getter
+JavaScript strict warning: , line 0: TypeError: setting a property that has only a getter
+
+JPM [31merror[39m JavaScript strict warning: , line 0: TypeError: "Services" is read-only
+
+JPM [31merror[39m JavaScript strict warning: resource://gre/modules/addons/XPIProvider.jsm -> jar:file:///C:/cygwin/tmp/a511d1f6-9b4c-4844-ba74-2fa4dcf44f49/extensions/issue-pigeon@addons.mozilla.org.xpi!/bootstrap.js -> resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/private-browsing/utils.js, line 29: ReferenceError: reference to undefined property Cc['@mozilla.org/privatebrowsing;1']
+
+JPM [32minfo[39m Running tests on Firefox 35.0a1/Gecko 35.0a1 ({ec8030f7-c20a-464f-9b0e-13a3a9e97384}) under winnt/x86.
+
+JPM [31merror[39m JavaScript strict warning: , line 0: TypeError: "AddonManager" is read-only
+
+JPM [31merror[39m JavaScript strict warning: resource://gre/modules/addons/XPIProvider.jsm -> jar:file:///C:/cygwin/tmp/a511d1f6-9b4c-4844-ba74-2fa4dcf44f49/extensions/issue-pigeon@addons.mozilla.org.xpi!/bootstrap.js -> resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/self.js, line 50: ReferenceError: reference to undefined property permissions['private-browsing']
+
+JPM [31merror[39m JavaScript strict warning: resource://gre/modules/addons/XPIProvider.jsm -> jar:file:///C:/cygwin/tmp/a511d1f6-9b4c-4844-ba74-2fa4dcf44f49/extensions/issue-pigeon@addons.mozilla.org.xpi!/bootstrap.js -> resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/private-browsing/utils.js, line 29: ReferenceError: reference to undefined property Cc['@mozilla.org/privatebrowsing;1']
+
+JPM [31merror[39m JavaScript strict warning: , line 0: TypeError: "AddonManager" is read-only
+
+JPM [32minfo[39m console.log: issue-pigeon: [JavaScript Warning: "TypeError: "AddonManager" is read-only"]
+
+JPM [32minfo[39m console.log: issue-pigeon: [JavaScript Warning: "TypeError: "AddonManager" is read-only"]
+
+JPM [31merror[39m JavaScript strict warning: resource://gre/modules/addons/XPIProvider.jsm -> jar:file:///C:/cygwin/tmp/a511d1f6-9b4c-4844-ba74-2fa4dcf44f49/extensions/issue-pigeon@addons.mozilla.org.xpi!/bootstrap.js -> resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/self.js, line 50: ReferenceError: reference to undefined property permissions['private-browsing']
+
+JPM [32minfo[39m console.log: issue-pigeon: testing addon Issue Pigeon 0.1.9 $Format:%h%d$ loads @resource://gre/modules/addons/XPIProvider.jsm -> jar:file:///C:/cygwin/tmp/a511d1f6-9b4c-4844-ba74-2fa4dcf44f49/extensions/issue-pigeon@addons.mozilla.org.xpi!/bootstrap.js -> resource://gre/modules/commonjs/toolkit/loader.js -> resource://issue-pigeon-at-addons-dot-mozilla-dot-org/test/test-index.js#L19C8
+@resource://gre/modules/addons/XPIProvider.jsm -> jar:file:///C:/cygwin/tmp/a511d1f6-9b4c-4844-ba74-2fa4dcf44f49/extensions/issue-pigeon@addons.mozilla.org.xpi!/bootstrap.js -> resource://gre/modules/commonjs/toolkit/loader.js -> resource://issue-pigeon-at-addons-dot-mozilla-dot-org/test/test-index.js#L10C3
+evaluate@resource://gre/modules/addons/XPIProvider.jsm -> jar:file:///C:/cygwin/tmp/a511d1f6-9b4c-4844-ba74-2fa4dcf44f49/extensions/issue-pigeon@addons.mozilla.org.xpi!/bootstrap.js -> resource://gre/modules/commonjs/toolkit/loader.js#L265C19
+load@resource://gre/modules/addons/XPIProvider.jsm -> jar:file:///C:/cygwin/tmp/a511d1f6-9b4c-4844-ba74-2fa4dcf44f49/extensions/issue-pigeon@addons.mozilla.org.xpi!/bootstrap.js -> resource://gre/modules/commonjs/toolkit/loader.js#L316C5
+main@resource://gre/modules/addons/XPIProvider.jsm -> jar:file:///C:/cygwin/tmp/a511d1f6-9b4c-4844-ba74-2fa4dcf44f49/extensions/issue-pigeon@addons.mozilla.org.xpi!/bootstrap.js -> resource://gre/modules/commonjs/toolkit/loader.js#L688C10
+findTests/</getNextTest@resource://gre/modules/addons/XPIProvider.jsm -> jar:file:///C:/cygwin/tmp/a511d1f6-9b4c-4844-ba74-2fa4dcf44f49/extensions/issue-pigeon@addons.mozilla.org.xpi!/bootstrap.js -> resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/deprecated/unit-test-finder.js#L156C25
+findTests/</<.getNext@resource://gre/modules/addons/XPIProvider.jsm -> jar:file:///C:/cygwin/tmp/a511d1f6-9b4c-4844-ba74-2fa4dcf44f49/extensions/issue-pigeon@addons.mozilla.org.xpi!/bootstrap.js -> resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/deprecated/unit-test-finder.js#L189C32
+runNextTest@resource://gre/modules/addons/XPIProvider.jsm -> jar:file:///C:/cygwin/tmp/a511d1f6-9b4c-4844-ba74-2fa4dcf44f49/extensions/issue-pigeon@addons.mozilla.org.xpi!/bootstrap.js -> resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/deprecated/unit-test.js#L491C14
+startMany@resource://gre/modules/addons/XPIProvider.jsm -> jar:file:///C:/cygwin/tmp/a511d1f6-9b4c-4844-ba74-2fa4dcf44f49/extensions/issue-pigeon@addons.mozilla.org.xpi!/bootstrap.js -> resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/deprecated/unit-test.js#L505C12
+findAndRunTests/<@resource://gre/modules/addons/XPIProvider.jsm -> jar:file:///C:/cygwin/tmp/a511d1f6-9b4c-4844-ba74-2fa4dcf44f49/extensions/issue-pigeon@addons.mozilla.org.xpi!/bootstrap.js -> resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/deprecated/unit-test.js#L27C1
+Handler.prototype.process@resource://gre/modules/Promise.jsm -> resource://gre/modules/Promise-backend.js#L865C23
+this.PromiseWalker.walkerLoop@resource://gre/modules/Promise.jsm -> resource://gre/modules/Promise-backend.js#L744C7
+
+
+JPM [32minfo[39m console.time: issue-pigeon: 'load time' @ Tue Sep 16 2014 11:28:17 GMT+0100 (Eur)
+
+JPM [31merror[39m JavaScript strict warning: resource://gre/modules/addons/XPIProvider.jsm -> jar:file:///C:/cygwin/tmp/a511d1f6-9b4c-4844-ba74-2fa4dcf44f49/extensions/issue-pigeon@addons.mozilla.org.xpi!/bootstrap.js -> resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/private-browsing/utils.js, line 29: ReferenceError: reference to undefined property Cc['@mozilla.org/privatebrowsing;1']
+
+JPM [31merror[39m JavaScript strict warning: , line 0: TypeError: "NetUtil" is read-only
+
+JPM [32minfo[39m console.timeEnd: issue-pigeon: 'load time' 779ms
+
+JPM [32minfo[39m console.info: issue-pigeon: executing './test/test-index.test main'
+
+JPM [32minfo[39m console.info: issue-pigeon: pass: undefined !== require('../data/reportFeedbackInformation')
+
+JPM [32minfo[39m console.info: issue-pigeon: pass: {"PigeonDispatcher":{"knownOrigins":{"https://developer.mozilla.org":{"help":"https://developer.mozilla.org/en-US/docs/MDN/About#Documentation_errors","report":"https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&product=Developer%20Documentation"},"https://addons.mozilla.org":{"help":"https://addons.mozilla.org/en-US/developers/docs/policies/contact","report":"https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&product=addons.mozilla.org"},"https://addons.allizom.org":{"help":"https://addons.mozilla.org/en-US/developers/docs/policies/contact","report":"https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&product=addons.mozilla.org"},"https://developer.chrome.com/apps":{"help":"https://developer.chrome.com/apps/faq","report":"https://code.google.com/p/chromium/issues/entry?label=Cr-Platform-Apps"},"https://developer.chrome.com/extensions":{"help":"https://developer.chrome.com/extensions/faq","report":"https://code.google.com/p/chromium/issues/entry?label=Cr-Platform-Extensions"},"https://github.com":{},"https://www.npmjs.org":{"report":"https://github.com/npm/npm-www"},"http://dev.w3.org/html5":{"report":"https://www.w3.org/Bugs/Public/enter_bug.cgi?format=__default__&product=HTML%20WG&component=HTML5%20spec"},"http://codemirror.net":{"help":"https://github.com/marijnh/CodeMirror/blob/master/CONTRIBUTING.md#submitting-bug-reports","report":"https://github.com/marijnh/CodeMirror"}}}}
+
+JPM [32minfo[39m console.info: issue-pigeon: pass: Unit test running!
+
+JPM [32minfo[39m console.log: issue-pigeon: [JavaScript Warning: "TypeError: "NetUtil" is read-only"]
+
+JPM [32minfo[39m console.info: issue-pigeon: executing './test/test-index.test main async'
+
+JPM [32minfo[39m console.info: issue-pigeon: pass: async Unit test running!
+
+JPM [31merror[39m JavaScript strict warning: resource://gre/components/nsSearchService.js, line 3191: ReferenceError: reference to undefined property cache.directories
+
+JPM [32minfo[39m console.info: issue-pigeon: executing './test/test-index.test self'
+
+JPM [32minfo[39m console.info: issue-pigeon: pass: self.id is issue-pigeon@addons.mozilla.org
+
+JPM [32minfo[39m console.info: issue-pigeon: pass: self.name is issue-pigeon
+
+JPM [32minfo[39m console.info: issue-pigeon: pass: self.version is 0.1.9
+
+JPM [32minfo[39m console.info: issue-pigeon: pass: self.title is undefined
+
+JPM [32minfo[39m console.info: issue-pigeon: pass: metadata is [object Object]
+
+JPM [32minfo[39m console.info: issue-pigeon: pass: metadata.title is Issue Pigeon
+
+JPM [32minfo[39m console.warn: issue-pigeon: 10 warnings or errors were logged to the platform's nsIConsoleService, which could be of no consequence; however, they could also be indicative of aberrant behavior.
+
+JPM [32minfo[39m 
+10 of 10 tests passed.
+
+JPM [32minfo[39m 1410863298580	addons.xpi	DEBUG	Calling bootstrap method shutdown on issue-pigeon@addons.mozilla.org version 0.1.9
+
+JPM [31merror[39m JavaScript strict warning: resource:///modules/sessionstore/SessionStore.jsm, line 2098: ReferenceError: reference to undefined property this.activeWindowSSiCache
+
+JPM [32minfo[39m 1410863298865	addons.manager	DEBUG	shutdown
+
+JPM [32minfo[39m 1410863298867	addons.xpi	DEBUG	shutdown
+
+JPM [32minfo[39m 1410863298867	addons.xpi-utils	DEBUG	shutdown
+
+JPM [32minfo[39m 1410863298869	addons.xpi	DEBUG	Notifying XPI shutdown observers
+
+JPM [32minfo[39m 1410863298871	addons.manager	DEBUG	Async provider shutdown done
+
+
+real	0m9.672s
+user	0m0.182s
+sys	0m0.091s

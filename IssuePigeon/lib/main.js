@@ -2,6 +2,11 @@
 /*jslint browser: true, devel: true */
 /*global findRegExpBar: false, chrome: false, console: false, require: false, document: false */
 'use strict';
+//
+// Replace /\b(const|let)\B/ with "$1 "
+//
+// Author: adrian.aichner@gmail.com
+//
 ;(function() {
   let DEBUG_ADDON = false;
   //

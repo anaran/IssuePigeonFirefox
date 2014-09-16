@@ -21,10 +21,10 @@
     DEBUG_ADDON &&
       console.log('Logging enabled via debugger');
     let loading = "content script $Format:%h%d$ loads in " + ((typeof document !== 'undefined' && document.URL) || 'no document (unit stesting?)') +
-          " using " + JSON.stringify((typeof navigator !== 'undefined' && navigator.userAgent) || 'no navigator (unit stesting?)') + ' ' +
-          // NOTE: Introduce fragment specifier before line spec to make
-          // clickable link work in console.log.
-          (new Error).stack.replace(/:(\d+):(\d+)/g, '#L$1C$2');
+        " using " + JSON.stringify((typeof navigator !== 'undefined' && navigator.userAgent) || 'no navigator (unit stesting?)') + ' ' +
+        // NOTE: Introduce fragment specifier before line spec to make
+        // clickable link work in console.log.
+        (new Error).stack.replace(/:(\d+):(\d+)/g, '#L$1C$2');
     DEBUG_ADDON &&
       console.log(loading);
     // TODO Place following code where timed section should start.
@@ -46,27 +46,6 @@
         },
         chromium = function ChromiumReporter() {
         },
-        chromeApps = function ChromeAppsReporter() {
-          self.postMessage('I know nothing -- ' + this.constructor.name);
-        },
-        chromeExtensions = function ChromeExtensionsReporter() {
-          self.postMessage('I know nothing -- ' + this.constructor.name);
-        },
-        mdn = function MdnReporter() {
-          self.postMessage('I know nothing -- ' + this.constructor.name);
-        },
-        amo = function AmoReporter() {
-          self.postMessage('I know nothing -- ' + this.constructor.name);
-        },
-        npm = function NpmReporter() {
-          self.postMessage('I know nothing -- ' + this.constructor.name);
-        },
-        w3html5 = function W3html5Reporter() {
-          self.postMessage('I know nothing -- ' + this.constructor.name);
-        },
-        cm = function CmReporter() {
-          self.postMessage('I know nothing -- ' + this.constructor.name);
-        },
         bugzilla = function BugzillaReporter() {
         },
         PigeonDispatcher = {
@@ -77,9 +56,9 @@
             for (var i = 0; i < s.rangeCount; i++) {
               var rc = s.getRangeAt(i).cloneContents();
               rc.querySelectorAll
-                && Array.prototype.forEach.call(rc.querySelectorAll('a[href]'), function (value) {
-                  rangeLinks[value.href] = true;
-                });
+              && Array.prototype.forEach.call(rc.querySelectorAll('a[href]'), function (value) {
+                rangeLinks[value.href] = true;
+              });
             }
             return Object.keys(rangeLinks);
           },
@@ -128,11 +107,11 @@
       let rangeLinks = PigeonDispatcher.extractLinksFromSelection();
       this.helpLink && window.open(this.helpLink, '_blank', strWindowFeatures);
       this.reportLink && window.open(this.reportLink
-                  + '?title=' + window.encodeURIComponent('Summarise issue or request about ' + document.title)
-                  + '&body='
-                  + window.encodeURIComponent((rangeLinks.length ? 'See these links:\n\n'
-                                               + rangeLinks.join('\n') + '\n\n  referenced from\n\n' : 'See:\n\n') + window.location.href + '\n\nDetails:\n\n' + window.getSelection().toString()), '_blank', strWindowFeatures
-                 );
+                                     + '?title=' + window.encodeURIComponent('Summarise issue or request about ' + document.title)
+                                     + '&body='
+                                     + window.encodeURIComponent((rangeLinks.length ? 'See these links:\n\n'
+                                                                  + rangeLinks.join('\n') + '\n\n  referenced from\n\n' : 'See:\n\n') + window.location.href + '\n\nDetails:\n\n' + window.getSelection().toString()), '_blank', strWindowFeatures
+                                    );
       return true;
     };
     chromium.prototype.report = function () {
@@ -149,10 +128,10 @@
       let rangeLinks = PigeonDispatcher.extractLinksFromSelection();
       this.helpLink && window.open(this.helpLink, '_blank', strWindowFeatures);
       var link = this.reportLink && this.reportLink + '&comment='
-            + window.encodeURIComponent((rangeLinks.length ? 'See these links:\n\n'
-                                         + rangeLinks.join('\n') + '\n\n  referenced from\n\n' : 'See:\n\n') + window.location.href + '\n\nDetails:\n\n' + window.getSelection().toString())
-            + '&bug_file_loc=' + window.encodeURIComponent(window.location.href)
-            + '&short_desc=' + window.encodeURIComponent('Summarise issue or request about ' + document.title);
+      + window.encodeURIComponent((rangeLinks.length ? 'See these links:\n\n'
+                                   + rangeLinks.join('\n') + '\n\n  referenced from\n\n' : 'See:\n\n') + window.location.href + '\n\nDetails:\n\n' + window.getSelection().toString())
+      + '&bug_file_loc=' + window.encodeURIComponent(window.location.href)
+      + '&short_desc=' + window.encodeURIComponent('Summarise issue or request about ' + document.title);
       DEBUG_ADDON &&       console.log(this, link);
       this.reportLink && window.open(link, '_blank', strWindowFeatures);
       return true;
@@ -189,9 +168,9 @@
         rangeLinks: PigeonDispatcher.extractLinksFromSelection()
       };
       var handler = PigeonDispatcher.knownOrigins[window.location.origin]
-            || PigeonDispatcher.knownOrigins[
-              window.location.origin
-                + window.location.pathname.split("/", 2).join("/")];
+      || PigeonDispatcher.knownOrigins[
+        window.location.origin
+        + window.location.pathname.split("/", 2).join("/")];
       if (handler) {
         let derived = function DerivedReporter() {};
         derived.prototype = Object.create(handler.type.prototype);
