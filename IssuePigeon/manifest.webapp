@@ -1,0 +1,12 @@
+{
+  "name": "Issue Pigeon Firefox Add-on",
+  "description": "Report issues for supported sites, based on content extracted from webpage.\n\nContext menu entry on Android is only available on hyperlinks, because text selection is mutually exclusive with a context menu there.",
+  "icons": {
+    "512": "/img/icon-512.png",
+    "128": "/img/icon-128.png"
+  },
+  "developer": {
+    "name": "anaran",
+    "url": "https://github.com/anaran/IssuePigeonFirefox"
+  }
+}
