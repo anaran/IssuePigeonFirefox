@@ -41,8 +41,8 @@
     let strWindowFeatures = 'resizable=yes,scrollbars=yes,toolbar=yes',
         github = function GithubReporter(aLocation) {
           let base = aLocation.pathname.match(this.matcher)[0];
-          this.helpLink = aLocation.origin + base + '/wiki';
-          this.reportLink = aLocation.origin + base + '/issues/new'
+          this.helpLink = this.helpLink || aLocation.origin + base + '/wiki';
+          this.reportLink = this.reportLink || aLocation.origin + base + '/issues/new'
         },
         chromium = function ChromiumReporter() {
         },
@@ -50,15 +50,17 @@
         },
         PigeonDispatcher = {
           extractLinksFromSelection: function () {
-            var s = window.getSelection();
+            var s = typeof window !== 'undefined' && window.getSelection();
             var rangeLinks = {
             };
-            for (var i = 0; i < s.rangeCount; i++) {
-              var rc = s.getRangeAt(i).cloneContents();
-              rc.querySelectorAll
-              && Array.prototype.forEach.call(rc.querySelectorAll('a[href]'), function (value) {
-                rangeLinks[value.href] = true;
-              });
+            if (s) {
+              for (var i = 0; i < s.rangeCount; i++) {
+                var rc = s.getRangeAt(i).cloneContents();
+                rc.querySelectorAll
+                && Array.prototype.forEach.call(rc.querySelectorAll('a[href]'), function (value) {
+                  rangeLinks[value.href] = true;
+                });
+              }
             }
             return Object.keys(rangeLinks);
           },
@@ -98,13 +100,18 @@
             // 'https://groups.google.com/forum/#!forum/mozilla.dev.extensions':
             'http://codemirror.net': {
               type: github,
-              help: 'https://github.com/marijnh/CodeMirror/blob/master/CONTRIBUTING.md#submitting-bug-reports',
-              report: 'https://github.com/marijnh/CodeMirror' }
+              // NOTE Not neded. A link to CONTRIBUTING.md is shown when reporting new issues.
+              // help: 'https://github.com/marijnh/CodeMirror/blob/master/CONTRIBUTING.md#submitting-bug-reports',
+              report: 'https://github.com/marijnh/CodeMirror/issues/new' }
           }
         };
     github.prototype.matcher = /^\/[^/]+\/[^/#?]+/;
     github.prototype.report = function () {
       let rangeLinks = PigeonDispatcher.extractLinksFromSelection();
+      // TODO Think of a better way to make this method testable via jpm test.
+      if (typeof window === 'undefined') {
+        return true;
+      }
       this.helpLink && window.open(this.helpLink, '_blank', strWindowFeatures);
       this.reportLink && window.open(this.reportLink
                                      + '?title=' + window.encodeURIComponent('Summarise issue or request about ' + document.title)
@@ -116,11 +123,11 @@
     };
     chromium.prototype.report = function () {
       let rangeLinks = PigeonDispatcher.extractLinksFromSelection();
-      this.helpLink && window.open(this.helpLink, null, strWindowFeatures);
+      this.helpLink && window.open(this.helpLink, '_blank', strWindowFeatures);
       this.reportLink && window.open(this.reportLink + '&comment='
                                      + window.encodeURIComponent((rangeLinks.length ? 'See these links:\n\n'
                                                                   + rangeLinks.join('\n') + '\n\n  referenced from\n\n' : 'See:\n\n') + window.location.href + '\n\nDetails:\n\n' + window.getSelection().toString())
-                                     + '&summary=' + window.encodeURIComponent('Summarise issue or request about ' + document.title), null, strWindowFeatures
+                                     + '&summary=' + window.encodeURIComponent('Summarise issue or request about ' + document.title), '_blank', strWindowFeatures
                                     );
       return true;
     };
@@ -136,22 +143,23 @@
       this.reportLink && window.open(link, '_blank', strWindowFeatures);
       return true;
     };
-    var reportFeedbackInformation = function reportFeedbackInformation() {
-      let copyright = document.querySelector('meta[name=copyright]'),
-          keywords = document.querySelector('meta[name=keywords]'),
-          description = document.querySelector('meta[name=description]'),
-          author = document.querySelector('meta[name=author]'),
-          generator = document.querySelector('meta[name=generator]'),
+    var reportFeedbackInformation = function reportFeedbackInformation(aTestLocation) {
+      let copyright = typeof document !== 'undefined' && document.querySelector('meta[name=copyright]'),
+          keywords = typeof document !== 'undefined' && document.querySelector('meta[name=keywords]'),
+          description = typeof document !== 'undefined' && document.querySelector('meta[name=description]'),
+          author = typeof document !== 'undefined' && document.querySelector('meta[name=author]'),
+          generator = typeof document !== 'undefined' && document.querySelector('meta[name=generator]'),
           mailtos = [
-          ];
+          ],
+          myLocation = typeof window !== 'undefined' ? window.location : aTestLocation;
       // TODO Please see
       // http://www.w3.org/TR/2011/REC-css3-selectors-20110929/#attribute-substrings
-      Array.prototype.forEach.call(document.querySelectorAll('a[href^="mailto:"]'), function (value) {
+      Array.prototype.forEach.call(typeof document !== 'undefined' && document.querySelectorAll('a[href^="mailto:"]'), function (value) {
         mailtos.push(value.href);
       });
       var gpluses = [
       ];
-      Array.prototype.forEach.call(document.querySelectorAll('a[href^="https://plus.google.com/"]'), function (value) {
+      Array.prototype.forEach.call(typeof document !== 'undefined' && document.querySelectorAll('a[href^="https://plus.google.com/"]'), function (value) {
         gpluses.push(value.href);
       });
       var data = {
@@ -163,33 +171,35 @@
         generator: generator && generator.content,
         mailtos: mailtos,
         gpluses: gpluses,
-        url: document.URL,
-        selection: window.getSelection().toString(),
+        url: typeof document !== 'undefined' && document.URL,
+        selection: typeof window !== 'undefined' && window.getSelection().toString(),
         rangeLinks: PigeonDispatcher.extractLinksFromSelection()
       };
-      var handler = PigeonDispatcher.knownOrigins[window.location.origin]
+      var handler = PigeonDispatcher.knownOrigins[myLocation.origin]
       || PigeonDispatcher.knownOrigins[
-        window.location.origin
-        + window.location.pathname.split("/", 2).join("/")];
-      if (handler) {
-        let derived = function DerivedReporter() {};
+        myLocation.origin
+        + myLocation.pathname.split("/", 2).join("/")];
+      if (handler && handler.type) {
+        let derived = function DerivedReporter() {
+          handler.type.call(this, myLocation);
+        };
         derived.prototype = Object.create(handler.type.prototype);
-        derived.prototype.constructor = handler.type;
+        derived.prototype.constructor = derived;
         if (handler.help) {
           derived.prototype.helpLink = handler.help;
         }
         if (handler.report) {
           derived.prototype.reportLink = handler.report;
         }
-        if ((new derived(window.location)).report()) {
+        if ((new derived(myLocation)).report()) {
           DEBUG_ADDON &&
             self.postMessage('reported by ' + derived.prototype.constructor.name);
         }
       } else {
-        DEBUG_ADDON &&
           self.postMessage('potential feedback information\n'
                            + JSON.stringify(data, null, 2));
       }
+      return aTestLocation;
     };
     if (typeof self !== 'undefined' && self.port) {
       DEBUG_ADDON &&
@@ -221,6 +231,7 @@
         console.profileEnd();
     }
     exports.PigeonDispatcher = PigeonDispatcher;
+    exports.reportFeedbackInformation = reportFeedbackInformation;
   }
   catch (exception) {
     // DEBUG_ADDON &&

@@ -40,6 +40,12 @@
     let rfi = require('../data/reportFeedbackInformation');
     assert.notEqual(typeof rfi, "undefined", "undefined !== require('../data/reportFeedbackInformation')");
     assert.ok(true, rfi);
+    let testLocation = {
+      href: 'https://github.com/anaran/IssuePigeonFirefox/tree/master/IssuePigeon',
+      pathname: '/anaran/IssuePigeonFirefox/tree/master/IssuePigeon',
+      origin: 'https://github.com'
+    }
+    assert.ok(rfi.reportFeedbackInformation(testLocation), "reportFeedbackInformation shows no runtime errors");
     assert.pass("Unit test running!");
   };
 
