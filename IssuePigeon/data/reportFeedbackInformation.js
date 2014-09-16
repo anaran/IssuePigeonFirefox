@@ -47,12 +47,10 @@
         chromium = function ChromiumReporter() {
         },
         chromeApps = function ChromeAppsReporter() {
-          this.helpLink = 'https://developer.chrome.com/apps/faq';
-          this.reportLink = 'https://code.google.com/p/chromium/issues/entry?label=Cr-Platform-Apps';
+          self.postMessage('I know nothing -- ' + this.constructor.name);
         },
         chromeExtensions = function ChromeExtensionsReporter() {
-          this.helpLink = 'https://developer.chrome.com/extensions/faq';
-          this.reportLink = 'https://code.google.com/p/chromium/issues/entry?label=Cr-Platform-Extensions';
+          self.postMessage('I know nothing -- ' + this.constructor.name);
         },
         mdn = function MdnReporter() {
           self.postMessage('I know nothing -- ' + this.constructor.name);
@@ -86,20 +84,43 @@
             return Object.keys(rangeLinks);
           },
           knownOrigins: {
-            'https://developer.mozilla.org': mdn,
-            'https://addons.mozilla.org': amo,
+            'https://developer.mozilla.org': {
+              type: bugzilla,
+              help: 'https://developer.mozilla.org/en-US/docs/MDN/About#Documentation_errors',
+              report: 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&product=Developer%20Documentation' },
+            'https://addons.mozilla.org': {
+              type: bugzilla,
+              help: 'https://addons.mozilla.org/en-US/developers/docs/policies/contact',
+              report: 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&product=addons.mozilla.org' },
             // staging site for AMO
-            'https://addons.allizom.org': amo,
-            'https://developer.chrome.com/apps': chromeApps,
-            'https://developer.chrome.com/extensions': chromeExtensions,
+            'https://addons.allizom.org': {
+              type: bugzilla,
+              help: 'https://addons.mozilla.org/en-US/developers/docs/policies/contact',
+              report: 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&product=addons.mozilla.org' },
+            'https://developer.chrome.com/apps': {
+              type: chromium,
+              help: 'https://developer.chrome.com/apps/faq',
+              report: 'https://code.google.com/p/chromium/issues/entry?label=Cr-Platform-Apps' },
+            'https://developer.chrome.com/extensions': {
+              type: chromium,
+              help: 'https://developer.chrome.com/extensions/faq',
+              report: 'https://code.google.com/p/chromium/issues/entry?label=Cr-Platform-Extensions' },
             // github reporter uses argument passed to it to derive help
             // and report URL.
-            'https://github.com': github,
-            'https://www.npmjs.org': npm,
-            'http://dev.w3.org/html5': w3html5,
+            'https://github.com': {
+              type: github },
+            'https://www.npmjs.org': {
+              type: github,
+              report: 'https://github.com/npm/npm-www' },
+            'http://dev.w3.org/html5': {
+              type: bugzilla,
+              report: 'https://www.w3.org/Bugs/Public/enter_bug.cgi?format=__default__&product=HTML%20WG&component=HTML5%20spec' },
             // 'https://groups.google.com/forum/#!forum/mozilla-labs-jetpack':
             // 'https://groups.google.com/forum/#!forum/mozilla.dev.extensions':
-            'http://codemirror.net/': cm
+            'http://codemirror.net': {
+              type: github,
+              help: 'https://github.com/marijnh/CodeMirror/blob/master/CONTRIBUTING.md#submitting-bug-reports',
+              report: 'https://github.com/marijnh/CodeMirror' }
           }
         };
     github.prototype.matcher = /^\/[^/]+\/[^/#?]+/;
@@ -136,28 +157,6 @@
       this.reportLink && window.open(link, '_blank', strWindowFeatures);
       return true;
     };
-    mdn.prototype = Object.create(bugzilla.prototype);
-    mdn.prototype.constructor = bugzilla;
-    mdn.prototype.helpLink = 'https://developer.mozilla.org/en-US/docs/MDN/About#Documentation_errors';
-    mdn.prototype.reportLink = 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&product=Developer%20Documentation';
-    amo.prototype = Object.create(bugzilla.prototype);
-    amo.prototype.constructor = bugzilla;
-    amo.prototype.helpLink = 'https://addons.mozilla.org/en-US/developers/docs/policies/contact';
-    amo.prototype.reportLink = 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&product=addons.mozilla.org';
-
-    chromeApps.prototype = Object.create(chromium.prototype);
-    chromeApps.prototype.constructor = chromium;
-    chromeExtensions.prototype = Object.create(chromium.prototype);
-    chromeExtensions.prototype.constructor = chromium;
-    npm.prototype = Object.create(github.prototype);
-    npm.prototype.constructor = github;
-    npm.prototype.reportLink = 'https://github.com/npm/npm-www';
-    w3html5.prototype = Object.create(bugzilla.prototype);
-    w3html5.prototype.reportLink = 'https://www.w3.org/Bugs/Public/enter_bug.cgi?format=__default__&product=HTML%20WG&component=HTML5%20spec';
-    cm.prototype = Object.create(github.prototype);
-    cm.prototype.constructor = github;
-    cm.prototype.helpLink = 'https://github.com/marijnh/CodeMirror/blob/master/CONTRIBUTING.md#submitting-bug-reports';
-    cm.prototype.reportLink = 'https://github.com/marijnh/CodeMirror';
     var reportFeedbackInformation = function reportFeedbackInformation() {
       let copyright = document.querySelector('meta[name=copyright]'),
           keywords = document.querySelector('meta[name=keywords]'),
@@ -193,12 +192,24 @@
             || PigeonDispatcher.knownOrigins[
               window.location.origin
                 + window.location.pathname.split("/", 2).join("/")];
-      if (handler && (new handler(window.location)).report()) {
-        self.postMessage('reported by ' + handler.prototype.constructor.name);
+      if (handler) {
+        let derived = function DerivedReporter() {};
+        derived.prototype = Object.create(handler.type.prototype);
+        derived.prototype.constructor = handler.type;
+        if (handler.help) {
+          derived.prototype.helpLink = handler.help;
+        }
+        if (handler.report) {
+          derived.prototype.reportLink = handler.report;
+        }
+        if ((new derived(window.location)).report()) {
+          DEBUG_ADDON &&
+            self.postMessage('reported by ' + derived.prototype.constructor.name);
+        }
       } else {
-      DEBUG_ADDON &&
-        self.postMessage('potential feedback information\n'
-                         + JSON.stringify(data, null, 2));
+        DEBUG_ADDON &&
+          self.postMessage('potential feedback information\n'
+                           + JSON.stringify(data, null, 2));
       }
     };
     if (typeof self !== 'undefined' && self.port) {
