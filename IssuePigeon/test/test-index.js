@@ -45,7 +45,9 @@
       pathname: '/anaran/IssuePigeonFirefox/tree/master/IssuePigeon',
       origin: 'https://github.com'
     }
-    assert.ok(rfi.reportFeedbackInformation(testLocation), "reportFeedbackInformation shows no runtime errors");
+    assert.ok(rfi.reportFeedbackInformation("{\"no site data\": \"available\"}", testLocation), "reportFeedbackInformation shows no runtime errors");
+    let eks = require('../data/extendKnownSites');
+    assert.notEqual(typeof eks, "undefined", "undefined !== require('../data/extendKnownSites')");
     assert.pass("Unit test running!");
   };
 

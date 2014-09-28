@@ -18,6 +18,55 @@
     // Make sure option "Console Logging Level" is not set to "off".
     //
     debugger;
+    let avoidCircular4 = function (element, indent) {
+      let seen = {
+      };
+      return JSON.stringify(element, function (key, value) {
+        // console.log('this', this);
+        // console.log('key', key);
+        // console.log('typeof key', typeof key);
+        // console.log('typeof value', typeof value);
+        if (key) {
+          if (value === element) {
+            console.error('reference to top-level');
+            return 'reference to top-level';
+          }
+          if (value === this) {
+            console.error('reference to self');
+            return 'reference to self';
+          }
+          if (value && value.hasOwnProperty('prototype')) {
+            if (typeof value == 'function') {
+              if (value.name) {
+                if (value.prototype.constructor && value.prototype.constructor.name) {
+                  console.log(value.name, 'has prototype.constructor', value.prototype.constructor.name);
+                  return 'constructor ' + value.prototype.constructor.name;
+                } else {
+                  console.log(value.name, 'has prototype', value.prototype.constructor.name);
+                  return 'anon constructor ' + value.prototype.constructor.toSource().substring(0, 80);
+                }
+              } else {
+                // console.log(value.toSource().substring(0, 80), 'has prototype', value.prototype.toSource().substring(0, 80));
+              }
+            } else {
+              console.error(value.prototype);
+            }
+          }
+          if (typeof value == "function") {
+            if (value.name) {
+              console.log('value.name', value.name);
+              return value.toSource().substring(0, 80);
+            } else {
+              console.log('value.toSource().substring(0, 80)', value.toSource().substring(0, 80));
+            }
+          }
+          return value;
+        } else {
+          console.log('-----------------------------------------');
+          return value;
+        }
+      }, indent);
+    };
     DEBUG_ADDON &&
       console.log('Logging enabled via debugger');
     let loading = "content script $Format:%h%d$ loads in " + ((typeof document !== 'undefined' && document.URL) || 'no document (unit stesting?)') +
@@ -39,23 +88,29 @@
         console.profile('content script profile');
     }
     let strWindowFeatures = 'resizable=yes,scrollbars=yes,toolbar=yes',
-        github = function GithubReporter(aLocation, options) {
-          let base = aLocation.pathname.match(options.matcher || /^\/[^/]+\/[^/#?]+/)[0];
-          this.help = options.help || aLocation.origin + base + '/wiki';
-          this.report = options.report || aLocation.origin + base + '/issues/new';
+        bugzilla = function BugzillaReporter(aLocation, options) {
+          this.help = options.help;
+          this.report = options.report;
         },
         chromium = function ChromiumReporter(aLocation, options) {
           this.help = options.help;
           this.report = options.report;
         },
-        bugzilla = function BugzillaReporter(aLocation, options) {
-          this.help = options.help;
-          this.report = options.report;
+        github = function GithubReporter(aLocation, options) {
+          let base = aLocation.pathname.match(options.matcher || /^\/[^/]+\/[^/#?]+/)[0];
+          this.help = options.help || aLocation.origin + base + '/wiki';
+          this.report = options.report || aLocation.origin + base + '/issues/new';
         },
         wikipedia = function WikipediaReporter(aLocation, options) {
           let matches = (options.matcher || /^((?:\/[^/]+)+)\/([^/#?]+)/).exec(aLocation.pathname);
           this.help = options.help;
           this.report = options.report || aLocation.origin + '/w/index.php?title=Talk:'+matches[2]+'&action=edit';
+        },
+        constructors = {
+          bugzilla: bugzilla,
+          chromium: chromium,
+          github: github,
+          wikipedia: wikipedia
         },
         PigeonDispatcher = {
           extractLinksFromSelection: function () {
@@ -75,46 +130,46 @@
           },
           knownOrigins: {
             'https://developer.mozilla.org': {
-              type: bugzilla,
+              type: 'bugzilla',
               help: 'https://developer.mozilla.org/en-US/docs/MDN/About#Documentation_errors',
               report: 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&product=Developer%20Documentation' },
             'https://addons.mozilla.org': {
-              type: bugzilla,
+              type: 'bugzilla',
               help: 'https://addons.mozilla.org/en-US/developers/docs/policies/contact',
               report: 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&product=addons.mozilla.org' },
             // staging site for AMO
             'https://addons.allizom.org': {
-              type: bugzilla,
+              type: 'bugzilla',
               help: 'https://addons.mozilla.org/en-US/developers/docs/policies/contact',
               report: 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&product=addons.mozilla.org' },
             'https://developer.chrome.com/apps': {
-              type: chromium,
+              type: 'chromium',
               help: 'https://developer.chrome.com/apps/faq',
               report: 'https://code.google.com/p/chromium/issues/entry?label=Cr-Platform-Apps' },
             'https://developer.chrome.com/extensions': {
-              type: chromium,
+              type: 'chromium',
               help: 'https://developer.chrome.com/extensions/faq',
               report: 'https://code.google.com/p/chromium/issues/entry?label=Cr-Platform-Extensions' },
             // github reporter uses argument passed to it to derive help
             // and report URL.
             'https://github.com': {
-              type: github },
+              type: 'github' },
             'https://www.npmjs.org': {
-              type: github,
+              type: 'github',
               report: 'https://github.com/npm/npm-www/issues/new' },
             'http://dev.w3.org/html5': {
-              type: bugzilla,
+              type: 'bugzilla',
               report: 'https://www.w3.org/Bugs/Public/enter_bug.cgi?format=__default__&product=HTML%20WG&component=HTML5%20spec' },
             // 'https://groups.google.com/forum/#!forum/mozilla-labs-jetpack':
             // 'https://groups.google.com/forum/#!forum/mozilla.dev.extensions':
             'http://codemirror.net': {
-              type: github,
+              type: 'github',
               // NOTE Not neded. A link to CONTRIBUTING.md is shown when reporting new issues.
               // help: 'https://github.com/marijnh/CodeMirror/blob/master/CONTRIBUTING.md#submitting-bug-reports',
               report: 'https://github.com/marijnh/CodeMirror/issues/new' },
             'https://en.wikipedia.org': {
               help: 'https://en.wikipedia.org/wiki/Wikipedia:Contact_us_-_Readers',
-              type: wikipedia
+              type: 'wikipedia'
             }
           }
         };
@@ -167,24 +222,25 @@
         + window.location.href + '\n\nDetails:\n\n' + window.getSelection().toString()
         + '\n\n';
         let win = window.open(this.report, '_blank', strWindowFeatures);
-//         let onReady = function (event) {
-//           DEBUG_ADDON &&       console.log(event.target);
-//           if (event.target.readyState !== 'complete') {
-//             return;
-//           }
+        avoidCircular4(win, 2);
+        //         let onReady = function (event) {
+        //           DEBUG_ADDON &&       console.log(event.target);
+        //           if (event.target.readyState !== 'complete') {
+        //             return;
+        //           }
         setTimeout(function () {
           let ta = win.document.querySelector('textarea#wpTextbox1.mw-ui-input');
           if (ta) {
             ta.value = addition + ta.value;
           }
         }, 3000);
-//         };
-//         win.onload = function () {
-//         win.addEventListener('readystatechange', onReady, false);
-        }
+        //         };
+        //         win.onload = function () {
+        //         win.addEventListener('readystatechange', onReady, false);
+      }
       return true;
     };
-    var reportFeedbackInformation = function reportFeedbackInformation(aTestLocation) {
+    var reportFeedbackInformation = function reportFeedbackInformation(additionalSitesData, aTestLocation) {
       let copyright = typeof document !== 'undefined' && document.querySelector('meta[name=copyright]'),
           keywords = typeof document !== 'undefined' && document.querySelector('meta[name=keywords]'),
           description = typeof document !== 'undefined' && document.querySelector('meta[name=description]'),
@@ -193,6 +249,17 @@
           mailtos = [
           ],
           myLocation = typeof window !== 'undefined' ? window.location : aTestLocation;
+      try {
+        let additionalSites = JSON.parse(additionalSitesData);
+        Object.keys(additionalSites).forEach(function (key) {
+          if (PigeonDispatcher.knownOrigins.hasOwnProperty(key)) {
+            console.warning('user overrides definition for',  key);
+          }
+          PigeonDispatcher.knownOrigins[key] = additionalSites[key];
+        })
+      } catch (exception) {
+        console.error(exception);
+      }
       // TODO Please see
       // http://www.w3.org/TR/2011/REC-css3-selectors-20110929/#attribute-substrings
       Array.prototype.forEach.call(typeof document !== 'undefined' && document.querySelectorAll('a[href^="mailto:"]'), function (value) {
@@ -220,11 +287,13 @@
       || PigeonDispatcher.knownOrigins[
         myLocation.origin
         + myLocation.pathname.split("/", 2).join("/")];
+      // if (handler.type)
       if (handler && handler.type) {
+        let constr = constructors[handler.type];
         let derived = function DerivedReporter() {
-          handler.type.call(this, myLocation, handler);
+          constr.call(this, myLocation, handler);
         };
-        derived.prototype = Object.create(handler.type.prototype);
+        derived.prototype = Object.create(constr.prototype);
         derived.prototype.constructor = derived;
         //         if (handler.help) {
         //           derived.prototype.help = handler.help;
@@ -242,22 +311,24 @@
       }
       return aTestLocation;
     };
+    // Handle Android menu entry click using nativewindow.js
     if (typeof self !== 'undefined' && self.port) {
       DEBUG_ADDON &&
         console.log("self.port is true", self);
       self.port.on("show", function (node, data) {
         DEBUG_ADDON &&
           console.log("self.port.on show", self);
-        reportFeedbackInformation();
+        reportFeedbackInformation(data);
       });
     }
+    // Standard add-on SDK menu entry click handling
     if (typeof self !== 'undefined' && self.on) {
       DEBUG_ADDON &&
         console.log("self is true", self);
       self.on("click", function (node, data) {
         DEBUG_ADDON &&
           console.log("self.on click", self);
-        reportFeedbackInformation();
+        reportFeedbackInformation(data);
       });
     }
     // TODO Place following code where timed section should end.
