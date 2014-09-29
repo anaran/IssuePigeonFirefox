@@ -21,7 +21,7 @@
     "url" : "https://github.com/anaran/IssuePigeonFirefox.git"
   },
   "title": "Issue Pigeon",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "preferences": [
     {
       "description": "User-defined extensions to known sites",

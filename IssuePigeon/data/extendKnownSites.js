@@ -38,6 +38,12 @@
       div.style.top = '1em';
       div.style.left = '1em';
       div.style.position = 'fixed';
+      div.style['height'] = '50%';
+      div.style['width'] = '50%';
+//       txtArea.style['width'] = '100%';
+//       txtArea.style['height'] = '100%';
+      // div.style['maxWidth'] = '50%';
+      ta.style['resize'] = 'both';
       if (def) {
         ta.value = def;
       }

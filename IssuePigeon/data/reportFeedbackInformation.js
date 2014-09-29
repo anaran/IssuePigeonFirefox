@@ -101,6 +101,10 @@
           this.help = options.help || aLocation.origin + base + '/wiki';
           this.report = options.report || aLocation.origin + base + '/issues/new';
         },
+        mailto = function MailToReporter(aLocation, options) {
+          this.help = options.help;
+          this.report = options.report;
+        },
         wikipedia = function WikipediaReporter(aLocation, options) {
           let matches = (options.matcher || /^((?:\/[^/]+)+)\/([^/#?]+)/).exec(aLocation.pathname);
           this.help = options.help;
@@ -110,7 +114,8 @@
           bugzilla: bugzilla,
           chromium: chromium,
           github: github,
-          wikipedia: wikipedia
+          wikipedia: wikipedia,
+          mailto: mailto
         },
         PigeonDispatcher = {
           extractLinksFromSelection: function () {
@@ -169,10 +174,37 @@
               report: 'https://github.com/marijnh/CodeMirror/issues/new' },
             'https://en.wikipedia.org': {
               help: 'https://en.wikipedia.org/wiki/Wikipedia:Contact_us_-_Readers',
-              type: 'wikipedia'
+              type: 'wikipedia',
+            },
+            "http://www.freenode.net": {
+              "help": "http://www.freenode.net/faq.shtml",
+              "report": "mailto:support@freenode.net",
+              "type": "mailto"
             }
           }
         };
+    bugzilla.prototype.fly = function () {
+      let rangeLinks = PigeonDispatcher.extractLinksFromSelection();
+      this.help && window.open(this.help, '_blank', strWindowFeatures);
+      var link = this.report && this.report + '&comment='
+      + window.encodeURIComponent((rangeLinks.length ? 'See these links:\n\n'
+                                   + rangeLinks.join('\n') + '\n\n  referenced from\n\n' : 'See:\n\n') + window.location.href + '\n\nDetails:\n\n' + window.getSelection().toString())
+      + '&bug_file_loc=' + window.encodeURIComponent(window.location.href)
+      + '&short_desc=' + window.encodeURIComponent('Summarise issue or request about ' + document.title);
+      DEBUG_ADDON &&       console.log(this, link);
+      this.report && window.open(link, '_blank', strWindowFeatures);
+      return true;
+    };
+    chromium.prototype.fly = function () {
+      let rangeLinks = PigeonDispatcher.extractLinksFromSelection();
+      this.help && window.open(this.help, '_blank', strWindowFeatures);
+      this.report && window.open(this.report + '&comment='
+                                 + window.encodeURIComponent((rangeLinks.length ? 'See these links:\n\n'
+                                                              + rangeLinks.join('\n') + '\n\n  referenced from\n\n' : 'See:\n\n') + window.location.href + '\n\nDetails:\n\n' + window.getSelection().toString())
+                                 + '&summary=' + window.encodeURIComponent('Summarise issue or request about ' + document.title), '_blank', strWindowFeatures
+                                );
+      return true;
+    };
     // github.prototype.matcher = /^\/[^/]+\/[^/#?]+/;
     github.prototype.fly = function () {
       let rangeLinks = PigeonDispatcher.extractLinksFromSelection();
@@ -189,26 +221,19 @@
                                 );
       return true;
     };
-    chromium.prototype.fly = function () {
+    mailto.prototype.fly = function () {
       let rangeLinks = PigeonDispatcher.extractLinksFromSelection();
+      // TODO Think of a better way to make this method testable via jpm test.
+      if (typeof window === 'undefined') {
+        return true;
+      }
       this.help && window.open(this.help, '_blank', strWindowFeatures);
-      this.report && window.open(this.report + '&comment='
+      this.report && window.open(this.report
+                                 + '?subject=' + window.encodeURIComponent('Summarise issue or request about ' + document.title)
+                                 + '&body='
                                  + window.encodeURIComponent((rangeLinks.length ? 'See these links:\n\n'
-                                                              + rangeLinks.join('\n') + '\n\n  referenced from\n\n' : 'See:\n\n') + window.location.href + '\n\nDetails:\n\n' + window.getSelection().toString())
-                                 + '&summary=' + window.encodeURIComponent('Summarise issue or request about ' + document.title), '_blank', strWindowFeatures
+                                                              + rangeLinks.join('\n') + '\n\n  referenced from\n\n' : 'See:\n\n') + window.location.href + '\n\nDetails:\n\n' + window.getSelection().toString()), '_blank', strWindowFeatures
                                 );
-      return true;
-    };
-    bugzilla.prototype.fly = function () {
-      let rangeLinks = PigeonDispatcher.extractLinksFromSelection();
-      this.help && window.open(this.help, '_blank', strWindowFeatures);
-      var link = this.report && this.report + '&comment='
-      + window.encodeURIComponent((rangeLinks.length ? 'See these links:\n\n'
-                                   + rangeLinks.join('\n') + '\n\n  referenced from\n\n' : 'See:\n\n') + window.location.href + '\n\nDetails:\n\n' + window.getSelection().toString())
-      + '&bug_file_loc=' + window.encodeURIComponent(window.location.href)
-      + '&short_desc=' + window.encodeURIComponent('Summarise issue or request about ' + document.title);
-      DEBUG_ADDON &&       console.log(this, link);
-      this.report && window.open(link, '_blank', strWindowFeatures);
       return true;
     };
     // wikipedia.prototype.matcher = /^((?:\/[^/]+)+)\/([^/#?]+)/;
