@@ -24,6 +24,7 @@
     let ps = require("sdk/preferences/service");
     ps.reset('extensions.issue-pigeon@addons.mozilla.org.sdk.baseURI');
     ps.reset('extensions.issue-pigeon@addons.mozilla.org.sdk.rootURI');
+    ps.reset('extensions.issue-pigeon@addons.mozilla.org.sdk.version');
   }
   const myTitle = self.title || metadata.title || self.name;
   let loading =
