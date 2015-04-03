@@ -29,24 +29,27 @@
     DEBUG_ADDON &&
       console.profile('addon ' + self.name + ' ' + self.version + 'profile');
   }
-  // jpm
-  var main = require("../lib/main");
-  // cfx
-  // require("./main") || 
-
+  var lo = require("@loader/options");
+  console.dir(lo);
+  const jpm = lo && lo.metadata.title;
+  console.log("jpm", jpm);
+  const mainPath = jpm ? '../lib/main' : 'main';
+  var main = require(mainPath);
   exports["test main"] = function(assert) {
     // Content scripts cannot export anything, but we can check for
     // syntax errors this way.
-    let rfi = require('../data/reportFeedbackInformation');
+    const rfiPath = jpm ? '../data/reportFeedbackInformation' : 'data/reportFeedbackInformation';
+    let rfi = require(rfiPath);
     assert.notEqual(typeof rfi, "undefined", "undefined !== require('../data/reportFeedbackInformation')");
     assert.ok(true, rfi);
     let testLocation = {
       href: 'https://github.com/anaran/IssuePigeonFirefox/tree/master/IssuePigeon',
       pathname: '/anaran/IssuePigeonFirefox/tree/master/IssuePigeon',
       origin: 'https://github.com'
-    }
+    };
     assert.ok(rfi.reportFeedbackInformation("{\"no site data\": \"available\"}", testLocation), "reportFeedbackInformation shows no runtime errors");
-    let eks = require('../data/extendKnownSites');
+    const eksPath = jpm ? '../data/extendKnownSites' : 'data/extendKnownSites';
+    let eks = require(eksPath);
     assert.notEqual(typeof eks, "undefined", "undefined !== require('../data/extendKnownSites')");
     assert.pass("Unit test running!");
   };
