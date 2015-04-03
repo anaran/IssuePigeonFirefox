@@ -4,6 +4,7 @@
 'use strict';
 //
 // Replace /\b(const|let)\B/ with "$1 "
+// Replace [/^( *)function (\w+)/] with [$1var $2 = function]
 //
 // Author: adrian.aichner@gmail.com
 //
@@ -13,11 +14,17 @@
 ;(function() {
   try {
     let DEBUG_ADDON = false;
+    // var exports = exports || {};
     //
     // NOTE Set "DEBUG_ADDON = true" in the debugger before continuing to get console messages logged.
     // Make sure option "Console Logging Level" is not set to "off".
     //
-    debugger;
+    if (DEBUG_ADDON) {
+      // debugger is statement, not expression.
+      // DEBUG_ADDON && debugger;
+      // causes exception.
+      debugger;
+    }
     let avoidCircular4 = function (element, indent) {
       let seen = {
       };
@@ -87,7 +94,13 @@
       DEBUG_ADDON &&
         console.profile('content script profile');
     }
+    // Causes the same warning like all cross-site links opened programmatically.
+    // let strWindowFeatures = undefined,
     let strWindowFeatures = 'resizable=yes,scrollbars=yes,toolbar=yes',
+        jira = function JiraReporter(aLocation, options) {
+          this.help = options.help;
+          this.report = options.report;
+        },
         bugzilla = function BugzillaReporter(aLocation, options) {
           this.help = options.help;
           this.report = options.report;
@@ -134,10 +147,18 @@
             return Object.keys(rangeLinks);
           },
           knownOrigins: {
+            'http://docs.couchdb.org': {
+              type: 'jira',
+              help: 'http://webchat.freenode.net/?channels=couchdb',
+              report: 'https://REST_SHOULD_BE_USED_NOT_GET' },
             'https://developer.mozilla.org': {
               type: 'bugzilla',
               help: 'https://developer.mozilla.org/en-US/docs/MDN/About#Documentation_errors',
               report: 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&product=Developer%20Documentation' },
+            'https://www.mozilla.org': {
+              type: 'bugzilla',
+              help: 'https://www.mozilla.org/en-US/contribute/page/',
+              report: 'https://bugzilla.mozilla.org/enter_bug.cgi?product=www.mozilla.org&component=Pages%20%26%20Content' },
             'https://addons.mozilla.org': {
               type: 'bugzilla',
               help: 'https://addons.mozilla.org/en-US/developers/docs/policies/contact',
@@ -176,19 +197,49 @@
               help: 'https://en.wikipedia.org/wiki/Wikipedia:Contact_us_-_Readers',
               type: 'wikipedia',
             },
-            "http://www.freenode.net": {
-              "help": "http://www.freenode.net/faq.shtml",
-              "report": "mailto:support@freenode.net",
-              "type": "mailto"
+            'http://www.freenode.net': {
+              help: 'http://www.freenode.net/faq.shtml',
+              report: 'mailto:support@freenode.net',
+              type: 'mailto'
+            },
+            'https://wiki.mozilla.org': {
+              help: 'https://wiki.mozilla.org/MozillaWiki:Help',
+              report: 'https://bugzilla.mozilla.org/enter_bug.cgi?product=Websites&component=wiki.mozilla.org',
+              type: 'bugzilla'
+            },
+            'https://support.mozilla.org': {
+              help: 'https://github.com/mozilla/kitsune',
+              report: 'https://bugzilla.mozilla.org/enter_bug.cgi?product=support.mozilla.org',
+              type: 'bugzilla'
             }
           }
         };
+    jira.prototype.fly = function () {
+      // See https://developer.atlassian.com/display/JIRADEV/JIRA+REST+API+Example+-+Create+Issue#JIRARESTAPIExample-CreateIssue-Exampleofcreatinganissueusingprojectkeysandfieldnames.
+      // Request
+      // curl -D- -u fred:fred -X POST --data {see below} -H "Content-Type: application/json" http://localhost:8090/rest/api/2/issue/
+      // Data
+      // {
+      //     "fields": {
+      //        "project":
+      //        {
+      //           "key": "TEST"
+      //        },
+      //        "summary": "REST ye merry gentlemen.",
+      //        "description": "Creating of an issue using project keys and issue type names using the REST API",
+      //        "issuetype": {
+      //           "name": "Bug"
+      //        }
+      //    }
+      // }
+      return true;
+    };
     bugzilla.prototype.fly = function () {
       let rangeLinks = PigeonDispatcher.extractLinksFromSelection();
       this.help && window.open(this.help, '_blank', strWindowFeatures);
       var link = this.report && this.report + '&comment='
       + window.encodeURIComponent((rangeLinks.length ? 'See these links:\n\n'
-                                   + rangeLinks.join('\n') + '\n\n  referenced from\n\n' : 'See:\n\n') + window.location.href + '\n\nDetails:\n\n' + window.getSelection().toString())
+                                   + rangeLinks.join('\n') + '\n\n  referenced from\n\n' : 'See:\n\n') + window.location.href + '\n\nDetails:\n\n' + window.getSelection().toString() + '\n\nhttp://mzl.la/1vxCDgA\n\n')
       + '&bug_file_loc=' + window.encodeURIComponent(window.location.href)
       + '&short_desc=' + window.encodeURIComponent('Summarise issue or request about ' + document.title);
       DEBUG_ADDON &&       console.log(this, link);
@@ -200,7 +251,7 @@
       this.help && window.open(this.help, '_blank', strWindowFeatures);
       this.report && window.open(this.report + '&comment='
                                  + window.encodeURIComponent((rangeLinks.length ? 'See these links:\n\n'
-                                                              + rangeLinks.join('\n') + '\n\n  referenced from\n\n' : 'See:\n\n') + window.location.href + '\n\nDetails:\n\n' + window.getSelection().toString())
+                                                              + rangeLinks.join('\n') + '\n\n  referenced from\n\n' : 'See:\n\n') + window.location.href + '\n\nDetails:\n\n' + window.getSelection().toString() + '\n\nhttp://mzl.la/1vxCDgA\n\n')
                                  + '&summary=' + window.encodeURIComponent('Summarise issue or request about ' + document.title), '_blank', strWindowFeatures
                                 );
       return true;
@@ -217,7 +268,7 @@
                                  + '?title=' + window.encodeURIComponent('Summarise issue or request about ' + document.title)
                                  + '&body='
                                  + window.encodeURIComponent((rangeLinks.length ? 'See these links:\n\n'
-                                                              + rangeLinks.join('\n') + '\n\n  referenced from\n\n' : 'See:\n\n') + window.location.href + '\n\nDetails:\n\n' + window.getSelection().toString()), '_blank', strWindowFeatures
+                                                              + rangeLinks.join('\n') + '\n\n  referenced from\n\n' : 'See:\n\n') + window.location.href + '\n\nDetails:\n\n' + window.getSelection().toString() + '\n\nhttp://mzl.la/1vxCDgA\n\n'), '_blank', strWindowFeatures
                                 );
       return true;
     };
@@ -232,7 +283,7 @@
                                  + '?subject=' + window.encodeURIComponent('Summarise issue or request about ' + document.title)
                                  + '&body='
                                  + window.encodeURIComponent((rangeLinks.length ? 'See these links:\n\n'
-                                                              + rangeLinks.join('\n') + '\n\n  referenced from\n\n' : 'See:\n\n') + window.location.href + '\n\nDetails:\n\n' + window.getSelection().toString()), '_blank', strWindowFeatures
+                                                              + rangeLinks.join('\n') + '\n\n  referenced from\n\n' : 'See:\n\n') + window.location.href + '\n\nDetails:\n\n' + window.getSelection().toString() + '\n\nhttp://mzl.la/1vxCDgA\n\n'), '_blank', strWindowFeatures
                                 );
       return true;
     };
@@ -244,7 +295,7 @@
         let addition = (rangeLinks.length
                         ? '\nSee these links:\n\n' + rangeLinks.join('\n')
                         + '\n\n  referenced from\n\n' : 'See:\n\n')
-        + window.location.href + '\n\nDetails:\n\n' + window.getSelection().toString()
+        + window.location.href + '\n\nDetails:\n\n' + window.getSelection().toString() + '\n\nhttp://mzl.la/1vxCDgA\n\n'
         + '\n\n';
         let win = window.open(this.report, '_blank', strWindowFeatures);
         avoidCircular4(win, 2);
@@ -278,7 +329,7 @@
         let additionalSites = JSON.parse(additionalSitesData);
         Object.keys(additionalSites).forEach(function (key) {
           if (PigeonDispatcher.knownOrigins.hasOwnProperty(key)) {
-            console.warning('user overrides definition for',  key);
+            console.warn('user overrides definition for',  key);
           }
           PigeonDispatcher.knownOrigins[key] = additionalSites[key];
         })
@@ -374,6 +425,7 @@
     // DEBUG_ADDON &&
     // console.error(new Error());
     // DEBUG_ADDON &&
-    console.error(exception);
+    DEBUG_ADDON && console.error(exception);
+    DEBUG_ADDON && window.alert(exception.message + '\n\n' + exception.stack);
   }
 })();
