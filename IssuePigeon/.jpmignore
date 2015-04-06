@@ -1,0 +1,5 @@
+jpm_test*.txt
+*.xpi
+*.webapp
+tmp/
+test/
