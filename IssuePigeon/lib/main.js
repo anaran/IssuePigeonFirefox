@@ -147,8 +147,8 @@
               // contentScriptFile: self.data.url('marked_content.js')
               contentScriptFile: './marked_content.js'
             });
-            worker.port.on('markdown', function (data) {
-              console.log('markdown', data);
+            // worker.port.on('markdown', function (data) {
+            //   console.log('markdown', data);
               var marked = require('./marked.js');
               var toc = [];
               var renderer = (function() {
@@ -185,7 +185,8 @@
                 smartypants: false
               });
               try {
-                var html = marked(data);
+                var markdownData = self.data.load(data.help);
+                var html = marked(markdownData);
                 var tocHTML = '<h1 id="table-of-contents">Table of Contents</h1>\n<ul>';
                 toc.forEach(function (entry) {
                   tocHTML += '<li><a href="#'+entry.anchor+'">'+entry.text+'<a></li>\n';
@@ -197,12 +198,12 @@
                 DEBUG_ADDON && console.error(exception);
                 DEBUG_ADDON && window.alert(exception.message + '\n\n' + exception.stack);
               }
-            });
+            // });
           });
         });
         var originallyActiveTab = tabs.activeTab;
         tabs.open({
-          url: '../README.md',
+          url: './help.html',
           nNewWindow: false,
           // inBackground: true,
           onClose: function() {

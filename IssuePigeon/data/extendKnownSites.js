@@ -41,10 +41,11 @@
       help.textContent = 'Help';
       var renderMarkdownFile = function (path) {
         self.postMessage({ help: path });
+        // self.port.emit({ help: path });
 
       };
       help.onclick = function (event) {
-        renderMarkdownFile('http:README.md');
+        renderMarkdownFile('../HELP.md');
       };
       save.addEventListener('click', function (event) {
         try {
@@ -64,7 +65,7 @@
       ta.addEventListener('mousemove', function (e) {
         if ((e.clientX - div.offsetTop) < div.offsetHeight * 0.9 || (e.clientX - div.offsetLeft) < div.offsetWidth * 0.9) {
           e.stopPropagation();
-          // e.preventDefault();
+          e.preventDefault();
           if (e.buttons == 1/* && e.currentTarget === move*/) {
             div.style.left = (e.clientX - (((e.clientX - div.offsetLeft) > div.offsetWidth * 0.5) ? div.offsetWidth * 0.8 : div.offsetWidth * 0.2)) + 'px';
             div.style.top = (e.clientY - (((e.clientY - div.offsetTop) > div.offsetHeight * 0.5) ? div.offsetHeight * 0.8 : div.offsetHeight * 0.2)) + 'px';
@@ -76,7 +77,7 @@
         var touchX = e.touches[e.touches.length - 1].clientX;
         if ((touchY - div.offsetTop) < div.offsetHeight * 0.9 || (touchX - div.offsetLeft) < div.offsetWidth * 0.9) {
           e.stopPropagation();
-          // e.preventDefault();
+          e.preventDefault();
           div.style.left = (touchX - (((touchX - div.offsetLeft) > div.offsetWidth * 0.5) ? div.offsetWidth * 0.8 : div.offsetWidth * 0.2)) + 'px';
           div.style.top = (touchY - (((touchY - div.offsetTop) > div.offsetHeight * 0.5) ? div.offsetHeight * 0.8 : div.offsetHeight * 0.2)) + 'px';
         }

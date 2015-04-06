@@ -8,8 +8,8 @@
   "dependencies": [],
   "description": "Try the Issue Pigeon menu entry after selecting some broken links or text errors.\nThe Issue Pigeon might just find its way home.\n\nReport issues for supported sites, based on content extracted from text selections in webpage.\n\nContext menu entry on Android is only available on hyperlinks, because text selection is mutually exclusive with a context menu there.",
   "engines": {
-    "firefox": "38.0 - 40.0",
-    "fennec": "38.0 - 40.0"
+    "firefox": "36.0 - 40.0",
+    "fennec": "36.0 - 40.0"
   },
   "homepage": "https://github.com/anaran/IssuePigeonFirefox",
   "id": "issue-pigeon@addons.mozilla.org",
@@ -21,7 +21,7 @@
     "url" : "https://github.com/anaran/IssuePigeonFirefox.git"
   },
   "title": "Issue Pigeon",
-  "version": "0.2.3",
+  "version": "0.3.0rc1",
   "preferences": [
     {
       "description": "User-defined extensions to known sites",
