@@ -14,9 +14,9 @@
 // require is not available in content scripts.
 // let sp = require('sdk/simple-prefs');
 (function() {
+  let DEBUG_ADDON = false;
   try {
     // var exports = exports || {};
-    let DEBUG_ADDON = false;
     //
     // NOTE Set "DEBUG_ADDON = true" in the debugger before continuing to get console messages logged.
     // Make sure option "Console Logging Level" is not set to "off".
@@ -27,16 +27,25 @@
       // causes exception.
       debugger;
     }
-    var showKnowSitesExtensions = function(def) {
+    var showKnownSitesExtensions = function(def) {
       let div = document.createElement('div');
       let buttonDiv = document.createElement('div');
       let ta = document.createElement('textarea');
       let save = document.createElement('input');
       let cancel = document.createElement('input');
+      let help = document.createElement('a');
       save.value = "Save";
       save.type = "button";
       cancel.value = "Cancel";
       cancel.type = "button";
+      help.textContent = 'Help';
+      var renderMarkdownFile = function (path) {
+        self.postMessage({ help: path });
+
+      };
+      help.onclick = function (event) {
+        renderMarkdownFile('http:README.md');
+      };
       save.addEventListener('click', function (event) {
         try {
           var data = JSON.parse(ta.value);
@@ -52,46 +61,35 @@
       cancel.addEventListener('click', function (event) {
         document.body.removeChild(div);
       });
-      let move = document.createElement('span');
-      move.style.align = 'right';
-      move.innerHTML = "Move &nesear;";
-      move.addEventListener('mousemove', function (event) {
-        event.preventDefault();
-        event.stopPropagation();
-        if (event.buttons == 1/* && event.currentTarget === move*/) {
-          div.style.top = (event.clientY - event.target.offsetTop - event.target.offsetHeight / 2) + 'px';
-          div.style.left = (event.clientX - event.target.offsetLeft - event.target.offsetWidth / 2) + 'px';
+      ta.addEventListener('mousemove', function (e) {
+        if ((e.clientX - div.offsetTop) < div.offsetHeight * 0.9 || (e.clientX - div.offsetLeft) < div.offsetWidth * 0.9) {
+          e.stopPropagation();
+          // e.preventDefault();
+          if (e.buttons == 1/* && e.currentTarget === move*/) {
+            div.style.left = (e.clientX - (((e.clientX - div.offsetLeft) > div.offsetWidth * 0.5) ? div.offsetWidth * 0.8 : div.offsetWidth * 0.2)) + 'px';
+            div.style.top = (e.clientY - (((e.clientY - div.offsetTop) > div.offsetHeight * 0.5) ? div.offsetHeight * 0.8 : div.offsetHeight * 0.2)) + 'px';
+          }
         }
       });
-      // move.addEventListener('touchstart', function (event) {
-      //   // event.preventDefault();
-      //   event.stopPropagation();
-      // });
       ta.addEventListener('touchmove', function (e) {
         var touchY = e.touches[e.touches.length - 1].clientY;
         var touchX = e.touches[e.touches.length - 1].clientX;
         if ((touchY - div.offsetTop) < div.offsetHeight * 0.9 || (touchX - div.offsetLeft) < div.offsetWidth * 0.9) {
           e.stopPropagation();
           // e.preventDefault();
-          div.style.left = (touchX - (((touchX - div.offsetLeft) > div.offsetWidth * 0.5) ? div.offsetWidth * 0.1 : div.offsetWidth * 0.9)) + 'px';
-          div.style.top = (touchY - (((touchY - div.offsetTop) > div.offsetHeight * 0.5) ? div.offsetHeight * 0.1 : div.offsetHeight * 0.9)) + 'px';
+          div.style.left = (touchX - (((touchX - div.offsetLeft) > div.offsetWidth * 0.5) ? div.offsetWidth * 0.8 : div.offsetWidth * 0.2)) + 'px';
+          div.style.top = (touchY - (((touchY - div.offsetTop) > div.offsetHeight * 0.5) ? div.offsetHeight * 0.8 : div.offsetHeight * 0.2)) + 'px';
         }
       });
       div.style = 'top: 40%; left: 20%; position: fixed;';
-      // Cannot have both resize and  width: 50%; height: 50%;
+      // Cannot have both resize and define width: 50%; height: 50%;
       ta.style = 'resize: both;';
       if (def) {
         ta.value = def;
       }
-      //       else {
-      //         let ph = {};
-      //         ph[Object.keys(PigeonDispatcher.knownOrigins)[0]]
-      //         = PigeonDispatcher.knownOrigins[Object.keys(PigeonDispatcher.knownOrigins)[0]];
-      //         ta.placeholder = JSON.stringify(ph, null, 2);
-      //       }
       buttonDiv.appendChild(save);
       buttonDiv.appendChild(cancel);
-      // buttonDiv.appendChild(move);
+      buttonDiv.appendChild(help);
       div.appendChild(buttonDiv);
       div.appendChild(ta);
       document.body.appendChild(div);
@@ -103,7 +101,7 @@
       self.port.on("show", function (node, data) {
         DEBUG_ADDON &&
           console.log("self.port.on show", self, node, data);
-        showKnowSitesExtensions(data);
+        showKnownSitesExtensions(data);
       });
     }
     // Standard add-on SDK menu entry click handling
@@ -113,10 +111,15 @@
       self.on("click", function (node, data) {
         DEBUG_ADDON &&
           console.log("self.on click", self, node, data);
-        showKnowSitesExtensions(data);
+        showKnownSitesExtensions(data);
       });
     }
-    exports.showKnowSitesExtensions = showKnowSitesExtensions;
+    self.port.on("help", function (node, data) {
+      DEBUG_ADDON &&
+        console.log("self.port.on show", self, node, data);
+      document.querySelector('div.help_div').innerHTML = data;
+    });
+    exports.showKnownSitesExtensions = showKnownSitesExtensions;
   }
   catch (exception) {
     DEBUG_ADDON && console.error(exception);

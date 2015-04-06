@@ -12,8 +12,8 @@
 // require is not available in content scripts.
 // let sp = require('sdk/simple-prefs');
 ;(function() {
+  let DEBUG_ADDON = false;
   try {
-    let DEBUG_ADDON = false;
     // var exports = exports || {};
     //
     // NOTE Set "DEBUG_ADDON = true" in the debugger before continuing to get console messages logged.

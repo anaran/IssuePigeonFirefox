@@ -10,8 +10,8 @@
 // Author: adrian.aichner@gmail.com
 //
 (function() {
+  let DEBUG_ADDON = false;
   try {
-    let DEBUG_ADDON = false;
     // var exports = exports || {};
     //
     // NOTE Change Function Scope variable DEBUG_ADDON from false to true in the debugger variables panel before continuing to get console messages logged.
@@ -135,7 +135,80 @@
     let handleMessages = function (data) {
       DEBUG_ADDON &&
         console.log(data);
-      saveKnownSitesExtensions(data.save);
+      if ('save' in data) {
+        saveKnownSitesExtensions(data.save);
+      }
+      if ('help' in data) {
+
+        tabs.on('open', function(tab){
+          tab.on('ready', function(tab){
+            console.log(tab.url);
+            var worker = tab.attach({
+              // contentScriptFile: self.data.url('marked_content.js')
+              contentScriptFile: './marked_content.js'
+            });
+            worker.port.on('markdown', function (data) {
+              console.log('markdown', data);
+              var marked = require('./marked.js');
+              var toc = [];
+              var renderer = (function() {
+                var renderer = new marked.Renderer();
+                renderer.heading = function(text, level, raw) {
+                  var anchor = this.options.headerPrefix + raw.toLowerCase().replace(/[^\w]+/g, '-');
+                  toc.push({
+                    anchor: anchor,
+                    level: level,
+                    text: text
+                  });
+                  return '<h'
+                  + level
+                  + ' id="'
+                  + anchor
+                  + '">'
+                  + text
+                  + '</h'
+                  + level
+                  + '>\n'
+                  + '<a href="#table-of-contents">Table of Contents<a>\n';
+                };
+                return renderer;
+              })();
+
+              marked.setOptions({
+                renderer: renderer,
+                gfm: true,
+                tables: true,
+                breaks: false,
+                pedantic: false,
+                sanitize: true,
+                smartLists: true,
+                smartypants: false
+              });
+              try {
+                var html = marked(data);
+                var tocHTML = '<h1 id="table-of-contents">Table of Contents</h1>\n<ul>';
+                toc.forEach(function (entry) {
+                  tocHTML += '<li><a href="#'+entry.anchor+'">'+entry.text+'<a></li>\n';
+                });
+                tocHTML += '</ul>\n';
+                worker.port.emit("render", tocHTML + html);
+              }
+              catch (exception) {
+                DEBUG_ADDON && console.error(exception);
+                DEBUG_ADDON && window.alert(exception.message + '\n\n' + exception.stack);
+              }
+            });
+          });
+        });
+        var originallyActiveTab = tabs.activeTab;
+        tabs.open({
+          url: '../README.md',
+          nNewWindow: false,
+          // inBackground: true,
+          onClose: function() {
+            originallyActiveTab.activate();
+          }});
+      }
     };
 
     if (recent.NativeWindow) {
@@ -145,7 +218,8 @@
         context: nw.SelectorContext('a'),
         callback: function(target) {
           let worker = tabs.activeTab.attach({
-            contentScriptFile: self.data.url('./reportFeedbackInformation.js'),
+            // contentScriptFile: self.data.url('reportFeedbackInformation.js'),
+            contentScriptFile: './reportFeedbackInformation.js',
             onMessage: reportUnsupportedSite
             // TODO Implement this as clickable issue reporting notification
             // onError:
@@ -157,7 +231,8 @@
         context: nw.SelectorContext('a'),
         callback: function(target) {
           let worker = tabs.activeTab.attach({
-            contentScriptFile: self.data.url('./extendKnownSites.js'),
+            // contentScriptFile: self.data.url('extendKnownSites.js'),
+            contentScriptFile: './extendKnownSites.js',
             onMessage: handleMessages
           });
           worker.port.emit('show', sp.prefs['KNOWN_SITES_EXTENSIONS'] || sample);
@@ -167,7 +242,8 @@
       pigeonMenuItem = cm.Item({
         label: myTitle,
         context: cm.URLContext("*"),
-        contentScriptFile: self.data.url('./reportFeedbackInformation.js'),
+        // contentScriptFile: self.data.url('reportFeedbackInformation.js'),
+        contentScriptFile: './reportFeedbackInformation.js',
         // data property needs to be kept in sync with KNOWN_SITES_EXTENSIONS preference.
         // It seems to be the only way to pass data from the Add-on script to the content-script for a specific menu item.
         data: sp.prefs['KNOWN_SITES_EXTENSIONS'],
@@ -177,7 +253,8 @@
         label: 'Extend ' + myTitle,
         context: cm.URLContext("*"),
         // contentScript: 'console.log("Extend clicked");',
-        contentScriptFile: self.data.url('./extendKnownSites.js'),
+        // contentScriptFile: self.data.url('extendKnownSites.js'),
+        contentScriptFile: './extendKnownSites.js',
         // data property needs to be kept in sync with KNOWN_SITES_EXTENSIONS preference.
         // It seems to be the only way to pass data from the Add-on script to the content-script for a specific menu item.
         data: sp.prefs['KNOWN_SITES_EXTENSIONS'] || sample,
