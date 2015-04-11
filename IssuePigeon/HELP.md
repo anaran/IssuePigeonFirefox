@@ -20,4 +20,4 @@ You will be given the opportunity to open github issues (via clickable notificat
 
 ## Contributing
 
-See [README.md](README.md)
+See [README.md](https://github.com/anaran/IssuePigeonFirefox/blob/master/README.md)

@@ -1,6 +1,6 @@
 ## Help
 
-See [HELP.md](HELP.md)
+See [HELP.md](IssuePigeon/HELP.md)
 
 ## Issues
 
