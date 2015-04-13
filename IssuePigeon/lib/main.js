@@ -25,6 +25,7 @@
     }
     DEBUG_ADDON &&
       console.log('Logging enabled via debugger');
+    const ko = require('../data/known-origins.js');
     const self = require('sdk/self');
     // Only available for options natively supported by firefox, i.e. in jpm.
     const lo = require("@loader/options");
@@ -79,7 +80,7 @@
     // The real on eis in reportFeedbackInformation.js
     let bugzilla = function () {};
     let sample = JSON.stringify({
-      'https://apa.selfhost.eu:8443': {
+      'https://my.own.server:8443': {
         help: 'https://wiki.eclipse.org/Orion',
         report: "https://bugs.eclipse.org/bugs/enter_bug.cgi?product=Orion&component=Client&version=unspecified",
         type: 'bugzilla'
@@ -90,11 +91,12 @@
     let extendMenuItem, pigeonMenuItem;
     var saveKnownSitesExtensions = function(data) {
       sp.prefs['KNOWN_SITES_EXTENSIONS'] = data;
+      let originPayload = JSON.stringify({ 'known': ko.knownOrigins, 'extensions': data }, null, 2);
       if (extendMenuItem) {
-        extendMenuItem.data = data;
+        extendMenuItem.data = originPayload;
       }
       if (pigeonMenuItem) {
-        pigeonMenuItem.data = data;
+        pigeonMenuItem.data = originPayload;
       }
     };
 
@@ -103,11 +105,12 @@
         console.log('Setting ' + prefName + ' for ' + self.name + ' version ' +
                     self.version + ' to ' + sp.prefs[prefName]);
       // Keep menu item data attribute in sync.
+      let originPayload = JSON.stringify({ 'known': ko.knownOrigins, 'extensions': sp.prefs[prefName] }, null, 2);
       if (extendMenuItem) {
-        extendMenuItem.data = sp.prefs[prefName];
+        extendMenuItem.data = originPayload;
       }
       if (pigeonMenuItem) {
-        pigeonMenuItem.data = sp.prefs[prefName];
+        pigeonMenuItem.data = originPayload;
       }
     });
 
@@ -211,7 +214,8 @@
           }});
       }
     };
-
+let originPayload = JSON.stringify({ 'known': ko.knownOrigins, 'extensions': sp.prefs['KNOWN_SITES_EXTENSIONS'] }, null, 2);
+    // Handle Android menu entry click using nativewindow.js
     if (recent.NativeWindow) {
       let nw = require('./nativewindow');
       nw.addContextMenu({
@@ -225,7 +229,7 @@
             // TODO Implement this as clickable issue reporting notification
             // onError:
           });
-          worker.port.emit('show', sp.prefs['KNOWN_SITES_EXTENSIONS']);
+          worker.port.emit('show', originPayload);
         }});
       nw.addContextMenu({
         name: 'Extend ' + myTitle,
@@ -236,9 +240,11 @@
             contentScriptFile: './extendKnownSites.js',
             onMessage: handleMessages
           });
-          worker.port.emit('show', sp.prefs['KNOWN_SITES_EXTENSIONS'] || sample);
+          worker.port.emit('show', originPayload);
         }});
-    } else {
+    }
+    // Standard add-on SDK menu entry click handling
+    else {
       let cm = require("sdk/context-menu");
       pigeonMenuItem = cm.Item({
         label: myTitle,
@@ -247,7 +253,7 @@
         contentScriptFile: './reportFeedbackInformation.js',
         // data property needs to be kept in sync with KNOWN_SITES_EXTENSIONS preference.
         // It seems to be the only way to pass data from the Add-on script to the content-script for a specific menu item.
-        data: sp.prefs['KNOWN_SITES_EXTENSIONS'],
+        data: originPayload,
         onMessage: reportUnsupportedSite
       });
       extendMenuItem = cm.Item({
@@ -258,7 +264,7 @@
         contentScriptFile: './extendKnownSites.js',
         // data property needs to be kept in sync with KNOWN_SITES_EXTENSIONS preference.
         // It seems to be the only way to pass data from the Add-on script to the content-script for a specific menu item.
-        data: sp.prefs['KNOWN_SITES_EXTENSIONS'] || sample,
+        data: originPayload,
         onMessage: handleMessages
       });
     }
