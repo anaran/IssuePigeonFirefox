@@ -152,55 +152,55 @@
             });
             // worker.port.on('markdown', function (data) {
             //   console.log('markdown', data);
-              var marked = require('./marked.js');
-              var toc = [];
-              var renderer = (function() {
-                var renderer = new marked.Renderer();
-                renderer.heading = function(text, level, raw) {
-                  var anchor = this.options.headerPrefix + raw.toLowerCase().replace(/[^\w]+/g, '-');
-                  toc.push({
-                    anchor: anchor,
-                    level: level,
-                    text: text
-                  });
-                  return '<h'
-                  + level
-                  + ' id="'
-                  + anchor
-                  + '">'
-                  + text
-                  + '</h'
-                  + level
-                  + '>\n'
-                  + '<a href="#table-of-contents">Table of Contents<a>\n';
-                };
-                return renderer;
-              })();
-
-              marked.setOptions({
-                renderer: renderer,
-                gfm: true,
-                tables: true,
-                breaks: false,
-                pedantic: false,
-                sanitize: true,
-                smartLists: true,
-                smartypants: false
-              });
-              try {
-                var markdownData = self.data.load(data.help);
-                var html = marked(markdownData);
-                var tocHTML = '<h1 id="table-of-contents">Table of Contents</h1>\n<ul>';
-                toc.forEach(function (entry) {
-                  tocHTML += '<li><a href="#'+entry.anchor+'">'+entry.text+'<a></li>\n';
+            var marked = require('./marked.js');
+            var toc = [];
+            var renderer = (function() {
+              var renderer = new marked.Renderer();
+              renderer.heading = function(text, level, raw) {
+                var anchor = this.options.headerPrefix + raw.toLowerCase().replace(/[^\w]+/g, '-');
+                toc.push({
+                  anchor: anchor,
+                  level: level,
+                  text: text
                 });
-                tocHTML += '</ul>\n';
-                worker.port.emit("render", tocHTML + html);
-              }
-              catch (exception) {
-                DEBUG_ADDON && console.error(exception);
-                DEBUG_ADDON && window.alert(exception.message + '\n\n' + exception.stack);
-              }
+                return '<h'
+                + level
+                + ' id="'
+                + anchor
+                + '">'
+                + text
+                + '</h'
+                + level
+                + '>\n'
+                + '<a href="#table-of-contents">Table of Contents<a>\n';
+              };
+              return renderer;
+            })();
+
+            marked.setOptions({
+              renderer: renderer,
+              gfm: true,
+              tables: true,
+              breaks: false,
+              pedantic: false,
+              sanitize: true,
+              smartLists: true,
+              smartypants: false
+            });
+            try {
+              var markdownData = self.data.load(data.help);
+              var html = marked(markdownData);
+              var tocHTML = '<h1 id="table-of-contents">Table of Contents</h1>\n<ul>';
+              toc.forEach(function (entry) {
+                tocHTML += '<li><a href="#'+entry.anchor+'">'+entry.text+'<a></li>\n';
+              });
+              tocHTML += '</ul>\n';
+              worker.port.emit("render", tocHTML + html);
+            }
+            catch (exception) {
+              DEBUG_ADDON && console.error(exception);
+              DEBUG_ADDON && window.alert(exception.message + '\n\n' + exception.stack);
+            }
             // });
           });
         });
@@ -214,7 +214,7 @@
           }});
       }
     };
-let originPayload = JSON.stringify({ 'known': ko.knownOrigins, 'extensions': sp.prefs['KNOWN_SITES_EXTENSIONS'] }, null, 2);
+    let originPayload = JSON.stringify({ 'known': ko.knownOrigins, 'extensions': sp.prefs['KNOWN_SITES_EXTENSIONS'] }, null, 2);
     // Handle Android menu entry click using nativewindow.js
     if (recent.NativeWindow) {
       let nw = require('./nativewindow');
