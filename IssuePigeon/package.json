@@ -6,6 +6,10 @@
     "url" : "https://github.com/anaran/IssuePigeonFirefox/issues"
   },
   "dependencies": [],
+  "devDependencies": {
+    "gulp": "3.8.11",
+    "gulp-marked": "1.0.0"
+  },
   "description": "Try the Issue Pigeon menu entry after selecting some broken links or text errors.\nThe Issue Pigeon might just find its way home.\n\nReport issues for supported sites, based on content extracted from text selections in webpage.\n\nContext menu entry on Android is only available on hyperlinks, because text selection is mutually exclusive with a context menu there.",
   "engines": {
     "firefox": "38.0 - 40.0",

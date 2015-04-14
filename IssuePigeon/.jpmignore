@@ -1,5 +1,7 @@
-jpm_test*.txt
-*.xpi
 *.webapp
-tmp/
+*.xpi
+.jpmignore
+jpm_test*.txt
+node_modules/
 test/
+tmp/

@@ -58,13 +58,13 @@
     // to see how to test this function, look at ../test/test-main.js
     var testSelfProperty = function(property, callback) {
       callback(self[property]);
-    }
+    };
 
     var dummy = function(callback) {
       let { metadata } = require("@loader/options");
       // let { metadata } = require("sdk/self");
       callback(metadata);
-    }
+    };
 
     exports.dummy = dummy;
     exports.testSelfProperty = testSelfProperty;
