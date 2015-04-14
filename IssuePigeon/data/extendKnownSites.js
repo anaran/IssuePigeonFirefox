@@ -40,13 +40,11 @@
       cancel.value = "Cancel";
       cancel.type = "button";
       help.textContent = 'Help';
-      var renderMarkdownFile = function (path) {
+      var renderHtmlFile = function (path) {
         self.postMessage({ help: path });
-        // self.port.emit({ help: path });
-
       };
       help.onclick = function (event) {
-        renderMarkdownFile('../HELP.md');
+        renderHtmlFile('../html/HELP.html');
       };
       save.addEventListener('click', function (event) {
         try {

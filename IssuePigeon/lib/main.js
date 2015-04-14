@@ -142,74 +142,9 @@
         saveKnownSitesExtensions(data.save);
       }
       if ('help' in data) {
-
-        tabs.on('open', function(tab){
-          tab.on('ready', function(tab){
-            console.log(tab.url);
-            var worker = tab.attach({
-              // contentScriptFile: self.data.url('marked_content.js')
-              contentScriptFile: './marked_content.js'
-            });
-            // worker.port.on('markdown', function (data) {
-            //   console.log('markdown', data);
-            var marked = require('./marked.js');
-            var toc = [];
-            var addTableOfContents = function (err, out) {
-              var tocHTML = '<h1 id="table-of-contents">Table of Contents</h1>\n<ul>';
-              toc.forEach(function (entry) {
-                tocHTML += '<li><a href="#'+entry.anchor+'">'+entry.text+'<a></li>\n';
-              });
-              tocHTML += '</ul>\n';
-              return tocHTML + out;
-            };
-            var renderer = (function() {
-              var renderer = new marked.Renderer();
-              renderer.heading = function(text, level, raw) {
-                var anchor = this.options.headerPrefix + raw.toLowerCase().replace(/[^\w]+/g, '-');
-                toc.push({
-                  anchor: anchor,
-                  level: level,
-                  text: text
-                });
-                return '<h'
-                + level
-                + ' id="'
-                + anchor
-                + '">'
-                + text
-                + '</h'
-                + level
-                + '>\n'
-                + '<a href="#table-of-contents">Table of Contents<a>\n';
-              };
-              return renderer;
-            })();
-
-            marked.setOptions({
-              renderer: renderer,
-              gfm: true,
-              tables: true,
-              breaks: false,
-              pedantic: false,
-              sanitize: true,
-              smartLists: true,
-              smartypants: false
-            });
-            try {
-              var markdownData = self.data.load(data.help);
-              var html = marked(markdownData, addTableOfContents);
-              worker.port.emit("render", html);
-            }
-            catch (exception) {
-              DEBUG_ADDON && console.error(exception);
-              DEBUG_ADDON && window.alert(exception.message + '\n\n' + exception.stack);
-            }
-            // });
-          });
-        });
         var originallyActiveTab = tabs.activeTab;
         tabs.open({
-          url: './help.html',
+          url: data.help,
           nNewWindow: false,
           // inBackground: true,
           onClose: function() {
