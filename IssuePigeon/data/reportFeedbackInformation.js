@@ -329,7 +329,7 @@
     if (typeof self !== 'undefined' && self.port) {
       DEBUG_ADDON &&
         console.log("self.port is true", self);
-      self.port.on("show", function (node, data) {
+      self.port.on("show", function (data) {
         DEBUG_ADDON &&
           console.log("self.port.on show", self);
         reportFeedbackInformation(data);
