@@ -44,7 +44,7 @@
         self.postMessage({ help: path });
       };
       help.onclick = function (event) {
-        renderHtmlFile('../html/HELP.html');
+        renderHtmlFile('../data/HELP.html');
       };
       save.addEventListener('click', function (event) {
         try {
