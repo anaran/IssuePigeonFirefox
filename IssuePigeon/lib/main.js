@@ -154,6 +154,14 @@
             //   console.log('markdown', data);
             var marked = require('./marked.js');
             var toc = [];
+            var addTableOfContents = function (err, out) {
+              var tocHTML = '<h1 id="table-of-contents">Table of Contents</h1>\n<ul>';
+              toc.forEach(function (entry) {
+                tocHTML += '<li><a href="#'+entry.anchor+'">'+entry.text+'<a></li>\n';
+              });
+              tocHTML += '</ul>\n';
+              return tocHTML + out;
+            };
             var renderer = (function() {
               var renderer = new marked.Renderer();
               renderer.heading = function(text, level, raw) {
@@ -189,13 +197,8 @@
             });
             try {
               var markdownData = self.data.load(data.help);
-              var html = marked(markdownData);
-              var tocHTML = '<h1 id="table-of-contents">Table of Contents</h1>\n<ul>';
-              toc.forEach(function (entry) {
-                tocHTML += '<li><a href="#'+entry.anchor+'">'+entry.text+'<a></li>\n';
-              });
-              tocHTML += '</ul>\n';
-              worker.port.emit("render", tocHTML + html);
+              var html = marked(markdownData, addTableOfContents);
+              worker.port.emit("render", html);
             }
             catch (exception) {
               DEBUG_ADDON && console.error(exception);
