@@ -1,6 +1,10 @@
+*.md
 *.webapp
 *.xpi
 .jpmignore
+gulpfile.js
+html/
+lib/marked.js
 jpm_test*.txt
 node_modules/
 test/
