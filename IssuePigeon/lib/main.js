@@ -154,7 +154,8 @@
     };
     let originPayload = JSON.stringify({ 'known': ko.knownOrigins, 'extensions': sp.prefs['KNOWN_SITES_EXTENSIONS'] }, null, 2);
     // Handle Android menu entry click using nativewindow.js
-    if (recent.NativeWindow) {
+    // recent is null in Thunderbird 38.0b1
+    if (recent && recent.NativeWindow) {
       let nw = require('./nativewindow');
       nw.addContextMenu({
         name: myTitle,
