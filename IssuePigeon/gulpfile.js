@@ -5,23 +5,23 @@ var gulpMarked = require('gulp-marked');
 var marked = require('./lib/marked');
 
 var pre =
-'<!DOCTYPE html>\n' +
-'<html lang="en">\n' +
-'    <head>\n' +
-'        <meta charset=utf-8>\n' +
-'        <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1, minimum-scale=0.25, maximum-scale=4, user-scalable=yes">\n' +
-'        <title data-l10n-id="help_title">$TITLE$</title>\n' +
-'        <!--\n' +
-'<script src="display.js"></script>\n' +
-'-->\n' +
-'        <link rel="stylesheet" href="../data/help.css"/>\n' +
-'    </head>\n' +
-'    <body class="help_body">\n' +
-      '        <div class="help_div">\n';
-  var post =
-'        </div>\n' +
-'    </body>\n' +
-      '</html>\n';
+    '<!DOCTYPE html>\n' +
+    '<html lang="en">\n' +
+    '    <head>\n' +
+    '        <meta charset=utf-8>\n' +
+    '        <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1, minimum-scale=0.25, maximum-scale=4, user-scalable=yes">\n' +
+    '        <title data-l10n-id="help_title">$TITLE$</title>\n' +
+    '        <!--\n' +
+    '<script src="display.js"></script>\n' +
+    '-->\n' +
+    '        <link rel="stylesheet" href="../data/help.css"/>\n' +
+    '    </head>\n' +
+    '    <body class="help_body">\n' +
+    '        <div class="help_div">\n';
+var post =
+    '        </div>\n' +
+    '    </body>\n' +
+    '</html>\n';
 
 var toc = [];
 var addTableOfContents = function (err, out) {
@@ -44,15 +44,15 @@ var renderer = (function() {
       text: text
     });
     return '<h'
-      + level
-      + ' id="'
-      + anchor
-      + '">'
-      + text
-      + '</h'
-      + level
-      + '>\n'
-      + '<a href="#table-of-contents">Table of Contents<a>\n';
+    + level
+    + ' id="'
+    + anchor
+    + '">'
+    + text
+    + '</h'
+    + level
+    + '>\n'
+    + '<a href="#table-of-contents">Table of Contents<a>\n';
   };
   return renderer;
 })();
@@ -60,15 +60,15 @@ var renderer = (function() {
 // Requires https://github.com/lmtm/gulp-marked/pull/15
 gulp.task('md2html', function() {
   gulp.src(['../*.md', './*.md'])
-    .pipe(gulpMarked({
-      renderer: renderer,
-      gfm: true,
-      tables: true,
-      breaks: false,
-      pedantic: false,
-      sanitize: true,
-      smartLists: true,
-      smartypants: false
-    }, addTableOfContents))
-    .pipe(gulp.dest('./data/'));
+  .pipe(gulpMarked({
+    renderer: renderer,
+    gfm: true,
+    tables: true,
+    breaks: false,
+    pedantic: false,
+    sanitize: true,
+    smartLists: true,
+    smartypants: false
+  }, addTableOfContents))
+  .pipe(gulp.dest('./data/'));
 });
