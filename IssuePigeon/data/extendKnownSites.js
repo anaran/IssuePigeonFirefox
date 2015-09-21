@@ -16,8 +16,6 @@
 (function() {
   let DEBUG_ADDON = false;
   try {
-    // var exports = exports || {};
-    //
     // NOTE Set "DEBUG_ADDON = true" in the debugger before continuing to get console messages logged.
     // Make sure option "Console Logging Level" is not set to "off".
     //
@@ -113,27 +111,11 @@
         // DEBUG_ADDON && window.alert(exception.message + '\n\n' + exception.stack);
       }
     };
-    // Handle Android menu entry click using nativewindow.js
-    // if (typeof self !== 'undefined' && self.port) {
-    //   DEBUG_ADDON &&
-    //     console.log("self.port is true", self);
     self.port.on("show_options", function (data) {
       DEBUG_ADDON &&
         console.log("self.port.on show_options", self, data);
       showKnownSitesExtensions(data);
     });
-    // }
-    // // Standard add-on SDK menu entry click handling
-    // if (typeof self !== 'undefined' && self.on) {
-    //   DEBUG_ADDON &&
-    //     console.log("self is true", self);
-    //   self.on("click", function (node, data) {
-    //     DEBUG_ADDON &&
-    //       console.log("self.on click", self, node, data);
-    //     showKnownSitesExtensions(data);
-    //   });
-    // }
-    // self.port.emit('request_options');
   }
   catch (exception) {
     DEBUG_ADDON && console.error(exception);

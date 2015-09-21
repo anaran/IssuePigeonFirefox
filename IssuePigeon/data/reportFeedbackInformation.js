@@ -14,8 +14,6 @@
 (function() {
   let DEBUG_ADDON = false;
   try {
-    // var exports = exports || {};
-    //
     // NOTE Set "DEBUG_ADDON = true" in the debugger before continuing to get console messages logged.
     // Make sure option "Console Logging Level" is not set to "off".
     //
@@ -29,10 +27,6 @@
       let seen = {
       };
       return JSON.stringify(element, function (key, value) {
-        // console.log('this', this);
-        // console.log('key', key);
-        // console.log('typeof key', typeof key);
-        // console.log('typeof value', typeof value);
         if (key) {
           if (value === element) {
             console.error('reference to top-level');
@@ -313,13 +307,6 @@
         };
         derived.prototype = Object.create(constr.prototype);
         derived.prototype.constructor = derived;
-        //         if (handler.help) {
-        //           derived.prototype.help = handler.help;
-        //         }
-        //         if (handler.report) {
-        //           derived.prototype.report = handler.report;
-        //         }
-
         if ((new derived()).fly()) {
           // FIXME: this is in fact supported, should not raise a notification!
           (typeof self !== 'undefined') && self.port.emit('unsupported', 'reported by ' + constr.toString());
@@ -335,7 +322,6 @@
         (typeof self !== 'undefined') && self.port.emit('unsupported', JSON.stringify(data, null, 2));
       }
     };
-    // Handle Android menu entry click using nativewindow.js
     // if (typeof self !== 'undefined' && self.port) {
     DEBUG_ADDON &&
       console.log("self.port is true", self);
@@ -386,8 +372,6 @@
         event.stopPropagation();
         reportFeedbackInformation(data);
       });
-      // knownSites[value].reporter(match[0]);
-      // }, true);
       var help = div.appendChild(document.createElement('span'));
       help.innerHTML = '&quest;';
       help.style.padding = '2mm';
@@ -411,17 +395,6 @@
         event.preventDefault();
         document.body.removeChild(div);
       });
-      // });
-      // }
-      // // Standard add-on SDK menu entry click handling
-      // if (typeof self !== 'undefined' && self.on) {
-      //   DEBUG_ADDON &&
-      //     console.log("self is true", self);
-      //   self.on("click", function (node, data) {
-      //     DEBUG_ADDON &&
-      //       console.log("self.on click", self);
-      //     reportFeedbackInformation(data);
-
     });
     // }
     // TODO Place following code where timed section should end.
