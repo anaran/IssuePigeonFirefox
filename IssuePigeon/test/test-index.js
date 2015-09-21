@@ -9,6 +9,10 @@
 //
 ;(function() {
   let DEBUG_ADDON = true;
+  let sp = require('sdk/simple-prefs');
+  // See https://github.com/mozilla-jetpack/jpm/issues/339
+  sp.prefs['sdk.console.logLevel'] = 'info';
+  // console.error('sdk.console.logLevel', sp.prefs['sdk.console.logLevel']);
   // TODO Following two require statements are risky in this test module (they are under test here!)
   let self = require('sdk/self');
   let { metadata } = require("@loader/options");
@@ -33,7 +37,7 @@
   console.dir(lo);
   const jpm = lo && lo.metadata.title;
   console.log("jpm", jpm);
-  const mainPath = jpm ? '../lib/main' : 'main';
+  const mainPath = jpm ? '../lib/main' : 'lib/main';
   var main = require(mainPath);
   exports["test main"] = function(assert) {
     // Content scripts cannot export anything, but we can check for
@@ -47,10 +51,23 @@
       pathname: '/anaran/IssuePigeonFirefox/tree/master/IssuePigeon',
       origin: 'https://github.com'
     };
-    assert.ok(rfi.reportFeedbackInformation("{\"no site data\": \"available\"}", testLocation), "reportFeedbackInformation shows no runtime errors");
+    const koPath = jpm ? '../data/known-origins' : 'data/known-origins';
+    let ko = require(koPath);
+    assert.notEqual(typeof ko, "undefined", "undefined !== require('"+koPath+"')");
+    assert.ok(true, ko);
+    let originPayload = JSON.stringify({ 'known': ko.knownOrigins, 'extensions':  "{\"no site data\": \"available\"}"}, null, 2);
+    // console.log('rfi', rfi);
+    // Prints source code of function nicely!
+    // console.log('rfi.reportFeedbackInformation.toString()', rfi.reportFeedbackInformation.toString());
+    // let PigeonDispatcher object is undefined
+    // console.log('rfi.PigeonDispatcher', rfi.PigeonDispatcher);
+    assert.ok(rfi.reportFeedbackInformation(originPayload, testLocation), "reportFeedbackInformation shows no runtime errors");
     const eksPath = jpm ? '../data/extendKnownSites' : 'data/extendKnownSites';
     let eks = require(eksPath);
     assert.notEqual(typeof eks, "undefined", "undefined !== require('../data/extendKnownSites')");
+    // Prints source code of function nicely!
+    // console.log('eks.showKnownSitesExtensions.toString()', eks.showKnownSitesExtensions.toString());
+    assert.ok(eks.showKnownSitesExtensions(originPayload), "eks.showKnownSitesExtensions shows no runtime errors");
     assert.pass("Unit test running!");
   };
 

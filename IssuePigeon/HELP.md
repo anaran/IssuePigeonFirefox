@@ -12,7 +12,7 @@ Furthermore you can specify your own additional project definitions based on exi
 
 Use the `Extend Issue Pigeon` context menu entry to specify and save your own JSON declarations. Declarations will be verified with `JSON.parse` prior to saving.
 
-A Help link is also provided, pointingto this user documentation.
+A Help link is also provided, pointing to this user documentation.
 
 ## Feedback
 

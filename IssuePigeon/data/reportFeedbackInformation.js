@@ -1,7 +1,7 @@
 /* -*- indent-tabs-mode: nil; js-indent-level: 2 -*- */
 /*jslint browser: true, devel: true */
 /*global findRegExpBar: false, chrome: false, console: false, require: false, document: false */
-'use strict';
+;'use strict';
 //
 // Replace /\b(const|let)\B/ with "$1 "
 // Replace [/^( *)function (\w+)/] with [$1var $2 = function]
@@ -11,7 +11,7 @@
 // Firefox Addon Content Script.
 // require is not available in content scripts.
 // let sp = require('sdk/simple-prefs');
-;(function() {
+(function() {
   let DEBUG_ADDON = false;
   try {
     // var exports = exports || {};
@@ -23,7 +23,7 @@
       // debugger is statement, not expression.
       // DEBUG_ADDON && debugger;
       // causes exception.
-      debugger;
+      // debugger;
     }
     let avoidCircular4 = function (element, indent) {
       let seen = {
@@ -252,7 +252,7 @@
       }
       return true;
     };
-    var reportFeedbackInformation = function reportFeedbackInformation(data, aTestLocation) {
+    var reportFeedbackInformation = function (knownOrigins, aTestLocation) {
       let copyright = typeof document !== 'undefined' && document.querySelector('meta[name=copyright]'),
           keywords = typeof document !== 'undefined' && document.querySelector('meta[name=keywords]'),
           description = typeof document !== 'undefined' && document.querySelector('meta[name=description]'),
@@ -262,15 +262,17 @@
           ],
           myLocation = typeof window !== 'undefined' ? window.location : aTestLocation;
       try {
-            let pd = JSON.parse(data);
-        let additionalSites = JSON.parse(pd.extensions);
+        let pd = JSON.parse(knownOrigins);
         PigeonDispatcher.knownOrigins = pd.known;
-        Object.keys(additionalSites).forEach(function (key) {
-          if (PigeonDispatcher.knownOrigins.hasOwnProperty(key)) {
-            console.warn('user overrides definition for',  key);
-          }
-          PigeonDispatcher.knownOrigins[key] = additionalSites[key];
-        })
+        if ('extensions' in pd) {
+          let additionalSites = JSON.parse(pd.extensions);
+          Object.keys(additionalSites).forEach(function (key) {
+            if (PigeonDispatcher.knownOrigins.hasOwnProperty(key)) {
+              console.warn('user overrides definition for',  key);
+            }
+            PigeonDispatcher.knownOrigins[key] = additionalSites[key];
+          });
+        }
       } catch (exception) {
         console.error(exception);
       }
@@ -297,6 +299,8 @@
         selection: typeof window !== 'undefined' && window.getSelection().toString(),
         rangeLinks: PigeonDispatcher.extractLinksFromSelection()
       };
+
+
       var handler = PigeonDispatcher.knownOrigins[myLocation.origin]
       || PigeonDispatcher.knownOrigins[
         myLocation.origin
@@ -315,36 +319,111 @@
         //         if (handler.report) {
         //           derived.prototype.report = handler.report;
         //         }
+
         if ((new derived()).fly()) {
-          DEBUG_ADDON &&
-            self.postMessage('reported by ' + derived.prototype.constructor.name);
+          // FIXME: this is in fact supported, should not raise a notification!
+          (typeof self !== 'undefined') && self.port.emit('unsupported', 'reported by ' + constr.toString());
         }
-      } else {
-        self.postMessage('potential feedback information\n'
-                         + JSON.stringify(data, null, 2));
+        else {
+          // NOTE: something went wrong for a supported site.
+          (typeof self !== 'undefined') && self.port.emit('unsupported', JSON.stringify(data, null, 2));
+        }
+        return aTestLocation;
       }
-      return aTestLocation;
+      else {
+        // This site is indeed not supported. Report it to possibly get support.
+        (typeof self !== 'undefined') && self.port.emit('unsupported', JSON.stringify(data, null, 2));
+      }
     };
     // Handle Android menu entry click using nativewindow.js
-    if (typeof self !== 'undefined' && self.port) {
+    // if (typeof self !== 'undefined' && self.port) {
+    DEBUG_ADDON &&
+      console.log("self.port is true", self);
+    self.port.on("show_feedback", function (data) {
       DEBUG_ADDON &&
-        console.log("self.port is true", self);
-      self.port.on("show", function (data) {
-        DEBUG_ADDON &&
-          console.log("self.port.on show", self);
+        console.log("self.port.on show", self);
+      var div = document.querySelector('#reportFeedbackInformation');
+      if (div) {
+        document.body.removeChild(div);
+      }
+      var efp = document.elementFromPoint(window.innerWidth / 2, window.innerHeight / 2);
+      div = document.createElement('div');
+      // var lastStyle = window.getComputedStyle(document.body.firstChild);
+      div.style.position = 'fixed';
+      // console.log(efp, window.getComputedStyle(efp));
+      var a = div.appendChild(document.createElement('a'));
+      // div.style.background = 'transparent';
+      div.style.backgroundColor = window.getComputedStyle(efp).backgroundColor;
+      div.style.color = window.getComputedStyle(efp).color;
+      // div.style.background = window.getComputedStyle(document.querySelector('a')).backgroundColor;
+      // a.style.color = lastStyle.backgroundColor;
+      // div.style.fontSize = window.getComputedStyle(document.querySelector('h1') || document.querySelector('h2') || document.querySelector('body')).fontSize;
+      // div.style.fontSize = 'x-large';
+      a.title = 'Report issue based on tab and selection(s)';
+      a.style.paddingLeft = '0.5em';
+      div.style.borderColor = div.style.color;
+      div.style.borderRadius = '3px';
+      div.style.border = '2px solid';
+      div.style.opacity = 0.9;
+      div.id = 'reportFeedbackInformation';
+      // window.alert(JSON.stringify(match, Object.getOwnPropertyNames(match), 2));
+      //       knownSites[value].reporter(match[0]);
+      document.body.appendChild(div);
+      console.error('self.options received', JSON.stringify(self.options, null, 2));
+      a.textContent = /* knownSites[value].title || */self.options.metadata.title;
+      // NOTE Make sure to set element content before getting its client rect!
+      div.style.transition = 'left 0.5s linear 0s';
+      div.style.top = (window.innerHeight - div.getBoundingClientRect().height) / 2 + 'px';
+      div.style.left = "-40em";
+      window.requestAnimationFrame(function(domHighResTimeStamp) {
+        div.style.left = (window.innerWidth - div.getBoundingClientRect().width) / 2 + 'px';
+      });
+      console.log(div.getBoundingClientRect());
+      a.href = '';
+      a.addEventListener('click', function (event) {
+        console.log("selection", window.getSelection().toString());
+        event.preventDefault();
+        event.stopPropagation();
         reportFeedbackInformation(data);
       });
-    }
-    // Standard add-on SDK menu entry click handling
-    if (typeof self !== 'undefined' && self.on) {
-      DEBUG_ADDON &&
-        console.log("self is true", self);
-      self.on("click", function (node, data) {
-        DEBUG_ADDON &&
-          console.log("self.on click", self);
-        reportFeedbackInformation(data);
+      // knownSites[value].reporter(match[0]);
+      // }, true);
+      var help = div.appendChild(document.createElement('span'));
+      help.innerHTML = '&quest;';
+      help.style.padding = '2mm';
+      help.addEventListener('click', function (event) {
+        event.preventDefault();
+        self.port.emit('help', '../data/HELP.html');
+        // document.body.removeChild(div);
       });
-    }
+      var settings = div.appendChild(document.createElement('span'));
+      settings.innerHTML = '&hellip;';
+      settings.style.padding = '2mm';
+      settings.addEventListener('click', function (event) {
+        event.preventDefault();
+        self.port.emit('request_options');
+        // document.body.removeChild(div);
+      });
+      var close = div.appendChild(document.createElement('span'));
+      close.innerHTML = '&cross;';
+      close.style.padding = '2mm';
+      close.addEventListener('click', function (event) {
+        event.preventDefault();
+        document.body.removeChild(div);
+      });
+      // });
+      // }
+      // // Standard add-on SDK menu entry click handling
+      // if (typeof self !== 'undefined' && self.on) {
+      //   DEBUG_ADDON &&
+      //     console.log("self is true", self);
+      //   self.on("click", function (node, data) {
+      //     DEBUG_ADDON &&
+      //       console.log("self.on click", self);
+      //     reportFeedbackInformation(data);
+
+    });
+    // }
     // TODO Place following code where timed section should end.
     if (console.timeEnd) {
       DEBUG_ADDON &&
@@ -356,14 +435,18 @@
       DEBUG_ADDON &&
         console.profileEnd();
     }
-    exports.PigeonDispatcher = PigeonDispatcher;
-    exports.reportFeedbackInformation = reportFeedbackInformation;
+    (typeof self !== 'undefined') && self.port.emit('request_feedback');
+    // exports.PigeonDispatcher = PigeonDispatcher;
   }
   catch (exception) {
     // DEBUG_ADDON &&
     // console.error(new Error());
     // DEBUG_ADDON &&
     DEBUG_ADDON && console.error(exception);
-    DEBUG_ADDON && window.alert(exception.message + '\n\n' + exception.stack);
+    // DEBUG_ADDON && window.alert(exception.message + '\n\n' + exception.stack);
+  }
+  if (typeof exports !== 'undefined') {
+    // Used by test/test-index.js
+    exports.reportFeedbackInformation = reportFeedbackInformation;
   }
 })();

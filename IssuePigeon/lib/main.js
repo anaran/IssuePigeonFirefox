@@ -21,14 +21,20 @@
       // debugger is statement, not expression.
       // DEBUG_ADDON && debugger;
       // causes exception.
-      debugger;
+      // debugger;
     }
+    const lo = require("@loader/options");
+    DEBUG_ADDON &&
+      console.dir(lo);
+    const jpm = lo && lo.metadata.title;
+    DEBUG_ADDON &&
+      console.log("jpm", jpm);
     DEBUG_ADDON &&
       console.log('Logging enabled via debugger');
-    const ko = require('../data/known-origins.js');
+    const koPath = jpm ? '../data/known-origins.js' : 'data/known-origins.js';
+    const ko = require(koPath);
     const self = require('sdk/self');
     // Only available for options natively supported by firefox, i.e. in jpm.
-    const lo = require("@loader/options");
     const metadata = lo.metadata;
     if (!lo || !lo.metadata.title) {
       let ps = require("sdk/preferences/service");
@@ -77,7 +83,7 @@
     const qs = require("sdk/querystring");
     const tabs = require("sdk/tabs");
     let sp = require('sdk/simple-prefs');
-    // The real on eis in reportFeedbackInformation.js
+    // The real one is in reportFeedbackInformation.js
     let bugzilla = function () {};
     let sample = JSON.stringify({
       'https://my.own.server:8443': {
@@ -114,99 +120,140 @@
       }
     });
 
-    var reportUnsupportedSite = function(data) {
-      let title = self.name + ': Cannot fly home';
-      notifications.notify({
-        title: title,
-        text: "\nClick to report this\n" + data,
-        data: qs.stringify({
-          title:
-          title + ' in ' + self.version,
-          body:
-          "(Please review for any private data you may want to remove before submitting)\n\n" + data
-        }),
-        onClick: function (data) {
-          tabs.open({
-            inNewWindow: true,
-            url: 'https://github.com/anaran/IssuePigeonFirefox/issues/new?' + data,
-            onClose: function() {
-              require("sdk/tabs").activeTab.activate();
-            }});
+    let handleErrors = function (exception) {
+      tabs.open({
+        // inNewWindow: true,
+        url: 'data:text/html;charset=utf-8,<html><head><title>' + myTitle
+        + ' Error</title></head><body><h1>' + myTitle
+        + ' Error</h1><pre>'
+        + (JSON.stringify(exception,
+                          Object.getOwnPropertyNames(exception), 2))
+        .replace(/(:\d+)+/g, '$&\n')
+        .replace(/->/g, '\n$&')
+        .replace(/\n/g, '%0a'),
+        onClose: function() {
+          tabs.activeTab.activate();
         }});
     };
 
-    let handleMessages = function (data) {
-      DEBUG_ADDON &&
-        console.log(data);
-      if ('save' in data) {
-        saveKnownSitesExtensions(data.save);
-      }
-      if ('help' in data) {
+    let worker, originPayload = JSON.stringify({ 'known': ko.knownOrigins, 'extensions': sp.prefs['KNOWN_SITES_EXTENSIONS'] }, null, 2);
+    tabs.activeTab.on('ready', function(tab) {
+      worker = tab.attach({
+        // let worker = tabs.activeTab.attach({
+        // contentScriptFile: self.data.url('reportFeedbackInformation.js'),
+        contentScriptFile: [
+          './reportFeedbackInformation.js',
+          './extendKnownSites.js'
+        ],
+        contentScriptOptions: {
+          self: self,
+          metadata: metadata
+        }
+        // Works with cs self.postMessage, but not with self.port.emit.
+        // onMessage: handleMessages,
+        // onError: handleErrors
+      });
+      worker.port.on('error', function (data) {
+        console.log('message event', data);
+      });
+      worker.port.on('help', function (data) {
         var originallyActiveTab = tabs.activeTab;
         tabs.open({
-          url: data.help,
+          url: data,
           nNewWindow: false,
           // inBackground: true,
           onClose: function() {
             originallyActiveTab.activate();
           }});
-      }
-    };
-    let originPayload = JSON.stringify({ 'known': ko.knownOrigins, 'extensions': sp.prefs['KNOWN_SITES_EXTENSIONS'] }, null, 2);
+      });
+      worker.port.on('save', function (data) {
+        saveKnownSitesExtensions(data);
+      });
+      worker.port.on('unsupported', function (data) {
+        let title = self.name + ': Cannot fly home';
+        notifications.notify({
+          title: title,
+          text: "\nClick to report this\n" + data,
+          data: qs.stringify({
+            title:
+            title + ' in ' + self.version,
+            body:
+            "(Please review for any private data you may want to remove before submitting)\n\n" + data
+          }),
+          onClick: function (data) {
+            tabs.open({
+              inNewWindow: true,
+              url: 'https://github.com/anaran/IssuePigeonFirefox/issues/new?' + data,
+              onClose: function() {
+                require("sdk/tabs").activeTab.activate();
+              }});
+          }});
+      });
+      // tab.on('ready', function(tab) {
+      //   // }
+      // Checking tab.readyState causes CPOW
+      // if (tab.readyState == 'complete') {
+      worker.port.on('request_feedback', function (data) {
+        worker.port.emit('show_feedback', JSON.stringify({ 'known': ko.knownOrigins, 'extensions': sp.prefs['KNOWN_SITES_EXTENSIONS'] }, null, 2));
+      });
+      worker.port.on('request_options', function (data) {
+        worker.port.emit('show_options', JSON.stringify({ 'known': ko.knownOrigins, 'extensions': sp.prefs['KNOWN_SITES_EXTENSIONS'] }, null, 2));
+      });
+      // };
+    });
     // Handle Android menu entry click using nativewindow.js
     // recent is null in Thunderbird 38.0b1
-    if (recent && recent.NativeWindow) {
-      let nw = require('./nativewindow');
-      nw.addContextMenu({
-        name: myTitle,
-        context: nw.SelectorContext('a'),
-        callback: function(target) {
-          let worker = tabs.activeTab.attach({
-            // contentScriptFile: self.data.url('reportFeedbackInformation.js'),
-            contentScriptFile: './reportFeedbackInformation.js',
-            onMessage: reportUnsupportedSite
-            // TODO Implement this as clickable issue reporting notification
-            // onError:
-          });
-          worker.port.emit('show', originPayload);
-        }});
-      nw.addContextMenu({
-        name: 'Extend ' + myTitle,
-        context: nw.SelectorContext('a'),
-        callback: function(target) {
-          let worker = tabs.activeTab.attach({
-            // contentScriptFile: self.data.url('extendKnownSites.js'),
-            contentScriptFile: './extendKnownSites.js',
-            onMessage: handleMessages
-          });
-          worker.port.emit('show', originPayload);
-        }});
-    }
-    // Standard add-on SDK menu entry click handling
-    else {
-      let cm = require("sdk/context-menu");
-      pigeonMenuItem = cm.Item({
-        label: myTitle,
-        context: cm.URLContext("*"),
-        // contentScriptFile: self.data.url('reportFeedbackInformation.js'),
-        contentScriptFile: './reportFeedbackInformation.js',
-        // data property needs to be kept in sync with KNOWN_SITES_EXTENSIONS preference.
-        // It seems to be the only way to pass data from the Add-on script to the content-script for a specific menu item.
-        data: originPayload,
-        onMessage: reportUnsupportedSite
-      });
-      extendMenuItem = cm.Item({
-        label: 'Extend ' + myTitle,
-        context: cm.URLContext("*"),
-        // contentScript: 'console.log("Extend clicked");',
-        // contentScriptFile: self.data.url('extendKnownSites.js'),
-        contentScriptFile: './extendKnownSites.js',
-        // data property needs to be kept in sync with KNOWN_SITES_EXTENSIONS preference.
-        // It seems to be the only way to pass data from the Add-on script to the content-script for a specific menu item.
-        data: originPayload,
-        onMessage: handleMessages
-      });
-    }
+    // if (recent && recent.NativeWindow) {
+    //   let nw = require('./nativewindow');
+    //   nw.addContextMenu({
+    //     name: myTitle,
+    //     context: nw.SelectorContext('a'),
+    //     callback: function(target) {
+    //       let worker = tabs.activeTab.attach({
+    //         // contentScriptFile: self.data.url('reportFeedbackInformation.js'),
+    //         contentScriptFile: './reportFeedbackInformation.js',
+    //         onMessage: reportUnsupportedSite
+    //         // TODO Implement this as clickable issue reporting notification
+    //         // onError:
+    //       });
+    //     }});
+    //   nw.addContextMenu({
+    //     name: 'Extend ' + myTitle,
+    //     context: nw.SelectorContext('a'),
+    //     callback: function(target) {
+    //       let worker = tabs.activeTab.attach({
+    //         // contentScriptFile: self.data.url('extendKnownSites.js'),
+    //         contentScriptFile: './extendKnownSites.js',
+    //         onMessage: handleMessages
+    //       });
+    //       worker.port.emit('show', originPayload);
+    //     }});
+    // }
+    // // Standard add-on SDK menu entry click handling
+    // else {
+    //   let cm = require("sdk/context-menu");
+    //   pigeonMenuItem = cm.Item({
+    //     label: myTitle,
+    //     context: cm.URLContext("*"),
+    //     // contentScriptFile: self.data.url('reportFeedbackInformation.js'),
+    //     contentScriptFile: './reportFeedbackInformation.js',
+    //     // data property needs to be kept in sync with KNOWN_SITES_EXTENSIONS preference.
+    //     // It seems to be the only way to pass data from the Add-on script to the content-script for a specific menu item.
+    //     data: originPayload,
+    //     onMessage: reportUnsupportedSite
+    //   });
+    //   extendMenuItem = cm.Item({
+    //     label: 'Extend ' + myTitle,
+    //     context: cm.URLContext("*"),
+    //     // contentScript: 'console.log("Extend clicked");',
+    //     // contentScriptFile: self.data.url('extendKnownSites.js'),
+    //     contentScriptFile: './extendKnownSites.js',
+    //     // data property needs to be kept in sync with KNOWN_SITES_EXTENSIONS preference.
+    //     // It seems to be the only way to pass data from the Add-on script to the content-script for a specific menu item.
+    //     data: originPayload,
+    //     onMessage: handleMessages
+    //   });
+    // }
     // TODO Place following code where timed section should end.
     if (console.timeEnd) {
       DEBUG_ADDON &&
@@ -222,5 +269,6 @@
   catch (exception) {
     DEBUG_ADDON && console.error(exception);
     DEBUG_ADDON && window.alert(exception.message + '\n\n' + exception.stack);
+    // handleErrors(exception);
   }
 })();

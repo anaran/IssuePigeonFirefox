@@ -1,10 +1,14 @@
 *.md
 *.webapp
 *.xpi
+*.zip
 .jpmignore
 gulpfile.js
 html/
 lib/marked.js
+lib/*-jpm.js
+lib/*-cfx.js
+jpm_run*.txt
 jpm_test*.txt
 node_modules/
 test/
