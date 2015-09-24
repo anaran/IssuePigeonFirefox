@@ -83,6 +83,7 @@
     const qs = require("sdk/querystring");
     const tabs = require("sdk/tabs");
     let sp = require('sdk/simple-prefs');
+    sp.prefs['sdk.console.logLevel'] = 'info';
     // The real one is in reportFeedbackInformation.js
     let bugzilla = function () {};
     let sample = JSON.stringify({
@@ -121,6 +122,7 @@
     });
 
     let handleErrors = function (exception) {
+      // FIXME: Perhaps this should open a styled error page and just post error data to it.
       tabs.open({
         // inNewWindow: true,
         url: 'data:text/html;charset=utf-8,<html><head><title>' + myTitle
@@ -130,14 +132,16 @@
                           Object.getOwnPropertyNames(exception), 2))
         .replace(/(:\d+)+/g, '$&\n')
         .replace(/->/g, '\n$&')
-        .replace(/\n/g, '%0a'),
+        .replace(/\n/g, '%0a')
+        + '</pre>',
         onClose: function() {
           tabs.activeTab.activate();
         }});
     };
 
     let worker, originPayload = JSON.stringify({ 'known': ko.knownOrigins, 'extensions': sp.prefs['KNOWN_SITES_EXTENSIONS'] }, null, 2);
-    tabs.activeTab.on('ready', function(tab) {
+    // tabs.activeTab.on('ready', function(tab) {
+    tabs.on('ready', function(tab) {
       worker = tab.attach({
         // let worker = tabs.activeTab.attach({
         // contentScriptFile: self.data.url('reportFeedbackInformation.js'),
@@ -148,14 +152,14 @@
         contentScriptOptions: {
           self: self,
           metadata: metadata
-        }
+        },
         // Works with cs self.postMessage, but not with self.port.emit.
         // onMessage: handleMessages,
-        // onError: handleErrors
+        onError: handleErrors
       });
-      worker.port.on('error', function (data) {
-        console.log('message event', data);
-      });
+      // worker.port.on('error', function (data) {
+      //   handleErrors(data);
+      // });
       worker.port.on('help', function (data) {
         var originallyActiveTab = tabs.activeTab;
         tabs.open({
@@ -194,10 +198,20 @@
       // Checking tab.readyState causes CPOW
       // if (tab.readyState == 'complete') {
       worker.port.on('request_feedback', function (data) {
-        worker.port.emit('show_feedback', JSON.stringify({ 'known': ko.knownOrigins, 'extensions': sp.prefs['KNOWN_SITES_EXTENSIONS'] }, null, 2));
+        worker.port.emit('show_feedback', {
+          'position': sp.prefs['position'] && JSON.parse(sp.prefs['position']) || {},
+          'known': ko.knownOrigins,
+          'extensions': sp.prefs['KNOWN_SITES_EXTENSIONS']
+        });
       });
       worker.port.on('request_options', function (data) {
-        worker.port.emit('show_options', JSON.stringify({ 'known': ko.knownOrigins, 'extensions': sp.prefs['KNOWN_SITES_EXTENSIONS'] }, null, 2));
+        worker.port.emit('show_options', {
+          'known': ko.knownOrigins,
+          'extensions': sp.prefs['KNOWN_SITES_EXTENSIONS']
+        });
+      });
+      worker.port.on('request_position_save', function (data) {
+        sp.prefs['position'] = JSON.stringify(data);
       });
       // };
     });

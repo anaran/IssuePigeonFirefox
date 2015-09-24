@@ -16,6 +16,27 @@
 (function() {
   let DEBUG_ADDON = false;
   try {
+    var reportError = function(err) {
+      if (typeof document != 'undefined') {
+        var box = document.querySelector('.err-box') || (function() {
+          var box = document.createElement('div');
+          box.className = 'err-box';
+          box.style = 'right: 2mm; display: inline; font-size: small; position: fixed; bottom: 2mm; left: 2mm; backgroundColor: mistyrose; color: black';
+          var close = box.appendChild(document.createElement('span'));
+          close.innerHTML = '&cross;';
+          close.style.padding = '2mm';
+          close.addEventListener('click', function (event) {
+            event.preventDefault();
+            document.body.removeChild(box);
+          });
+          document.body.appendChild(box);
+          return box;
+        })();
+        var entry = document.createElement('span');
+        entry.textContent = (JSON.stringify(err));
+        box.insertBefore(entry, box.firstElementChild);
+      }
+    };
     // NOTE Set "DEBUG_ADDON = true" in the debugger before continuing to get console messages logged.
     // Make sure option "Console Logging Level" is not set to "off".
     //
@@ -25,9 +46,8 @@
       // causes exception.
       // debugger;
     }
-    var showKnownSitesExtensions = function(def) {
+    var showKnownSitesExtensions = function(data) {
       try {
-        let pd = JSON.parse(def);
         if (typeof document != 'undefined') {
           let div = document.createElement('div');
           let buttonDiv = document.createElement('div');
@@ -63,7 +83,8 @@
           cancel.addEventListener('click', function (event) {
             document.body.removeChild(div);
           });
-          taExtensions.addEventListener('mousemove', function (e) {
+          false && taExtensions.addEventListener('mousemove', function (e) {
+            reportError({ 'mousemove': [ div.style.left, div.style.top ]});
             if ((e.clientX - taExtensions.offsetTop) < taExtensions.offsetHeight * 0.9 || (e.clientX - taExtensions.offsetLeft) < taExtensions.offsetWidth * 0.9) {
               e.stopPropagation();
               e.preventDefault();
@@ -82,15 +103,16 @@
               div.style.left = (touchX - (((touchX - div.offsetLeft) > div.offsetWidth * 0.5) ? div.offsetWidth * 0.8 : div.offsetWidth * 0.2)) + 'px';
               div.style.top = (touchY - (((touchY - div.offsetTop) > div.offsetHeight * 0.5) ? div.offsetHeight * 0.8 : div.offsetHeight * 0.2)) + 'px';
             }
+            reportError({ 'touchmove': [ div.style.left, div.style.top ]});
           });
           div.style = 'top: 40%; left: 20%; position: fixed;';
           // Cannot have both resize and define width: 50%; height: 50%;
           taExtensions.style = 'resize: both;';
-          if (pd.extensions) {
-            taExtensions.value = pd.extensions;
+          if ('extensions' in data && data.extensions) {
+            taExtensions.value = data.extensions;
           }
-          if (pd.known) {
-            taKnown.value = JSON.stringify(pd.known, null, 2);
+          if ('known' in data && data.known) {
+            taKnown.value = JSON.stringify(data.known, null, 2);
           }
           taKnown.style = 'resize: both;';
           taKnown.readOnly = true;

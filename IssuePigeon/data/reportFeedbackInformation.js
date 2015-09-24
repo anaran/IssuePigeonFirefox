@@ -12,8 +12,32 @@
 // require is not available in content scripts.
 // let sp = require('sdk/simple-prefs');
 (function() {
-  let DEBUG_ADDON = false;
+  let DEBUG_ADDON = true;
   try {
+    var reportError = function(err) {
+      if (!DEBUG_ADDON) {
+        return;
+      }
+      if (typeof document != 'undefined') {
+        var box = document.querySelector('.err-box') || (function() {
+          let box = document.createElement('div');
+          box.className = 'err-box';
+          box.style = 'border: 1px dashed; right: 2mm; display: inline; font-size: small; position: fixed; bottom: 2mm; left: 2mm; backgroundColor: mistyrose; color: black';
+          let close = box.appendChild(document.createElement('span'));
+          close.innerHTML = '&cross;';
+          close.style.padding = '2mm';
+          close.addEventListener('click', function (event) {
+            event.preventDefault();
+            document.body.removeChild(box);
+          });
+          document.body.appendChild(box);
+          return box;
+        })();
+        var entry = document.createElement('span');
+        entry.textContent = (JSON.stringify(err));
+        box.insertBefore(entry, box.firstElementChild);
+      }
+    };
     // NOTE Set "DEBUG_ADDON = true" in the debugger before continuing to get console messages logged.
     // Make sure option "Console Logging Level" is not set to "off".
     //
@@ -246,7 +270,7 @@
       }
       return true;
     };
-    var reportFeedbackInformation = function (knownOrigins, aTestLocation) {
+    var reportFeedbackInformation = function (data, aTestLocation) {
       let copyright = typeof document !== 'undefined' && document.querySelector('meta[name=copyright]'),
           keywords = typeof document !== 'undefined' && document.querySelector('meta[name=keywords]'),
           description = typeof document !== 'undefined' && document.querySelector('meta[name=description]'),
@@ -256,10 +280,9 @@
           ],
           myLocation = typeof window !== 'undefined' ? window.location : aTestLocation;
       try {
-        let pd = JSON.parse(knownOrigins);
-        PigeonDispatcher.knownOrigins = pd.known;
-        if ('extensions' in pd) {
-          let additionalSites = JSON.parse(pd.extensions);
+        PigeonDispatcher.knownOrigins = data.known;
+        if ('extensions' in data) {
+          let additionalSites = JSON.parse(data.extensions);
           Object.keys(additionalSites).forEach(function (key) {
             if (PigeonDispatcher.knownOrigins.hasOwnProperty(key)) {
               console.warn('user overrides definition for',  key);
@@ -337,64 +360,237 @@
       // var lastStyle = window.getComputedStyle(document.body.firstChild);
       div.style.position = 'fixed';
       // console.log(efp, window.getComputedStyle(efp));
-      var a = div.appendChild(document.createElement('a'));
       // div.style.background = 'transparent';
-      div.style.backgroundColor = window.getComputedStyle(efp).backgroundColor;
+      var bodyBC = window.getComputedStyle(document.body).backgroundColor;
+      var efpBC = window.getComputedStyle(efp).backgroundColor;
+      div.style.backgroundColor = (efpBC == 'transparent' ? bodyBC : efpBC);
       div.style.color = window.getComputedStyle(efp).color;
-      // div.style.background = window.getComputedStyle(document.querySelector('a')).backgroundColor;
+      div.style.padding = '0';
+      div.style.width = '48px';
+      div.style.height = '48px';
+      div.style.fontSize = 'large';
+      div.style.backgroundImage = 'url('+self.options.metadata.icon+')';
+      // window.getComputedStyle(document.querySelector('a')).backgroundColor;
       // a.style.color = lastStyle.backgroundColor;
       // div.style.fontSize = window.getComputedStyle(document.querySelector('h1') || document.querySelector('h2') || document.querySelector('body')).fontSize;
       // div.style.fontSize = 'x-large';
-      a.title = 'Report issue based on tab and selection(s)';
-      a.style.paddingLeft = '0.5em';
-      div.style.borderColor = div.style.color;
       div.style.borderRadius = '3px';
-      div.style.border = '2px solid';
-      div.style.opacity = 0.9;
+      // div.style.border = '2px solid';
+      div.style.opacity = 0.7;
       div.id = 'reportFeedbackInformation';
       // window.alert(JSON.stringify(match, Object.getOwnPropertyNames(match), 2));
       //       knownSites[value].reporter(match[0]);
       document.body.appendChild(div);
-      console.error('self.options received', JSON.stringify(self.options, null, 2));
-      a.textContent = /* knownSites[value].title || */self.options.metadata.title;
+      DEBUG_ADDON && console.error('self.options received', JSON.stringify(self.options, null, 2));
+      div.style.borderColor = div.style.color;
       // NOTE Make sure to set element content before getting its client rect!
-      div.style.transition = 'left 0.5s linear 0s';
+      div.style.transition = 'left 0.5s linear 0s, top 0.5s linear 0s';
       div.style.top = (window.innerHeight - div.getBoundingClientRect().height) / 2 + 'px';
       div.style.left = "-40em";
       window.requestAnimationFrame(function(domHighResTimeStamp) {
-        div.style.left = (window.innerWidth - div.getBoundingClientRect().width) / 2 + 'px';
+        div.style.top = (data.position && data.position.top)
+        || (window.innerHeight - div.getBoundingClientRect().height) / 2 + 'px';
+        div.style.left = (data.position && data.position.left)
+        || (window.innerWidth - div.getBoundingClientRect().width) / 2 + 'px';
       });
-      console.log(div.getBoundingClientRect());
-      a.href = '';
-      a.addEventListener('click', function (event) {
-        console.log("selection", window.getSelection().toString());
-        event.preventDefault();
-        event.stopPropagation();
-        reportFeedbackInformation(data);
-      });
-      var help = div.appendChild(document.createElement('span'));
-      help.innerHTML = '&quest;';
-      help.style.padding = '2mm';
-      help.addEventListener('click', function (event) {
-        event.preventDefault();
-        self.port.emit('help', '../data/HELP.html');
-        // document.body.removeChild(div);
-      });
-      var settings = div.appendChild(document.createElement('span'));
-      settings.innerHTML = '&hellip;';
-      settings.style.padding = '2mm';
-      settings.addEventListener('click', function (event) {
-        event.preventDefault();
-        self.port.emit('request_options');
-        // document.body.removeChild(div);
-      });
-      var close = div.appendChild(document.createElement('span'));
-      close.innerHTML = '&cross;';
-      close.style.padding = '2mm';
-      close.addEventListener('click', function (event) {
-        event.preventDefault();
-        document.body.removeChild(div);
-      });
+      DEBUG_ADDON &&
+        console.log(div.getBoundingClientRect());
+      if (true) {
+        var a = div.appendChild(document.createElement('a'));
+        // a.textContent = self.options.metadata.title;
+        a.textContent = 'Fly';
+        a.style.backgroundColor = (efpBC == 'transparent' ? bodyBC : efpBC);
+        a.title = 'Report issue based on tab and selection(s)';
+        // NOTE: Use margin, instead of padding, to make link hard to hit by accident.
+        // a.style.margin = '2mm';
+        // a.style.position = 'relative';
+        // a.style.top = '0';
+        // a.style.left = '0';
+        a.href = '';
+        a.addEventListener('click', function (event) {
+          console.log("selection", window.getSelection().toString());
+          event.preventDefault();
+          event.stopPropagation();
+          reportFeedbackInformation(data);
+        });
+        var help = div.appendChild(document.createElement('span'));
+        help.innerHTML = '&quest;';
+        help.style.padding = '2mm';
+        help.addEventListener('click', function (event) {
+          event.preventDefault();
+          event.stopPropagation();
+          self.port.emit('help', '../data/HELP.html');
+          // document.body.removeChild(div);
+        });
+        var settings = div.appendChild(document.createElement('span'));
+        settings.innerHTML = '&hellip;';
+        settings.style.padding = '2mm';
+        settings.addEventListener('click', function (event) {
+          event.preventDefault();
+          event.stopPropagation();
+          // FIXME: Only works until a new tab receives response.
+          self.port.emit('request_options');
+          // document.body.removeChild(div);
+        });
+        // var close = div.appendChild(document.createElement('span'));
+        // close.innerHTML = '&cross;';
+        // close.style.padding = '2mm';
+        // close.addEventListener('click', function (event) {
+        //   event.preventDefault();
+        //   document.body.removeChild(div);
+        // });
+        div.addEventListener('click', function (event) {
+          console.log("selection", window.getSelection().toString());
+          event.preventDefault();
+          event.stopPropagation();
+          if (help.style.display == 'none') {
+            a.style.display = 'inline-block';
+            help.style.display = 'inline';
+            settings.style.display = 'inline';
+          }
+          else {
+            a.style.display = 'none';
+            help.style.display = 'none';
+            settings.style.display = 'none';
+          }
+        });
+      }
+            a.style.display = 'none';
+            help.style.display = 'none';
+            settings.style.display = 'none';
+      reportError({"'draggable' in div": 'draggable' in div});
+      if ('draggable' in div && "drag and drop") {
+        // '<meta name="viewport" content="width=device-width,user-scalable=no">';
+        // let meta = document.createElement('meta');
+        // meta.name = 'viewport';
+        // meta.content = 'width=device-width,initial-scale=1.0,user-scalable=no';
+        // document.head.appendChild(meta);
+        div.setAttribute('draggable', true);
+        div.setAttribute('dropzone', 'move string:text/plain');
+        div.setAttribute('title', 'drop me in place');
+        // div.addEventListener('click', function (e) {
+        //   reportError({ 'click': [ div.style.left, div.style.top ]});
+        // });
+        div.addEventListener('dragstart', function (e) {
+          // e.stopPropagation();
+          // e.preventDefault();
+          // NOTE: the initial transition (the make the overlay noticed)
+          // interferes with dragging it.
+          div.style.transition = '';
+          // e.preventDefault();
+          e.dataTransfer.dropEffect = 'move';
+          e.dataTransfer.effectAllowed = 'move';
+          e.dataTransfer.setData('text/plain', 'ok');
+          reportError('dragstart');
+        });
+        div.addEventListener('dragover', function (e) {
+          e.stopPropagation();
+          e.preventDefault();
+          e.dataTransfer.dropEffect = 'move';
+          e.dataTransfer.effectAllowed = 'move';
+          // if (e.buttons == 1/* && e.currentTarget === move*/) {
+          div.style.left = (e.clientX - div.offsetWidth / 2) + 'px';
+          div.style.top = (e.clientY - div.offsetHeight / 2) + 'px';
+          reportError({ 'dragover': [ div.style.left, div.style.top ]});
+          // }
+        });
+        div.addEventListener('drop', function (e) {
+          e.stopPropagation();
+          e.preventDefault();
+          reportError({ 'drop': [ div.style.left, div.style.top ]});
+          e.dataTransfer.dropEffect = 'none';
+          // e.dataTransfer.clearData();
+          // Can't get this.getBoundingClientRect() to return a non-empty object.
+          let bcr = new DOMRect();
+          bcr = this.getBoundingClientRect();
+          self.port.emit('request_position_save', {
+            left: this.style.left,
+            right: this.style.right,
+            top: this.style.top,
+            bottom: this.style.bottom,
+            width: this.style.width,
+            height: this.style.height
+          });
+        });
+      }
+      if (true && "touch works on android too") {
+        div.addEventListener('touchstart', function (e) {
+          // (e.currentTarget == div) && e.preventDefault();
+          div.style.transition = '';
+          reportError({ 'touchstart': [ div.style.left, div.style.top ]});
+        });
+        div.addEventListener('touchend', function (e) {
+          // (e.currentTarget == div) && e.preventDefault();
+          // Can't get this.getBoundingClientRect() to return a non-empty object.
+          let bcr = new DOMRect();
+          bcr = this.getBoundingClientRect();
+          reportError({ 'touchend': [ div.style.left, div.style.top ]});
+          self.port.emit('request_position_save', {
+            left: this.style.left,
+            right: this.style.right,
+            top: this.style.top,
+            bottom: this.style.bottom,
+            width: this.style.width,
+            height: this.style.height
+          });
+        });
+        div.addEventListener('touchmove', function (e) {
+          // if ((e.clientX - taExtensions.offsetTop) < taExtensions.offsetHeight * 0.9 || (e.clientX - taExtensions.offsetLeft) < taExtensions.offsetWidth * 0.9) {
+          var touchX = e.touches[e.touches.length - 1].clientX;
+          var touchY = e.touches[e.touches.length - 1].clientY;
+          // e.stopPropagation();
+          e.preventDefault();
+          // e.dataTransfer.dropEffect = 'move';
+          // e.dataTransfer.effectAllowed = 'move';
+          // if (e.buttons == 1/* && e.currentTarget === move*/) {
+          div.style.left = (touchX - div.offsetWidth / 2) + 'px';
+          div.style.top = (touchY - div.offsetHeight / 2) + 'px';
+          reportError({ 'touchmove': [ div.style.left, div.style.top ]});
+          // }
+          // }
+        });
+      }
+      if (false && "mouse for desktop without touchscreen") {
+        div.addEventListener('mousedown', function (e) {
+          // if ((e.currentTarget == div)) {
+          e.preventDefault();
+          div.style.transition = '';
+          reportError({ 'mousedown': [ div.style.left, div.style.top ]});
+          // }
+        });
+        div.addEventListener('mouseup', function (e) {
+          // if ((e.currentTarget == div)) {
+          e.preventDefault();
+          // Can't get this.getBoundingClientRect() to return a non-empty object.
+          let bcr = new DOMRect();
+          bcr = this.getBoundingClientRect();
+          self.port.emit('request_position_save', {
+            left: this.style.left,
+            right: this.style.right,
+            top: this.style.top,
+            bottom: this.style.bottom,
+            width: this.style.width,
+            height: this.style.height
+          });
+          reportError({ 'mouseup': [ div.style.left, div.style.top ]});
+          // }
+        });
+        div.addEventListener('mousemove', function (e) {
+          // if ((e.currentTarget == div)) {
+          // if ((e.clientX - taExtensions.offsetTop) < taExtensions.offsetHeight * 0.9 || (e.clientX - taExtensions.offsetLeft) < taExtensions.offsetWidth * 0.9) {
+          // e.stopPropagation();
+          e.preventDefault();
+          // e.dataTransfer.dropEffect = 'move';
+          // e.dataTransfer.effectAllowed = 'move';
+          if (e.buttons == 1/* && e.currentTarget === move*/) {
+            div.style.left = (e.clientX - div.offsetWidth / 2) + 'px';
+            div.style.top = (e.clientY - div.offsetHeight / 2) + 'px';
+            reportError({ 'mousemove': [ div.style.left, div.style.top ]});
+          }
+          // }
+          // }
+        });
+      }
     });
     // }
     // TODO Place following code where timed section should end.
@@ -415,7 +611,8 @@
     // DEBUG_ADDON &&
     // console.error(new Error());
     // DEBUG_ADDON &&
-    DEBUG_ADDON && console.error(exception);
+    reportError(exception);
+    // DEBUG_ADDON && console.error(exception);
     // DEBUG_ADDON && window.alert(exception.message + '\n\n' + exception.stack);
   }
   if (typeof exports !== 'undefined') {

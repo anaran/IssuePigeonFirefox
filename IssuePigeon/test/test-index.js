@@ -55,7 +55,7 @@
     let ko = require(koPath);
     assert.notEqual(typeof ko, "undefined", "undefined !== require('"+koPath+"')");
     assert.ok(true, ko);
-    let originPayload = JSON.stringify({ 'known': ko.knownOrigins, 'extensions':  "{\"no site data\": \"available\"}"}, null, 2);
+    let originPayload = { 'known': ko.knownOrigins, 'extensions':  "{\"no site data\": \"available\"}"};
     // console.log('rfi', rfi);
     // Prints source code of function nicely!
     // console.log('rfi.reportFeedbackInformation.toString()', rfi.reportFeedbackInformation.toString());

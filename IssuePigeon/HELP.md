@@ -1,5 +1,7 @@
 # Issue Pigeon Firefox Add-on
 
+![Issue Pigeon Logo](icon48.png)
+
 The Issue Pigeon Firefox Add-on knows how to find the home for issues and bugs you may find in some well-known projects websites.
 
 It will pre-fill bugreports or issue forms with text and feature any referenced links based on text selections you make prior to clicking the `Issue Pigeon` context menu entry.
