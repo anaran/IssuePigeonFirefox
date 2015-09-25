@@ -25,13 +25,13 @@ var post =
 
 var toc = [];
 var addTableOfContents = function (err, out) {
-  var tocHTML = '<h1 id="table-of-contents">Table of Contents</h1>\n<ul>';
+  var tocHTML = '<h1 id="table-of-contents">Index</h1>\n<ul>';
   toc.forEach(function (entry) {
-    tocHTML += '<li><a href="#'+entry.anchor+'">'+entry.text+'<a></li>\n';
+    tocHTML += '<li><a href="#'+entry.anchor+'">'+entry.text+'</a></li>\n';
   });
   toc = [];
   tocHTML += '</ul>\n';
-  return pre + tocHTML + out + post;
+  return pre + out + tocHTML + post;
 };
 
 var renderer = (function() {
@@ -52,7 +52,7 @@ var renderer = (function() {
     + '</h'
     + level
     + '>\n'
-    + '<a href="#table-of-contents">Table of Contents<a>\n';
+    + '<a href="#table-of-contents">Index</a>\n';
   };
   return renderer;
 })();
