@@ -173,6 +173,37 @@
       worker.port.on('save', function (data) {
         saveKnownSitesExtensions(data);
       });
+      worker.port.on('settings', function (data) {
+        tabs.open({
+          // inNewWindow: true,
+          url: './settings.html',
+          onReady: function(tab) {
+            // handleErrors(tab);
+            let worker = tab.attach({
+              // let worker = tabs.activeTab.attach({
+              // contentScriptFile: self.data.url('reportFeedbackInformation.js'),
+              contentScriptFile: [
+                './settings.js'
+              ],
+              // contentScriptOptions: {
+              //   self: self,
+              //   metadata: metadata
+              // },
+              // Works with cs self.postMessage, but not with self.port.emit.
+              // onMessage: handleMessages,
+              onError: handleErrors
+            });
+            worker.port.on('request_settings', function (data) {
+              worker.port.emit('load_settings', {
+                metadata: metadata,
+                prefs: sp.prefs
+              });
+            });
+          },
+          onClose: function() {
+            tabs.activeTab.activate();
+          }});
+      });
       worker.port.on('unsupported', function (data) {
         let title = self.name + ': Cannot fly home';
         notifications.notify({

@@ -12,7 +12,7 @@
 // require is not available in content scripts.
 // let sp = require('sdk/simple-prefs');
 (function() {
-  let DEBUG_ADDON = true;
+  let DEBUG_ADDON = false;
   try {
     var reportError = function(err) {
       if (!DEBUG_ADDON) {
@@ -20,22 +20,43 @@
       }
       if (typeof document != 'undefined') {
         var box = document.querySelector('.err-box') || (function() {
-          let box = document.createElement('div');
+          let div = document.body.appendChild(document.createElement('div'));
+          let box = div.appendChild(document.createElement('span'));
           box.className = 'err-box';
-          box.style = 'border: 1px dashed; right: 2mm; display: inline; font-size: small; position: fixed; bottom: 2mm; left: 2mm; backgroundColor: mistyrose; color: black';
-          let close = box.appendChild(document.createElement('span'));
+          box.style.backgroundColor = 'mistyrose';
+          box.style.border = '1px dashed';
+          box.style.bottom = '2mm';
+          box.style.color = 'black';
+          box.style.fontSize = 'small';
+          box.style.height = '25%';
+          box.style.left = '2mm';
+          box.style.overflow = 'auto';
+          box.style.position = 'fixed';
+          box.style.resize = 'both';
+          box.style.width = '25%';
+          let close = div.appendChild(document.createElement('div'));
           close.innerHTML = '&cross;';
-          close.style.padding = '2mm';
+          close.style.position = 'fixed';
+          close.style.bottom = '2mm';
+          close.style.left = '2mm';
+          close.style.margin = '2mm';
+          // close.style.left = '0';
+          // close.style.bottom = '30%';
+          // close.style.position = 'fixed';
           close.addEventListener('click', function (event) {
             event.preventDefault();
-            document.body.removeChild(box);
+            document.body.removeChild(div);
           });
-          document.body.appendChild(box);
           return box;
         })();
         var entry = document.createElement('span');
         entry.textContent = (JSON.stringify(err));
-        box.insertBefore(entry, box.firstElementChild);
+        if (box.firstElementChild) {
+          box.insertBefore(entry, box.firstElementChild);
+        }
+        else {
+          box.appendChild(entry);
+        }
       }
     };
     // NOTE Set "DEBUG_ADDON = true" in the debugger before continuing to get console messages logged.
@@ -363,26 +384,26 @@
       // div.style.background = 'transparent';
       var bodyBC = window.getComputedStyle(document.body).backgroundColor;
       var efpBC = window.getComputedStyle(efp).backgroundColor;
-      div.style.backgroundColor = (efpBC == 'transparent' ? bodyBC : efpBC);
       div.style.color = window.getComputedStyle(efp).color;
       div.style.padding = '0';
       div.style.width = '48px';
       div.style.height = '48px';
       div.style.fontSize = 'large';
+      div.style.backgroundColor = (efpBC == 'transparent' ? bodyBC : efpBC);
       div.style.backgroundImage = 'url('+self.options.metadata.icon+')';
+      div.style.borderRadius = '3px';
+      div.style.borderColor = div.style.color;
+      // div.style.border = '2px solid';
       // window.getComputedStyle(document.querySelector('a')).backgroundColor;
       // a.style.color = lastStyle.backgroundColor;
       // div.style.fontSize = window.getComputedStyle(document.querySelector('h1') || document.querySelector('h2') || document.querySelector('body')).fontSize;
       // div.style.fontSize = 'x-large';
-      div.style.borderRadius = '3px';
-      // div.style.border = '2px solid';
       div.style.opacity = 0.7;
       div.id = 'reportFeedbackInformation';
       // window.alert(JSON.stringify(match, Object.getOwnPropertyNames(match), 2));
       //       knownSites[value].reporter(match[0]);
       document.body.appendChild(div);
       DEBUG_ADDON && console.error('self.options received', JSON.stringify(self.options, null, 2));
-      div.style.borderColor = div.style.color;
       // NOTE Make sure to set element content before getting its client rect!
       div.style.transition = 'left 0.5s linear 0s, top 0.5s linear 0s';
       div.style.top = (window.innerHeight - div.getBoundingClientRect().height) / 2 + 'px';
@@ -396,43 +417,54 @@
       DEBUG_ADDON &&
         console.log(div.getBoundingClientRect());
       if (true) {
-        var a = div.appendChild(document.createElement('a'));
-        // a.textContent = self.options.metadata.title;
-        a.textContent = 'Fly';
-        a.style.backgroundColor = (efpBC == 'transparent' ? bodyBC : efpBC);
-        a.title = 'Report issue based on tab and selection(s)';
+        var menu = div.appendChild(document.createElement('div'));
+        menu.className = 'menu';
+        menu.style.display = 'none';
+        menu.style.opacity = 0.7;
+        menu.style.backgroundColor = (efpBC == 'transparent' ? bodyBC : efpBC);
+        menu.style.borderRadius = '3px';
+        menu.style.borderColor = menu.style.color;
+        menu.style.border = '2px solid';
+        var action = menu.appendChild(document.createElement('div')).appendChild(document.createElement('span'));
+        // action.textContent = self.options.metadata.title;
+        action.textContent = 'Fly';
+        // action.style.backgroundColor = (efpBC == 'transparent' ? bodyBC : efpBC);
+        // action.title = 'Report issue based on tab and selection(s)';
         // NOTE: Use margin, instead of padding, to make link hard to hit by accident.
-        // a.style.margin = '2mm';
-        // a.style.position = 'relative';
-        // a.style.top = '0';
-        // a.style.left = '0';
-        a.href = '';
-        a.addEventListener('click', function (event) {
+        // action.style.margin = '2mm';
+        // action.style.position = 'relative';
+        // action.style.top = '0';
+        // action.style.left = '0';
+        // action.href = '';
+        action.addEventListener('click', function (event) {
           console.log("selection", window.getSelection().toString());
           event.preventDefault();
           event.stopPropagation();
           reportFeedbackInformation(data);
         });
-        var help = div.appendChild(document.createElement('span'));
-        help.innerHTML = '&quest;';
-        help.style.padding = '2mm';
+        var help = menu.appendChild(document.createElement('div')).appendChild(document.createElement('span'));
+        help.style.display = 'inline-block';
+        help.textContent = 'Help';
+        // help.style.padding = '2mm';
         help.addEventListener('click', function (event) {
           event.preventDefault();
           event.stopPropagation();
           self.port.emit('help', '../data/HELP.html');
           // document.body.removeChild(div);
         });
-        var settings = div.appendChild(document.createElement('span'));
-        settings.innerHTML = '&hellip;';
-        settings.style.padding = '2mm';
+        var settings = menu.appendChild(document.createElement('div')).appendChild(document.createElement('span'));
+        settings.style.display = 'inline-block';
+        settings.textContent = 'Settings';
+        // settings.style.padding = '2mm';
         settings.addEventListener('click', function (event) {
           event.preventDefault();
           event.stopPropagation();
           // FIXME: Only works until a new tab receives response.
-          self.port.emit('request_options');
+          // self.port.emit('request_options');
+          self.port.emit('settings');
           // document.body.removeChild(div);
         });
-        // var close = div.appendChild(document.createElement('span'));
+        // var close = div.appendChild(document.createElement('div'));
         // close.innerHTML = '&cross;';
         // close.style.padding = '2mm';
         // close.addEventListener('click', function (event) {
@@ -443,21 +475,14 @@
           console.log("selection", window.getSelection().toString());
           event.preventDefault();
           event.stopPropagation();
-          if (help.style.display == 'none') {
-            a.style.display = 'inline-block';
-            help.style.display = 'inline';
-            settings.style.display = 'inline';
+          if (menu.style.display == 'none') {
+            menu.style.display = 'inline-block';
           }
           else {
-            a.style.display = 'none';
-            help.style.display = 'none';
-            settings.style.display = 'none';
+            menu.style.display = 'none';
           }
         });
       }
-            a.style.display = 'none';
-            help.style.display = 'none';
-            settings.style.display = 'none';
       reportError({"'draggable' in div": 'draggable' in div});
       if ('draggable' in div && "drag and drop") {
         // '<meta name="viewport" content="width=device-width,user-scalable=no">';

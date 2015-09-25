@@ -44,7 +44,7 @@
     // syntax errors this way.
     const rfiPath = jpm ? '../data/reportFeedbackInformation' : 'data/reportFeedbackInformation';
     let rfi = require(rfiPath);
-    assert.notEqual(typeof rfi, "undefined", "undefined !== require('../data/reportFeedbackInformation')");
+    assert.notEqual(typeof rfi, "undefined", "undefined !== require('"+rfiPath+"')");
     assert.ok(true, rfi);
     let testLocation = {
       href: 'https://github.com/anaran/IssuePigeonFirefox/tree/master/IssuePigeon',
@@ -64,10 +64,13 @@
     assert.ok(rfi.reportFeedbackInformation(originPayload, testLocation), "reportFeedbackInformation shows no runtime errors");
     const eksPath = jpm ? '../data/extendKnownSites' : 'data/extendKnownSites';
     let eks = require(eksPath);
-    assert.notEqual(typeof eks, "undefined", "undefined !== require('../data/extendKnownSites')");
+    assert.notEqual(typeof eks, "undefined", "undefined !== require('"+eksPath+"')");
     // Prints source code of function nicely!
     // console.log('eks.showKnownSitesExtensions.toString()', eks.showKnownSitesExtensions.toString());
     assert.ok(eks.showKnownSitesExtensions(originPayload), "eks.showKnownSitesExtensions shows no runtime errors");
+    const settingsPath = jpm ? '../data/settings' : 'data/settings';
+    let settings = require(settingsPath);
+    assert.notEqual(typeof settings, "undefined", "undefined !== require('"+settingsPath+"')");
     assert.pass("Unit test running!");
   };
 
