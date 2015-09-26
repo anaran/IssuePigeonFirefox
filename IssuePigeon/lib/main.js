@@ -82,6 +82,7 @@
     const notifications = require("sdk/notifications");
     const qs = require("sdk/querystring");
     const tabs = require("sdk/tabs");
+    let settingsTab, helpTab;
     let sp = require('sdk/simple-prefs');
     sp.prefs['sdk.console.logLevel'] = 'info';
     // The real one is in reportFeedbackInformation.js
@@ -149,60 +150,91 @@
           './reportFeedbackInformation.js',
           './extendKnownSites.js'
         ],
-        contentScriptOptions: {
-          self: self,
-          metadata: metadata
-        },
-        // Works with cs self.postMessage, but not with self.port.emit.
-        // onMessage: handleMessages,
         onError: handleErrors
       });
-      // worker.port.on('error', function (data) {
-      //   handleErrors(data);
-      // });
       worker.port.on('help', function (data) {
-        var originallyActiveTab = tabs.activeTab;
-        tabs.open({
-          url: data,
-          nNewWindow: false,
-          // inBackground: true,
-          onClose: function() {
-            originallyActiveTab.activate();
-          }});
+        let originallyActiveTab = tabs.activeTab;
+        if (helpTab) {
+          helpTab.activate();
+          helpTab.on('close', function() {
+            helpTab = false;
+              for (let t of tabs) {
+                if (t === originallyActiveTab) {
+                  originallyActiveTab.activate();
+                  break;
+                }
+              }
+          });
+        }
+        else {
+          tabs.open({
+            url: data,
+            onReady: function(tab) {
+              helpTab = tab;
+            },
+            onClose: function() {
+              helpTab = false;
+              for (let t of tabs) {
+                if (t === originallyActiveTab) {
+                  originallyActiveTab.activate();
+                  break;
+                }
+              }
+            }
+          });
+        }
       });
       worker.port.on('save', function (data) {
         saveKnownSitesExtensions(data);
       });
       worker.port.on('settings', function (data) {
-        tabs.open({
-          // inNewWindow: true,
-          url: './settings.html',
-          onReady: function(tab) {
-            // handleErrors(tab);
-            let worker = tab.attach({
-              // let worker = tabs.activeTab.attach({
-              // contentScriptFile: self.data.url('reportFeedbackInformation.js'),
-              contentScriptFile: [
-                './settings.js'
-              ],
-              // contentScriptOptions: {
-              //   self: self,
-              //   metadata: metadata
-              // },
-              // Works with cs self.postMessage, but not with self.port.emit.
-              // onMessage: handleMessages,
-              onError: handleErrors
-            });
-            worker.port.on('request_settings', function (data) {
-              worker.port.emit('load_settings', {
-                metadata: metadata,
-                prefs: sp.prefs
+        let originallyActiveTab = tabs.activeTab;
+        if (settingsTab) {
+          settingsTab.activate();
+          settingsTab.on('close', function() {
+            settingsTab = false;
+            for (let t of tabs) {
+              if (t === originallyActiveTab) {
+                originallyActiveTab.activate();
+                break;
+              }
+            }
+          });
+        }
+        else {
+          tabs.open({
+            // inNewWindow: true,
+            url: './settings.html',
+            onReady: function(tab) {
+              settingsTab = tab;
+              let worker = tab.attach({
+                contentScriptFile: [
+                  './settings.js'
+                ],
+                onError: handleErrors
               });
-            });
-          },
-          onClose: function() {
-            tabs.activeTab.activate();
-          }});
+              worker.port.on('request_settings', function (data) {
+                worker.port.emit('load_settings', {
+                  metadata: metadata,
+                  prefs: sp.prefs
+                });
+              });
+              worker.port.on('save_setting', function (data) {
+                sp.prefs[data.name] = data.value;
+                // handleErrors(data);
+              });
+            },
+            onClose: function() {
+              settingsTab = false;
+              let me = originallyActiveTab.index;
+              for (let t of tabs) {
+                if (t === originallyActiveTab) {
+                  originallyActiveTab.activate();
+                  break;
+                }
+              }
+            }});
+        }
       });
       worker.port.on('unsupported', function (data) {
         let title = self.name + ': Cannot fly home';
@@ -230,9 +262,10 @@
       // if (tab.readyState == 'complete') {
       worker.port.on('request_feedback', function (data) {
         worker.port.emit('show_feedback', {
-          'position': sp.prefs['position'] && JSON.parse(sp.prefs['position']) || {},
+          'extensions': sp.prefs['KNOWN_SITES_EXTENSIONS'],
+          'icon': metadata.icon,
           'known': ko.knownOrigins,
-          'extensions': sp.prefs['KNOWN_SITES_EXTENSIONS']
+          'position': sp.prefs['position'] && JSON.parse(sp.prefs['position']) || {}
         });
       });
       worker.port.on('request_options', function (data) {
@@ -242,6 +275,7 @@
         });
       });
       worker.port.on('request_position_save', function (data) {
+        // handleErrors(data);
         sp.prefs['position'] = JSON.stringify(data);
       });
       // };

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+        <head>
+                <meta charset="utf-8">
+                <title>Settings</title>
+                <meta name="description" content="Description of Add-on Settings">
+                <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+                <link rel="stylesheet" href="settings.css">
+                <!--                 <script src="settings.js"></script> -->
+        </head>
+        <body role="application">
+                <!--                 <ul id="start_menu" class="menu">
+<li><a id="start_now" href="start_now">start now</a></li>
+</ul> -->
+                <!-- Taken from https://developer.mozilla.org/en-US/Add-ons/SDK/High-Level_APIs/simple-prefs -->
+                <!-- tt = document.querySelectorAll('h4#Preference_Types~table.standard-table tr') -->
+                <!-- Array.prototype.forEach.call(tt, function(v, i, obj) { console.log(v.firstElementChild.textContent); }); -->
+                <!-- undefined -->
+                <!-- Type -->
+                <!-- bool -->
+                <!-- boolint -->
+                <!-- integer -->
+                <!-- string -->
+                <!-- color -->
+                <!-- file -->
+                <!-- directory -->
+                <!-- menulist -->
+                <!-- radio -->
+                <!-- control -->
+                <template class="bool">
+                        <label>TITLE
+                                <input class="bool" type="checkbox"/>
+                        </label>
+                        <p>DESCRIPTION</p>
+                </template>
+                <template class="boolint">
+                        <input class="boolint" type="checkbox"/>
+                </template>
+                <template class="integer">
+                        <input class="integer" type="number" step="1"/>
+                </template>
+                <template class="string">
+                        <div class="string settings">
+                                <label>TITLE
+                                        <input class="string" type="text"/>
+                                </label>
+                                <p>DESCRIPTION</p>
+                        </div>
+                </template>
+                <template class="color">
+                        <input class="color" type="color"/>
+                </template>
+                <template class="file">
+                        <input class="file" type="file"/>
+                </template>
+                <template class="directory">
+                        <input class="directory" type="directory"/>
+                </template>
+                <template class="menulist">
+                        <div class="menulist settings">
+                                <label>TITLE
+                                        <select class="menulist"></select>
+                                </label>
+                                <p>DESCRIPTION</p>
+                        </div>
+                </template>
+                <template class="menulist_item">
+                        <option class="menulist_item"></option>
+                </template>
+                <template class="radio">
+                        <div class="radio settings">
+                                <label>TITLE
+                                        <span></span>
+                                </label>
+                                <p>DESCRIPTION</p>
+                        </div>
+                </template>
+                <template class="radio_item">
+                        <label class="radio">TITLE
+                                <input class="radio_item" type="radio"/>
+                        </label>
+                </template>
+                <template class="control">
+                        <input class="control" type="button"/>
+                </template>
+                <template id="entry_template">
+                        <div class="entry" id="COUCHDB DOC ID">
+                                <pre class="start"></pre>
+                                <pre class="end"></pre>
+                                <pre class="duration"></pre>
+                                <pre class="revisions"></pre>
+                                <pre class="activity"></pre>
+                        </div>
+                </template>
+
+                <template id="entries_template">
+                        <div class="entries" id="QUERY RESULT ID">
+                                <div class="entries_header">
+                                        <a class="add">&plus;</a>
+                                        <!-- See https://bugzil.la/1204458 -->
+                                        <a class="close">&cross;</a>
+                                        <a class="update">&circlearrowright;</a>
+                                        <span>query</span>
+                                        <select name="query_type" label="type">
+                                                <option>by activity</option>
+                                                <option>by time</option>
+                                                <option>deleted</option>
+                                        </select>
+                                        <select name="query_order">
+                                                <option>descending</option>
+                                                <option>ascending</option>
+                                        </select>
+                                        <span class="info">result header</span>
+                                </div>
+                        </div>
+                </template>
+        </body>
+</html>

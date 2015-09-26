@@ -32,11 +32,71 @@
   },
   "preferences": [
     {
+      "description": "This preference shall be hidden, except for debug purposes. It is changed by the user dragging the icon into place.",
+      "hidden": false,
+      "name": "position",
+      "title": "Style properties determining where icon is positioned in the browser window.",
+      "type": "string",
+      "value": ""
+    },
+    {
       "description": "User-defined extensions to known sites",
       "hidden": false,
       "name": "KNOWN_SITES_EXTENSIONS",
       "title": "User-defined extensions to known sites",
       "type": "string",
       "value": ""
+    },
+    {
+      "description": "Controls the amount of logging to the browser console by level, from all to errors only to nothing at all. Increase the log level when investigating problems.",
+      "name": "sdk.console.logLevel",
+      "type": "menulist",
+      "title": "Console Logging Level",
+      "value": "off",
+      "options": [{
+        "value": "all",
+        "label": "all"
+      }, {
+        "value": "debug",
+        "label": "debug"
+      }, {
+        "value": "info",
+        "label": "info"
+      }, {
+        "value": "warn",
+        "label": "warn"
+      }, {
+        "value": "error",
+        "label": "error"
+      }, {
+        "value": "off",
+        "label": "off"
+      }]
+    },
+    {
+      "description": "Controls the amount of logging to the browser console by level, from all to errors only to nothing at all. Increase the log level when investigating problems.",
+      "name": "sdk.console.logLevel",
+      "type": "radio",
+      "title": "Console Logging Level",
+      "value": "off",
+      "options": [{
+        "value": "all",
+        "label": "all"
+      }, {
+        "value": "debug",
+        "label": "debug"
+      }, {
+        "value": "info",
+        "label": "info"
+      }, {
+        "value": "warn",
+        "label": "warn"
+      }, {
+        "value": "error",
+        "label": "error"
+      }, {
+        "value": "off",
+        "label": "off"
+      }]
     }]
 }

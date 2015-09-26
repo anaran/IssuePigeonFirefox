@@ -1,0 +1,24 @@
+
+label:not(.radio) {
+  margin: 1em;
+  font-weight: 700;
+}
+
+label.radio {
+  margin-inline-start: 1em;
+  border: 1px solid;
+  padding-left: 0.5em;
+}
+
+input:not([type=radio]), select {
+  margin-inline-start: 1em;
+}
+
+p {
+  font-style: italic;
+}
+
+div.settings {
+  margin: 1em;
+  border-bottom: 1px solid black;
+}
