@@ -14,51 +14,6 @@
 (function() {
   let DEBUG_ADDON = false;
   try {
-    var reportError = function(err) {
-      // if (!DEBUG_ADDON) {
-      //   return;
-      // }
-      if (typeof document != 'undefined') {
-        var box = document.querySelector('.err-box') || (function() {
-          let div = document.body.appendChild(document.createElement('div'));
-          let box = div.appendChild(document.createElement('span'));
-          box.className = 'err-box';
-          box.style.backgroundColor = 'mistyrose';
-          box.style.border = '1px dashed';
-          box.style.bottom = '2mm';
-          box.style.color = 'black';
-          box.style.fontSize = 'small';
-          box.style.height = '25%';
-          box.style.left = '2mm';
-          box.style.overflow = 'auto';
-          box.style.position = 'fixed';
-          box.style.resize = 'both';
-          box.style.width = '25%';
-          let close = div.appendChild(document.createElement('div'));
-          close.innerHTML = '&cross;';
-          close.style.position = 'fixed';
-          close.style.bottom = '2mm';
-          close.style.left = '2mm';
-          close.style.margin = '2mm';
-          // close.style.left = '0';
-          // close.style.bottom = '30%';
-          // close.style.position = 'fixed';
-          close.addEventListener('click', function (event) {
-            event.preventDefault();
-            document.body.removeChild(div);
-          });
-          return box;
-        })();
-        var entry = document.createElement('span');
-        entry.textContent = (JSON.stringify(err));
-        if (box.firstElementChild) {
-          box.insertBefore(entry, box.firstElementChild);
-        }
-        else {
-          box.appendChild(entry);
-        }
-      }
-    };
     // NOTE Set "DEBUG_ADDON = true" in the debugger before continuing to get console messages logged.
     // Make sure option "Console Logging Level" is not set to "off".
     //
@@ -547,20 +502,13 @@
         div.addEventListener('drop', function (e) {
           e.stopPropagation();
           e.preventDefault();
-          reportError({ 'drop': [ div.style.left, div.style.top ]});
+          // reportError({ 'drop': [ div.style.left, div.style.top ]});
           e.dataTransfer.dropEffect = 'none';
           // e.dataTransfer.clearData();
           let bcr = new DOMRect();
           bcr = this.getBoundingClientRect();
           // reportError({ 'bcr': bcr, 'drop': [ div.style.left, div.style.top ]});
           self.port.emit('request_position_save', constrainClosestEdges(bcr));
-          // self.port.emit('request_position_save', constrainClosestEdges({
-          //   // Remove trailing px substring.
-          //   height: this.style.height.slice(0, -2),
-          //   left: this.style.left.slice(0, -2),
-          //   top: this.style.top.slice(0, -2),
-          //   width: this.style.width.slice(0, -2)
-          // }));
         });
       }
       if (true && "touch works on android too") {
@@ -576,13 +524,6 @@
           bcr = div.getBoundingClientRect();
           // reportError({ 'bcr': bcr, 'touchend': [ div.style.left, div.style.top ]});
           self.port.emit('request_position_save', constrainClosestEdges(bcr));
-          // self.port.emit('request_position_save', constrainClosestEdges({
-          //   // Remove trailing px substring.
-          //   height: Number.parseInt(this.style.height.slice(0, -2)),
-          //   left: Number.parseInt(this.style.left.slice(0, -2)),
-          //   top: Number.parseInt(this.style.top.slice(0, -2)),
-          //   width: Number.parseInt(this.style.width.slice(0, -2))
-          // }));
         });
         div.addEventListener('touchmove', function (e) {
           // if ((e.clientX - taExtensions.offsetTop) < taExtensions.offsetHeight * 0.9 || (e.clientX - taExtensions.offsetLeft) < taExtensions.offsetWidth * 0.9) {
@@ -605,7 +546,7 @@
           // if ((e.currentTarget == div)) {
           e.preventDefault();
           div.style.transition = '';
-          reportError({ 'mousedown': [ div.style.left, div.style.top ]});
+          // reportError({ 'mousedown': [ div.style.left, div.style.top ]});
           // }
         });
         div.addEventListener('mouseup', function (e) {
@@ -622,7 +563,7 @@
             width: this.style.width,
             height: this.style.height
           });
-          reportError({ 'mouseup': [ div.style.left, div.style.top ]});
+          // reportError({ 'mouseup': [ div.style.left, div.style.top ]});
           // }
         });
         div.addEventListener('mousemove', function (e) {
@@ -635,7 +576,7 @@
           if (e.buttons == 1/* && e.currentTarget === move*/) {
             div.style.left = (e.clientX - div.offsetWidth / 2) + 'px';
             div.style.top = (e.clientY - div.offsetHeight / 2) + 'px';
-            reportError({ 'mousemove': [ div.style.left, div.style.top ]});
+            // reportError({ 'mousemove': [ div.style.left, div.style.top ]});
           }
           // }
           // }
@@ -661,7 +602,7 @@
     // DEBUG_ADDON &&
     // console.error(new Error());
     // DEBUG_ADDON &&
-    reportError(exception);
+    // reportError(exception);
     // DEBUG_ADDON && console.error(exception);
     // DEBUG_ADDON && window.alert(exception.message + '\n\n' + exception.stack);
   }

@@ -84,7 +84,7 @@
             document.body.removeChild(div);
           });
           false && taExtensions.addEventListener('mousemove', function (e) {
-            reportError({ 'mousemove': [ div.style.left, div.style.top ]});
+            // reportError({ 'mousemove': [ div.style.left, div.style.top ]});
             if ((e.clientX - taExtensions.offsetTop) < taExtensions.offsetHeight * 0.9 || (e.clientX - taExtensions.offsetLeft) < taExtensions.offsetWidth * 0.9) {
               e.stopPropagation();
               e.preventDefault();
@@ -103,7 +103,7 @@
               div.style.left = (touchX - (((touchX - div.offsetLeft) > div.offsetWidth * 0.5) ? div.offsetWidth * 0.8 : div.offsetWidth * 0.2)) + 'px';
               div.style.top = (touchY - (((touchY - div.offsetTop) > div.offsetHeight * 0.5) ? div.offsetHeight * 0.8 : div.offsetHeight * 0.2)) + 'px';
             }
-            reportError({ 'touchmove': [ div.style.left, div.style.top ]});
+            // reportError({ 'touchmove': [ div.style.left, div.style.top ]});
           });
           div.style = 'top: 40%; left: 20%; position: fixed;';
           // Cannot have both resize and define width: 50%; height: 50%;
