@@ -6,13 +6,21 @@ label:not(.radio) {
 
 label.radio {
   margin-inline-start: 1em;
-  border: 1px solid;
-  padding-left: 0.5em;
+/*   border: 1px solid; */
+/*   padding-left: 0.5em; */
 }
 
 input:not([type=radio]), select {
   margin-inline-start: 1em;
 }
+
+.radio_item:not(:checked) {
+    visibility: hidden;
+}
+
+/* .radio_item:checked {
+    display: inline;
+} */
 
 p {
   font-style: italic;

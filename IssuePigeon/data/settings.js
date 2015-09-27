@@ -11,66 +11,33 @@
 // require is not available in content scripts.
 // let sp = require('sdk/simple-prefs');
 (function() {
-  var reportError = function(err, indent) {
-    const DEBUG_ADDON = true;
-    if (!DEBUG_ADDON) {
-      return;
-    }
-    if (typeof document != 'undefined') {
-      var box = document.querySelector('.err-box') || (function() {
-        var div = document.body.appendChild(document.createElement('div'));
-        var box = div.appendChild(document.createElement('span'));
-        box.className = 'err-box';
-        box.style.backgroundColor = 'mistyrose';
-        box.style.border = '1px dashed';
-        box.style.bottom = '2mm';
-        box.style.color = 'black';
-        box.style.fontSize = 'small';
-        box.style.height = '25%';
-        box.style.left = '2mm';
-        box.style.overflow = 'auto';
-        box.style.position = 'fixed';
-        box.style.resize = 'both';
-        box.style.width = '25%';
-        var close = div.appendChild(document.createElement('div'));
-        close.innerHTML = '&cross;';
-        close.style.position = 'fixed';
-        close.style.bottom = '2mm';
-        close.style.left = '2mm';
-        close.style.margin = '2mm';
-        // close.style.left = '0';
-        // close.style.bottom = '30%';
-        // close.style.position = 'fixed';
-        close.addEventListener('click', function (event) {
-          event.preventDefault();
-          document.body.removeChild(div);
-        });
-        return box;
-      })();
-      var entry = document.createElement('pre');
-      entry.textContent = (JSON.stringify(err, null, indent || 0));
-      if (box.firstElementChild) {
-        box.insertBefore(entry, box.firstElementChild);
-      }
-      else {
-        box.appendChild(entry);
-      }
-    }
-  };
+  let DEBUG_ADDON = false;
 
-  // reportError({ 'ready': 'whenever you are...' });
-  // self is undefined when running jpm test.
+  // self is undefined when using require in jpm test.
   (typeof self !== 'undefined') && self.port.on('load_settings', function(data) {
-    reportError(data, 2);
+    Array.prototype.forEach.call(document.querySelectorAll('div.settings'), function(setting) {
+      document.body.removeChild(setting);
+    });
     data.metadata.preferences.forEach(function (prefDefinition) {
       let content = document.querySelector('template.' + prefDefinition.type + '').content;
       let prefUI = document.importNode(content, "deep").firstElementChild;
       let label = prefUI.children[0];
-      let element = label.firstElementChild;
-      let description = prefUI.children[1];
-      label.firstChild.textContent = prefDefinition.title;
+      let element = prefUI.children[1];
+      let description = prefUI.children[2];
+      label.textContent = prefDefinition.title;
       description.textContent = prefDefinition.description;
       switch (prefDefinition.type) {
+        case "bool": {
+          element.checked = data.prefs[prefDefinition.name];
+          element.addEventListener('change', function(event) {
+            self.port.emit('save_setting', {
+              name: prefDefinition.name,
+              value: event.target.checked
+            });
+          });
+          element.name = prefDefinition.name;
+          break;
+        }
         case "string": {
           element.value = data.prefs[prefDefinition.name];
           element.addEventListener('change', function(event) {
@@ -79,8 +46,9 @@
               value: event.target.value
             });
           });
-        }
+          element.name = prefDefinition.name;
           break;
+        }
         case "menulist": {
           let content2 = document.querySelector('template.' + prefDefinition.type + '_item').content;
           prefDefinition.options.forEach(function (item) {
@@ -92,6 +60,7 @@
             }
             element.appendChild(prefUI2);
           });
+          element.name = prefDefinition.name;
           element.addEventListener('change', function(event) {
             self.port.emit('save_setting', {
               name: prefDefinition.name,
@@ -127,6 +96,6 @@
     });
   });
 
-  // self is undefined when running jpm test.
+  // self is undefined when using require in jpm test.
   (typeof self !== 'undefined') && self.port.emit('request_settings');
 })();

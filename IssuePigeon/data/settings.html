@@ -6,7 +6,7 @@
                 <meta name="description" content="Description of Add-on Settings">
                 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
                 <link rel="stylesheet" href="settings.css">
-                <!--                 <script src="settings.js"></script> -->
+<!--                 <script src="my-utils.js"></script> -->
         </head>
         <body role="application">
                 <!--                 <ul id="start_menu" class="menu">
@@ -28,39 +28,41 @@
                 <!-- radio -->
                 <!-- control -->
                 <template class="bool">
-                        <label>TITLE
-                                <input class="bool" type="checkbox"/>
-                        </label>
-                        <p>DESCRIPTION</p>
+                        <div class="bool settings">
+                                <label>TITLE
+                                </label>
+                                <input class="bool" name="PREF_NAME" type="checkbox"/>
+                                <p>DESCRIPTION</p>
+                        </div>
                 </template>
                 <template class="boolint">
-                        <input class="boolint" type="checkbox"/>
+                        <input class="boolint" name="PREF_NAME" type="checkbox"/>
                 </template>
                 <template class="integer">
-                        <input class="integer" type="number" step="1"/>
+                        <input class="integer" name="PREF_NAME" type="number" step="1"/>
                 </template>
                 <template class="string">
                         <div class="string settings">
                                 <label>TITLE
-                                        <input class="string" type="text"/>
                                 </label>
+                                <input class="string" name="PREF_NAME" type="text"/>
                                 <p>DESCRIPTION</p>
                         </div>
                 </template>
                 <template class="color">
-                        <input class="color" type="color"/>
+                        <input class="color" name="PREF_NAME" type="color"/>
                 </template>
                 <template class="file">
-                        <input class="file" type="file"/>
+                        <input class="file" name="PREF_NAME" type="file"/>
                 </template>
                 <template class="directory">
-                        <input class="directory" type="directory"/>
+                        <input class="directory" name="PREF_NAME" type="directory"/>
                 </template>
                 <template class="menulist">
                         <div class="menulist settings">
                                 <label>TITLE
-                                        <select class="menulist"></select>
                                 </label>
+                                <select class="menulist"></select>
                                 <p>DESCRIPTION</p>
                         </div>
                 </template>
@@ -70,18 +72,18 @@
                 <template class="radio">
                         <div class="radio settings">
                                 <label>TITLE
-                                        <span></span>
                                 </label>
+                                <span class="radio"></span>
                                 <p>DESCRIPTION</p>
                         </div>
                 </template>
                 <template class="radio_item">
                         <label class="radio">TITLE
-                                <input class="radio_item" type="radio"/>
+                                <input class="radio_item" name="PREF_NAME" type="radio"/>
                         </label>
                 </template>
                 <template class="control">
-                        <input class="control" type="button"/>
+                        <input class="control" name="PREF_NAME" type="button"/>
                 </template>
                 <template id="entry_template">
                         <div class="entry" id="COUCHDB DOC ID">

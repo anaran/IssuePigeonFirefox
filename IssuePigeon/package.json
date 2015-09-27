@@ -32,10 +32,18 @@
   },
   "preferences": [
     {
+      "description": "Diagnostic messages are displayed directly in the current browser tab. This can be useful when the add-on is not working as expected, but will be irritating in regular use.",
+      "hidden": false,
+      "name": "diagnostics_overlay",
+      "title": "Show Diagnostic Messages in Overlay",
+      "type": "bool",
+      "value": false
+    },
+    {
       "description": "This preference shall be hidden, except for debug purposes. It is changed by the user dragging the icon into place.",
       "hidden": false,
       "name": "position",
-      "title": "Style properties determining where icon is positioned in the browser window.",
+      "title": "Icon Positioning",
       "type": "string",
       "value": ""
     },

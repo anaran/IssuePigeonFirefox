@@ -33,6 +33,8 @@
       console.log('Logging enabled via debugger');
     const koPath = jpm ? '../data/known-origins.js' : 'data/known-origins.js';
     const ko = require(koPath);
+    const myCrPath = '../data/my-utils.js';
+    // const myu = require(myCrPath);
     const self = require('sdk/self');
     // Only available for options natively supported by firefox, i.e. in jpm.
     const metadata = lo.metadata;
@@ -143,36 +145,29 @@
     let worker, originPayload = JSON.stringify({ 'known': ko.knownOrigins, 'extensions': sp.prefs['KNOWN_SITES_EXTENSIONS'] }, null, 2);
     // tabs.activeTab.on('ready', function(tab) {
     tabs.on('ready', function(tab) {
-      worker = tab.attach({
-        // let worker = tabs.activeTab.attach({
-        // contentScriptFile: self.data.url('reportFeedbackInformation.js'),
-        contentScriptFile: [
-          './reportFeedbackInformation.js',
-          './extendKnownSites.js'
-        ],
-        onError: handleErrors
-      });
-      worker.port.on('help', function (data) {
-        let originallyActiveTab = tabs.activeTab;
-        if (helpTab) {
-          helpTab.activate();
-          helpTab.on('close', function() {
-            helpTab = false;
-              for (let t of tabs) {
-                if (t === originallyActiveTab) {
-                  originallyActiveTab.activate();
-                  break;
-                }
-              }
-          });
-        }
-        else {
-          tabs.open({
-            url: data,
-            onReady: function(tab) {
-              helpTab = tab;
-            },
-            onClose: function() {
+      tab.on('activate', function(tab) {
+        worker = tab.attach({
+          // let worker = tabs.activeTab.attach({
+          // contentScriptFile: self.data.url('reportFeedbackInformation.js'),
+          contentScriptFile: [
+            /*'./settings.js',*/
+            './reportFeedbackInformation.js',
+            /*'./extendKnownSites.js',*/
+            './diagnostics_overlay.js'
+          ],
+          onError: handleErrors
+        });
+        // tab.on('activate', function() {
+        worker.port.emit('updateIconPosition', {
+          position: sp.prefs['position'] && JSON.parse(sp.prefs['position']) || {}
+        });
+        // });
+        worker.port.on('help', function (data) {
+          // handleErrors(myu);
+          let originallyActiveTab = tabs.activeTab;
+          if (helpTab) {
+            helpTab.activate();
+            helpTab.on('close', function() {
               helpTab = false;
               for (let t of tabs) {
                 if (t === originallyActiveTab) {
@@ -180,159 +175,162 @@
                   break;
                 }
               }
-            }
-          });
-        }
-      });
-      worker.port.on('save', function (data) {
-        saveKnownSitesExtensions(data);
-      });
-      worker.port.on('settings', function (data) {
-        let originallyActiveTab = tabs.activeTab;
-        if (settingsTab) {
-          settingsTab.activate();
-          settingsTab.on('close', function() {
-            settingsTab = false;
-            for (let t of tabs) {
-              if (t === originallyActiveTab) {
-                originallyActiveTab.activate();
-                break;
+            });
+          }
+          else {
+            tabs.open({
+              url: data,
+              onReady: function(tab) {
+                helpTab = tab;
+              },
+              onClose: function() {
+                helpTab = false;
+                for (let t of tabs) {
+                  if (t === originallyActiveTab) {
+                    originallyActiveTab.activate();
+                    break;
+                  }
+                }
               }
-            }
-          });
-        }
-        else {
-          tabs.open({
-            // inNewWindow: true,
-            url: './settings.html',
-            onReady: function(tab) {
-              settingsTab = tab;
-              let worker = tab.attach({
-                contentScriptFile: [
-                  './settings.js'
-                ],
-                onError: handleErrors
-              });
-              worker.port.on('request_settings', function (data) {
-                worker.port.emit('load_settings', {
-                  metadata: metadata,
-                  prefs: sp.prefs
-                });
-              });
-              worker.port.on('save_setting', function (data) {
-                sp.prefs[data.name] = data.value;
-                // handleErrors(data);
-              });
-            },
-            onClose: function() {
+            });
+          }
+        });
+        worker.port.on('save', function (data) {
+          saveKnownSitesExtensions(data);
+        });
+        worker.port.on('settings', function (data) {
+          let originallyActiveTab = tabs.activeTab;
+          let settingsWorker;
+          if (settingsTab) {
+            settingsTab.activate();
+            settingsTab.on('close', function() {
               settingsTab = false;
-              let me = originallyActiveTab.index;
               for (let t of tabs) {
                 if (t === originallyActiveTab) {
                   originallyActiveTab.activate();
                   break;
                 }
               }
-            }});
-        }
-      });
-      worker.port.on('unsupported', function (data) {
-        let title = self.name + ': Cannot fly home';
-        notifications.notify({
-          title: title,
-          text: "\nClick to report this\n" + data,
-          data: qs.stringify({
-            title:
-            title + ' in ' + self.version,
-            body:
-            "(Please review for any private data you may want to remove before submitting)\n\n" + data
-          }),
-          onClick: function (data) {
+            });
+            // settingsWorker.port.emit('load_settings', {
+            //   metadata: metadata,
+            //   prefs: sp.prefs
+            // });
+          }
+          else {
             tabs.open({
-              inNewWindow: true,
-              url: 'https://github.com/anaran/IssuePigeonFirefox/issues/new?' + data,
+              // inNewWindow: true,
+              url: './settings.html',
+              onReady: function(tab) {
+                settingsTab = tab;
+                settingsWorker = tab.attach({
+                  contentScriptFile: [
+                    './settings.js',
+                    './diagnostics_overlay.js'
+                  ],
+                  onError: handleErrors
+                });
+                settingsWorker.port.on('request_settings', function (data) {
+                  settingsWorker.port.emit('load_settings', {
+                    metadata: metadata,
+                    prefs: sp.prefs
+                  });
+                  if (sp.prefs['diagnostics_overlay']) {
+                    settingsWorker.port.emit('reportError', {
+                      err: sp.prefs,
+                      indent: 2
+                    });
+                  }
+                });
+                settingsWorker.port.on('save_setting', function (data) {
+                  sp.prefs[data.name] = data.value;
+                  // Need a way to address pref selection in UI, e.g.
+                  // label.radio input[name="sdk.console.logLevel"][value="off"]
+                  // This works:
+                  // document.querySelector('.menulist[name*="sdk"]').value = "error"
+                  // document.querySelector('label.radio input[name="sdk.console.logLevel"][value="all"]').checked = true;
+                  settingsWorker.port.emit('load_settings', {
+                    metadata: metadata,
+                    prefs: sp.prefs
+                  });
+                  if (sp.prefs['diagnostics_overlay']) {
+                    settingsWorker.port.emit('reportError', {
+                      err: sp.prefs,
+                      indent: 2
+                    });
+                  }
+                });
+                sp.on('position', function(prefName) {
+                  settingsWorker.port.emit('load_settings', {
+                    metadata: metadata,
+                    prefs: sp.prefs
+                  });
+                  if (sp.prefs['diagnostics_overlay']) {
+                    settingsWorker.port.emit('reportError', {
+                      err: sp.prefs,
+                      indent: 2
+                    });
+                  }
+                });
+              },
               onClose: function() {
-                require("sdk/tabs").activeTab.activate();
+                settingsTab = false;
+                // NOTE: See https://bugzilla.mozilla.org/show_bug.cgi?id=1208499
+                // let me = originallyActiveTab.index;
+                for (let t of tabs) {
+                  if (t === originallyActiveTab) {
+                    originallyActiveTab.activate();
+                    break;
+                  }
+                }
               }});
-          }});
-      });
-      // tab.on('ready', function(tab) {
-      //   // }
-      // Checking tab.readyState causes CPOW
-      // if (tab.readyState == 'complete') {
-      worker.port.on('request_feedback', function (data) {
-        worker.port.emit('show_feedback', {
-          'extensions': sp.prefs['KNOWN_SITES_EXTENSIONS'],
-          'icon': metadata.icon,
-          'known': ko.knownOrigins,
-          'position': sp.prefs['position'] && JSON.parse(sp.prefs['position']) || {}
+          }
         });
-      });
-      worker.port.on('request_options', function (data) {
-        worker.port.emit('show_options', {
-          'known': ko.knownOrigins,
-          'extensions': sp.prefs['KNOWN_SITES_EXTENSIONS']
+        worker.port.on('unsupported', function (data) {
+          let title = self.name + ': Cannot fly home';
+          notifications.notify({
+            title: title,
+            text: "\nClick to report this\n" + data,
+            data: qs.stringify({
+              title:
+              title + ' in ' + self.version,
+              body:
+              "(Please review for any private data you may want to remove before submitting)\n\n" + data
+            }),
+            onClick: function (data) {
+              tabs.open({
+                inNewWindow: true,
+                url: 'https://github.com/anaran/IssuePigeonFirefox/issues/new?' + data,
+                onClose: function() {
+                  require("sdk/tabs").activeTab.activate();
+                }});
+            }});
         });
+        // tab.on('ready', function(tab) {
+        //   // }
+        // Checking tab.readyState causes CPOW
+        // if (tab.readyState == 'complete') {
+        worker.port.on('request_feedback', function (data) {
+          worker.port.emit('show_feedback', {
+            'extensions': sp.prefs['KNOWN_SITES_EXTENSIONS'],
+            'icon': metadata.icon,
+            'known': ko.knownOrigins,
+            'position': sp.prefs['position'] && JSON.parse(sp.prefs['position']) || {}
+          });
+        });
+        worker.port.on('request_options', function (data) {
+          worker.port.emit('show_options', {
+            'known': ko.knownOrigins,
+            'extensions': sp.prefs['KNOWN_SITES_EXTENSIONS']
+          });
+        });
+        worker.port.on('request_position_save', function (data) {
+          // handleErrors(data);
+          sp.prefs['position'] = JSON.stringify(data);
+        });
+        // };
       });
-      worker.port.on('request_position_save', function (data) {
-        // handleErrors(data);
-        sp.prefs['position'] = JSON.stringify(data);
-      });
-      // };
     });
-    // Handle Android menu entry click using nativewindow.js
-    // recent is null in Thunderbird 38.0b1
-    // if (recent && recent.NativeWindow) {
-    //   let nw = require('./nativewindow');
-    //   nw.addContextMenu({
-    //     name: myTitle,
-    //     context: nw.SelectorContext('a'),
-    //     callback: function(target) {
-    //       let worker = tabs.activeTab.attach({
-    //         // contentScriptFile: self.data.url('reportFeedbackInformation.js'),
-    //         contentScriptFile: './reportFeedbackInformation.js',
-    //         onMessage: reportUnsupportedSite
-    //         // TODO Implement this as clickable issue reporting notification
-    //         // onError:
-    //       });
-    //     }});
-    //   nw.addContextMenu({
-    //     name: 'Extend ' + myTitle,
-    //     context: nw.SelectorContext('a'),
-    //     callback: function(target) {
-    //       let worker = tabs.activeTab.attach({
-    //         // contentScriptFile: self.data.url('extendKnownSites.js'),
-    //         contentScriptFile: './extendKnownSites.js',
-    //         onMessage: handleMessages
-    //       });
-    //       worker.port.emit('show', originPayload);
-    //     }});
-    // }
-    // // Standard add-on SDK menu entry click handling
-    // else {
-    //   let cm = require("sdk/context-menu");
-    //   pigeonMenuItem = cm.Item({
-    //     label: myTitle,
-    //     context: cm.URLContext("*"),
-    //     // contentScriptFile: self.data.url('reportFeedbackInformation.js'),
-    //     contentScriptFile: './reportFeedbackInformation.js',
-    //     // data property needs to be kept in sync with KNOWN_SITES_EXTENSIONS preference.
-    //     // It seems to be the only way to pass data from the Add-on script to the content-script for a specific menu item.
-    //     data: originPayload,
-    //     onMessage: reportUnsupportedSite
-    //   });
-    //   extendMenuItem = cm.Item({
-    //     label: 'Extend ' + myTitle,
-    //     context: cm.URLContext("*"),
-    //     // contentScript: 'console.log("Extend clicked");',
-    //     // contentScriptFile: self.data.url('extendKnownSites.js'),
-    //     contentScriptFile: './extendKnownSites.js',
-    //     // data property needs to be kept in sync with KNOWN_SITES_EXTENSIONS preference.
-    //     // It seems to be the only way to pass data from the Add-on script to the content-script for a specific menu item.
-    //     data: originPayload,
-    //     onMessage: handleMessages
-    //   });
-    // }
     // TODO Place following code where timed section should end.
     if (console.timeEnd) {
       DEBUG_ADDON &&

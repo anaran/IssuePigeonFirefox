@@ -16,27 +16,6 @@
 (function() {
   let DEBUG_ADDON = false;
   try {
-    var reportError = function(err) {
-      if (typeof document != 'undefined') {
-        var box = document.querySelector('.err-box') || (function() {
-          var box = document.createElement('div');
-          box.className = 'err-box';
-          box.style = 'right: 2mm; display: inline; font-size: small; position: fixed; bottom: 2mm; left: 2mm; backgroundColor: mistyrose; color: black';
-          var close = box.appendChild(document.createElement('span'));
-          close.innerHTML = '&cross;';
-          close.style.padding = '2mm';
-          close.addEventListener('click', function (event) {
-            event.preventDefault();
-            document.body.removeChild(box);
-          });
-          document.body.appendChild(box);
-          return box;
-        })();
-        var entry = document.createElement('span');
-        entry.textContent = (JSON.stringify(err));
-        box.insertBefore(entry, box.firstElementChild);
-      }
-    };
     // NOTE Set "DEBUG_ADDON = true" in the debugger before continuing to get console messages logged.
     // Make sure option "Console Logging Level" is not set to "off".
     //

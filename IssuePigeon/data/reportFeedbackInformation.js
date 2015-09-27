@@ -358,14 +358,9 @@
       //       knownSites[value].reporter(match[0]);
       document.body.appendChild(div);
       DEBUG_ADDON && console.error('self.options received', JSON.stringify(self.options, null, 2));
-      // NOTE Make sure to set element content before getting its client rect!
-      div.style.opacity = 0;
-      div.style.transition = 'opacity 0.5s linear 0s';
-      // div.style.transition = 'left 0.5s linear 0s, top 0.5s linear 0s';
-      // div.style.top = (window.innerHeight - div.getBoundingClientRect().height) / 2 + 'px';
-      // div.style.left = "-40em";
-      window.requestAnimationFrame(function(domHighResTimeStamp) {
-        div.style.opacity = 0.7;
+      let updateIconPosition = function(data) {
+        div.style.transition = 'opacity 2s linear 0s';
+        div.style.opacity = 0;
         let keys = Object.keys(data.position);
         if (keys.length == 2) {
           keys.forEach(function(prop) {
@@ -376,7 +371,16 @@
           div.style.top = (window.innerHeight - div.getBoundingClientRect().height) / 2 + 'px';
           div.style.left = (window.innerWidth - div.getBoundingClientRect().width) / 2 + 'px';
         }
-      });
+        // div.style.transition = 'left 0.5s linear 0s, top 0.5s linear 0s';
+        // div.style.top = (window.innerHeight - div.getBoundingClientRect().height) / 2 + 'px';
+        // div.style.left = "-40em";
+        window.requestAnimationFrame(function(domHighResTimeStamp) {
+          div.style.opacity = 0.7;
+        });
+      };
+      updateIconPosition(data);
+      // self.port.on('updateIconPosition', updateIconPosition);
+      // NOTE Make sure to set element content before getting its client rect!
       DEBUG_ADDON &&
         console.log(div.getBoundingClientRect());
       if (true) {
@@ -460,10 +464,12 @@
         else {
           props.top = bcr.top;
         }
-        reportError({bcr: bcr, props: props});
+        // reportError({bcr: bcr, props: props});
         return props;
       };
-      reportError({"'draggable' in div": 'draggable' in div});
+      // NOTE: See 
+      // [1207595 – draggable APIs should not exist on elements until drag and drop is implemented on Android](https://bugzil.la/1207595)
+      // reportError({"'draggable' in div": 'draggable' in div});
       if ('draggable' in div && "drag and drop") {
         // '<meta name="viewport" content="width=device-width,user-scalable=no">';
         // let meta = document.createElement('meta');
