@@ -50,9 +50,10 @@
                        var close = div.appendChild(document.createElement('span'));
                        // close.href = 'Close Overlay';
                        close.innerHTML = '&times;';
-                       close.style.margin = '1mm';
+                       close.style.fontSize = 'x-large';
+                       close.style.margin = '0';
                        close.style.position = 'fixed';
-                       close.style.left = '2mm';
+                       close.style.left = '4mm';
                        close.style.textDecoration = 'none';
                        close.style.top = '75%';
                        // close.style.left = '0';

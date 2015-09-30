@@ -5,12 +5,10 @@ label:not(.radio) {
 }
 
 label.radio {
-  margin-inline-start: 1em;
-/*   border: 1px solid; */
-/*   padding-left: 0.5em; */
+  margin: 0;
 }
 
-input:not([type=radio]), select {
+input, select {
   margin-inline-start: 1em;
 }
 

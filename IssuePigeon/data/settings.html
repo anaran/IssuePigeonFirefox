@@ -2,16 +2,15 @@
 <html>
         <head>
                 <meta charset="utf-8">
-                <title>Settings</title>
+                <title data-l10n-id="settings_title">Settings</title>
                 <meta name="description" content="Description of Add-on Settings">
                 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
                 <link rel="stylesheet" href="settings.css">
-<!--                 <script src="my-utils.js"></script> -->
+                <!--                 <script src="my-utils.js"></script> -->
         </head>
         <body role="application">
-                <!--                 <ul id="start_menu" class="menu">
-<li><a id="start_now" href="start_now">start now</a></li>
-</ul> -->
+                <h1 data-l10n-id="settings_title">Settings</h1>
+                <p data-l10n-id="addon_description">DESCRIPTION</p>
                 <!-- Taken from https://developer.mozilla.org/en-US/Add-ons/SDK/High-Level_APIs/simple-prefs -->
                 <!-- tt = document.querySelectorAll('h4#Preference_Types~table.standard-table tr') -->
                 <!-- Array.prototype.forEach.call(tt, function(v, i, obj) { console.log(v.firstElementChild.textContent); }); -->
@@ -29,10 +28,10 @@
                 <!-- control -->
                 <template class="bool">
                         <div class="bool settings">
-                                <label>TITLE
+                                <label data-l10n-id="added by setting.js">TITLE
                                 </label>
                                 <input class="bool" name="PREF_NAME" type="checkbox"/>
-                                <p>DESCRIPTION</p>
+                                <p data-l10n-id="added by setting.js">DESCRIPTION</p>
                         </div>
                 </template>
                 <template class="boolint">
@@ -71,16 +70,14 @@
                 </template>
                 <template class="radio">
                         <div class="radio settings">
-                                <label>TITLE
-                                </label>
+                                <label>TITLE</label>
                                 <span class="radio"></span>
                                 <p>DESCRIPTION</p>
                         </div>
                 </template>
                 <template class="radio_item">
-                        <label class="radio">TITLE
-                                <input class="radio_item" name="PREF_NAME" type="radio"/>
-                        </label>
+                        <input class="radio_item" id="PREF_NAME" name="PREF_NAME" type="radio"/>
+                        <label for="PREF_NAME" class="radio">TITLE</label>
                 </template>
                 <template class="control">
                         <input class="control" name="PREF_NAME" type="button"/>

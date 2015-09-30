@@ -84,6 +84,8 @@
     const notifications = require("sdk/notifications");
     const qs = require("sdk/querystring");
     const tabs = require("sdk/tabs");
+    var _ = require("sdk/l10n").get;
+    // const ll = require("sdk/l10n/locale");
     let settingsTab, helpTab;
     let sp = require('sdk/simple-prefs');
     sp.prefs['sdk.console.logLevel'] = 'info';
@@ -163,7 +165,7 @@
         });
         // });
         worker.port.on('help', function (data) {
-          // handleErrors(myu);
+          // handleErrors({'settings_title': _('settings_title')});
           let originallyActiveTab = tabs.activeTab;
           if (helpTab) {
             helpTab.activate();
@@ -212,10 +214,6 @@
                 }
               }
             });
-            // settingsWorker.port.emit('load_settings', {
-            //   metadata: metadata,
-            //   prefs: sp.prefs
-            // });
           }
           else {
             tabs.open({
@@ -230,9 +228,14 @@
                   ],
                   onError: handleErrors
                 });
+                let localizedPreferences = metadata.preferences.map(function(pref) {
+                  pref.title = _(pref.name + '_title');
+                  pref.description = _(pref.name + '_description');
+                  return pref;
+                });
                 settingsWorker.port.on('request_settings', function (data) {
                   settingsWorker.port.emit('load_settings', {
-                    metadata: metadata,
+                    localizedPreferences: localizedPreferences,
                     prefs: sp.prefs
                   });
                   if (sp.prefs['diagnostics_overlay']) {
@@ -250,7 +253,7 @@
                   // document.querySelector('.menulist[name*="sdk"]').value = "error"
                   // document.querySelector('label.radio input[name="sdk.console.logLevel"][value="all"]').checked = true;
                   settingsWorker.port.emit('load_settings', {
-                    metadata: metadata,
+                    localizedPreferences: localizedPreferences,
                     prefs: sp.prefs
                   });
                   if (sp.prefs['diagnostics_overlay']) {
@@ -262,7 +265,7 @@
                 });
                 sp.on('position', function(prefName) {
                   settingsWorker.port.emit('load_settings', {
-                    metadata: metadata,
+                    localizedPreferences: localizedPreferences,
                     prefs: sp.prefs
                   });
                   if (sp.prefs['diagnostics_overlay']) {

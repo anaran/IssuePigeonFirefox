@@ -18,7 +18,7 @@
     Array.prototype.forEach.call(document.querySelectorAll('div.settings'), function(setting) {
       document.body.removeChild(setting);
     });
-    data.metadata.preferences.forEach(function (prefDefinition) {
+    data.localizedPreferences.forEach(function (prefDefinition) {
       let content = document.querySelector('template.' + prefDefinition.type + '').content;
       let prefUI = document.importNode(content, "deep").firstElementChild;
       let label = prefUI.children[0];
@@ -26,6 +26,8 @@
       let description = prefUI.children[2];
       label.textContent = prefDefinition.title;
       description.textContent = prefDefinition.description;
+      // label.setAttribute('data-l10n-id', prefDefinition.name + '_title');
+      // description.setAttribute('data-l10n-id', prefDefinition.name + '_description');
       switch (prefDefinition.type) {
         case "bool": {
           element.checked = data.prefs[prefDefinition.name];
@@ -72,12 +74,15 @@
         case "radio": {
           let content2 = document.querySelector('template.' + prefDefinition.type + '_item').content;
           prefDefinition.options.forEach(function (item) {
-            let prefUI2 = document.importNode(content2, "deep").firstElementChild;
-            let label = prefUI2.firstChild
-            label.textContent = item.label;
-            let radio = prefUI2.firstElementChild;
+            let prefUI2 = document.importNode(content2, "deep");
+            let radio = prefUI2.children[0];
+            let label = prefUI2.children[1];
             radio.value = item.value;
+            radio.id = prefDefinition.name + '.' + item.value;
             radio.name = prefDefinition.name;
+            label.textContent = item.label;
+            // O_Oh
+            label.htmlFor = prefDefinition.name + '.' + item.value;
             if (data.prefs[prefDefinition.name] == radio.value) {
               radio.checked = true;
             }
@@ -95,7 +100,6 @@
       document.body.appendChild(prefUI);
     });
   });
-
   // self is undefined when using require in jpm test.
   (typeof self !== 'undefined') && self.port.emit('request_settings');
 })();

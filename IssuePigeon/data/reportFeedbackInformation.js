@@ -392,9 +392,10 @@
         menu.style.borderRadius = '3px';
         menu.style.borderColor = menu.style.color;
         menu.style.border = '2px solid';
-        var action = menu.appendChild(document.createElement('div')).appendChild(document.createElement('span'));
+        var action = menu.appendChild(document.createElement('div')).appendChild(document.createElement('a'));
         // action.textContent = self.options.metadata.title;
         action.textContent = 'Fly';
+        action.href = 'Fly';
         // action.style.backgroundColor = (efpBC == 'transparent' ? bodyBC : efpBC);
         // action.title = 'Report issue based on tab and selection(s)';
         // NOTE: Use margin, instead of padding, to make link hard to hit by accident.
@@ -402,16 +403,16 @@
         // action.style.position = 'relative';
         // action.style.top = '0';
         // action.style.left = '0';
-        // action.href = '';
         action.addEventListener('click', function (event) {
           console.log("selection", window.getSelection().toString());
           event.preventDefault();
           event.stopPropagation();
           reportFeedbackInformation(data);
         });
-        var help = menu.appendChild(document.createElement('div')).appendChild(document.createElement('span'));
+        var help = menu.appendChild(document.createElement('div')).appendChild(document.createElement('a'));
         help.style.display = 'inline-block';
         help.textContent = 'Help';
+        help.href = 'Help';
         // help.style.padding = '2mm';
         help.addEventListener('click', function (event) {
           event.preventDefault();
@@ -419,9 +420,10 @@
           self.port.emit('help', '../data/HELP.html');
           // document.body.removeChild(div);
         });
-        var settings = menu.appendChild(document.createElement('div')).appendChild(document.createElement('span'));
+        var settings = menu.appendChild(document.createElement('div')).appendChild(document.createElement('a'));
         settings.style.display = 'inline-block';
         settings.textContent = 'Settings';
+        settings.href = 'Settings';
         // settings.style.padding = '2mm';
         settings.addEventListener('click', function (event) {
           event.preventDefault();
