@@ -133,7 +133,7 @@
               for (var i = 0; i < s.rangeCount; i++) {
                 var rc = s.getRangeAt(i).cloneContents();
                 rc.querySelectorAll
-                && Array.prototype.forEach.call(rc.querySelectorAll('a[href]'), function (value) {
+                  && Array.prototype.forEach.call(rc.querySelectorAll('a[href]'), function (value) {
                   rangeLinks[value.href] = true;
                 });
               }
@@ -337,14 +337,18 @@
       div.style.position = 'fixed';
       // console.log(efp, window.getComputedStyle(efp));
       // div.style.background = 'transparent';
-      var bodyBC = window.getComputedStyle(document.body).backgroundColor;
-      var efpBC = window.getComputedStyle(efp).backgroundColor;
+      let bodyBC = 'white';
+      let efpBC = 'transparent';
+      if (document && 'body' in document) {
+        window.getComputedStyle(document.body).backgroundColor;
+        window.getComputedStyle(efp).backgroundColor;
+      }
+      div.style.backgroundColor = (efpBC == 'transparent' ? bodyBC : efpBC);
       div.style.color = window.getComputedStyle(efp).color;
       div.style.padding = '0';
       div.style.width = '48px';
       div.style.height = '48px';
       div.style.fontSize = 'large';
-      div.style.backgroundColor = (efpBC == 'transparent' ? bodyBC : efpBC);
       div.style.backgroundImage = 'url('+data.icon+')';
       div.style.borderRadius = '3px';
       div.style.borderColor = div.style.color;
@@ -356,7 +360,9 @@
       div.id = 'reportFeedbackInformation';
       // window.alert(JSON.stringify(match, Object.getOwnPropertyNames(match), 2));
       //       knownSites[value].reporter(match[0]);
-      document.body.appendChild(div);
+      if (document && 'body' in document) {
+        document.body.appendChild(div);
+      }
       DEBUG_ADDON && console.error('self.options received', JSON.stringify(self.options, null, 2));
       let updateIconPosition = function(data) {
         div.style.transition = 'opacity 2s linear 0s';
@@ -417,7 +423,7 @@
         help.addEventListener('click', function (event) {
           event.preventDefault();
           event.stopPropagation();
-          self.port.emit('help', '../data/HELP.html');
+          self.port.emit('help');
           // document.body.removeChild(div);
         });
         var settings = menu.appendChild(document.createElement('div')).appendChild(document.createElement('a'));

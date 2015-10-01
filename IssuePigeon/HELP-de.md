@@ -9,7 +9,7 @@ It will pre-fill bugreports or issue forms with text and feature any
 referenced links based on text selections you make prior to clicking
 the `Issue Pigeon` context menu entry.
 
-## Usage
+## Verwendung
 
 Basic usage is described above.
 
@@ -23,13 +23,13 @@ your own JSON declarations. Declarations will be verified with
 
 A Help link is also provided, pointing to this user documentation.
 
-## Feedback
+## Rückmeldungen
 
 You will be given the opportunity to open github issues (via clickable
 notifications) when `Issue Pigeon` cannot find a way to report your
 issue or detects other problems.
 
-## Contributing
+## Beiträge
 
-See [README.md](./README.html), contribute at
-[github](https://github.com/anaran/IssuePigeonFirefox/blob/master/README.md)
+See [README-de.md](./README-de.html), trage in
+[github](https://github.com/anaran/IssuePigeonFirefox/blob/master/README-de.md) dazu bei.

@@ -66,7 +66,7 @@
       "value": ""
     },
     {
-      "description": "User-defined extensions to known sites",
+      "description": "User-defined extensions to known sites. By turning on \"Show Diagnostic Messages in Overlay\" you can copy/paste one of the definitions under the \"known\" field here and edit it for your needs."
       "hidden": false,
       "name": "KNOWN_SITES_EXTENSIONS",
       "title": "User-defined extensions to known sites",

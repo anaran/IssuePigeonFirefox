@@ -182,7 +182,7 @@
           }
           else {
             tabs.open({
-              url: data,
+              url: _('help_path'),
               onReady: function(tab) {
                 helpTab = tab;
               },
@@ -237,15 +237,16 @@
                 });
                 settingsWorker.port.on('request_settings', function (data) {
                   settingsWorker.port.emit('load_settings', {
+                    known: sp.prefs['diagnostics_overlay'] && ko.knownOrigins,
                     localizedPreferences: localizedPreferences,
                     prefs: sp.prefs
                   });
-                  if (sp.prefs['diagnostics_overlay']) {
-                    settingsWorker.port.emit('reportError', {
-                      err: sp.prefs,
-                      indent: 2
-                    });
-                  }
+                  // if (sp.prefs['diagnostics_overlay']) {
+                  //   settingsWorker.port.emit('reportError', {
+                  //     err: sp.prefs,
+                  //     indent: 2
+                  //   });
+                  // }
                 });
                 settingsWorker.port.on('save_setting', function (data) {
                   sp.prefs[data.name] = data.value;
@@ -255,27 +256,29 @@
                   // document.querySelector('.menulist[name*="sdk"]').value = "error"
                   // document.querySelector('label.radio input[name="sdk.console.logLevel"][value="all"]').checked = true;
                   settingsWorker.port.emit('load_settings', {
+                    known: sp.prefs['diagnostics_overlay'] && ko.knownOrigins,
                     localizedPreferences: localizedPreferences,
                     prefs: sp.prefs
                   });
-                  if (sp.prefs['diagnostics_overlay']) {
-                    settingsWorker.port.emit('reportError', {
-                      err: sp.prefs,
-                      indent: 2
-                    });
-                  }
+                  // if (sp.prefs['diagnostics_overlay']) {
+                  //   settingsWorker.port.emit('reportError', {
+                  //     err: sp.prefs,
+                  //     indent: 2
+                  //   });
+                  // }
                 });
                 sp.on('position', function(prefName) {
                   settingsWorker.port.emit('load_settings', {
+                    known: sp.prefs['diagnostics_overlay'] && ko.knownOrigins,
                     localizedPreferences: localizedPreferences,
                     prefs: sp.prefs
                   });
-                  if (sp.prefs['diagnostics_overlay']) {
-                    settingsWorker.port.emit('reportError', {
-                      err: sp.prefs,
-                      indent: 2
-                    });
-                  }
+                  // if (sp.prefs['diagnostics_overlay']) {
+                  //   settingsWorker.port.emit('reportError', {
+                  //     err: sp.prefs,
+                  //     indent: 2
+                  //   });
+                  // }
                 });
               },
               onClose: function() {

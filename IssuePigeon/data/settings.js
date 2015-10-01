@@ -42,6 +42,18 @@
         }
         case "string": {
           element.textContent = data.prefs[prefDefinition.name];
+          // NOTE: Thanks
+          // https://github.com/jrburke/gaia/commit/204a4b0c55eafbb20dfaa233fbbf2579a8f81915
+          element.addEventListener('paste', function(event) {
+            event.preventDefault();
+            var text = event.clipboardData.getData('text/plain');
+
+            // Only insert if text. If no text, the execCommand fails with an
+            // error.
+            if (text) {
+              document.execCommand('insertText', false, text);
+            }
+          });
           element.addEventListener('blur', function(event) {
             try {
               // parent.window.reportError(event.target);
@@ -105,6 +117,10 @@
         }
       }
       document.body.appendChild(prefUI);
+    });
+    data.prefs['diagnostics_overlay'] && window.showDiagnosticsOverlay({
+      err: data,
+      indent: 2
     });
   });
   // self is undefined when using require in jpm test.

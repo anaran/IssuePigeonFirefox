@@ -75,6 +75,11 @@
         // "help": "https://github.com/marijnh/CodeMirror/blob/master/CONTRIBUTING.md#submitting-bug-reports",
         report: 'https://github.com/marijnh/CodeMirror/issues/new'
       },
+      'resource://issue-pigeon-at-addons-dot-mozilla-dot-org': {
+        type: 'github',
+        help: "https://github.com/anaran/LastScrollChrome/blob/master/contributing.md",
+        report: 'https://github.com/anaran/IssuePigeonFirefox/issues/new'
+      },
       'https://en.wikipedia.org': {
         help: 'https://en.wikipedia.org/wiki/Wikipedia:Contact_us_-_Readers',
         type: 'wikipedia',
