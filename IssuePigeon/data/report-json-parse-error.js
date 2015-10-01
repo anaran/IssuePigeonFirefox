@@ -7,8 +7,8 @@
 let reportError = function (element) {
   var DEBUG = false;
   // window.scrollTo(0, 0);
-  for (var oldText of element.querySelectorAll('div.report-json-error')) {
-    element.removeChild(oldText);
+  for (var oldText of document.body.querySelectorAll('div.report-json-error')) {
+    document.body.removeChild(oldText);
   }
   DEBUG && console.log(element);
   var txt = element.textContent || element.value;
@@ -94,6 +94,7 @@ let reportError = function (element) {
     download.textContent = 'Download exported data';
     div.appendChild(download);
     infoDiv.appendChild(div);
+    return false;
   } catch (e) {
     var reportProperties = function (propArray) {
       JSON.stringify(propArray.map(function (expression) {
@@ -193,6 +194,7 @@ let reportError = function (element) {
     info.cols = Math.max.apply(null, info.value.split(/\n/).map(function (line) {
       return line.length;
     }));
+    return true;
   }
 };
 // parent.window.reportError = reportError;

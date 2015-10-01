@@ -47,7 +47,6 @@
           element.addEventListener('paste', function(event) {
             event.preventDefault();
             var text = event.clipboardData.getData('text/plain');
-
             // Only insert if text. If no text, the execCommand fails with an
             // error.
             if (text) {
@@ -56,7 +55,9 @@
           });
           element.addEventListener('blur', function(event) {
             try {
-              // parent.window.reportError(event.target);
+              if (event.target.textContent.trim().length == 0) {
+                event.target.textContent = "{}";
+              }
               event.target.textContent = JSON.stringify(JSON.parse(event.target.textContent), null, 2);
               self.port.emit('save_setting', {
                 name: prefDefinition.name,

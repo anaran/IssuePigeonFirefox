@@ -32,8 +32,8 @@
         box.style.top = '75%';
         box.addEventListener('click', function (event) {
           // ~Don't cancel default, like text selection or double click.~
-          // event.preventDefault();
-          // event.stopPropagation();
+          event.preventDefault();
+          event.stopPropagation();
           if (box.style.right == '2mm') {
             box.style.right = '75%';
             box.style.top = '75%';
