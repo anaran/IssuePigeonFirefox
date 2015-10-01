@@ -62,12 +62,6 @@
     // let PigeonDispatcher object is undefined
     // console.log('rfi.PigeonDispatcher', rfi.PigeonDispatcher);
     assert.ok(rfi.reportFeedbackInformation(originPayload, testLocation), "reportFeedbackInformation shows no runtime errors");
-    const eksPath = jpm ? '../data/extendKnownSites' : 'data/extendKnownSites';
-    let eks = require(eksPath);
-    assert.notEqual(typeof eks, "undefined", "undefined !== require('"+eksPath+"')");
-    // Prints source code of function nicely!
-    // console.log('eks.showKnownSitesExtensions.toString()', eks.showKnownSitesExtensions.toString());
-    assert.ok(eks.showKnownSitesExtensions(originPayload), "eks.showKnownSitesExtensions shows no runtime errors");
     const settingsPath = jpm ? '../data/settings' : 'data/settings';
     let settings = require(settingsPath);
     assert.notEqual(typeof settings, "undefined", "undefined !== require('"+settingsPath+"')");

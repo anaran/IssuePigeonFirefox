@@ -151,10 +151,7 @@
           // let worker = tabs.activeTab.attach({
           // contentScriptFile: self.data.url('reportFeedbackInformation.js'),
           contentScriptFile: [
-            /*'./settings.js',*/
             './reportFeedbackInformation.js',
-            /*'./report-json-parse-error.js',
-          './extendKnownSites.js',*/
             './diagnostics_overlay.js'
           ],
           onError: handleErrors
@@ -241,6 +238,7 @@
                 });
                 settingsWorker.port.on('save_setting', function (data) {
                   sp.prefs[data.name] = data.value;
+                  // NOTE: We don't need this as long as we don't incrementally update the settings UI.
                   // Need a way to address pref selection in UI, e.g.
                   // label.radio input[name="sdk.console.logLevel"][value="off"]
                   // This works:

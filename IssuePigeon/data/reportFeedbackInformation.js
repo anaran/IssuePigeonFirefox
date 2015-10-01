@@ -140,8 +140,6 @@
             }
             return Object.keys(rangeLinks);
           },
-          // NOTE: Keep double-quotes, don't use bare word keys so entries are directly usable in
-          // "Extend Issue Pigeon" textarea.
           knownOrigins: {}
         };
     jira.prototype.fly = function () {
