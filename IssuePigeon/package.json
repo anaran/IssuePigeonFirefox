@@ -32,6 +32,24 @@
   },
   "preferences": [
     {
+      "description": "Issue Pigeon loading into newly opened tabs can be disabled, immediate, or delayed to when a tab is activated again.",
+      "hidden": false,
+      "name": "loading",
+      "title": "Loading",
+      "value": "immediate",
+      "type": "radio",
+      "options": [{
+        "value": "disabled",
+        "label": "Disabled"
+      }, {
+        "value": "immediate",
+        "label": "Immediate"
+      }, {
+        "value": "delayed",
+        "label": "Delayed"
+      }]
+    },
+    {
       "description": "Diagnostic messages are displayed directly in the current browser tab. This can be useful when the add-on is not working as expected, but will be irritating in regular use.",
       "hidden": false,
       "name": "diagnostics_overlay",
@@ -53,7 +71,7 @@
       "name": "KNOWN_SITES_EXTENSIONS",
       "title": "User-defined extensions to known sites",
       "type": "string",
-      "value": ""
+      "value": "{}"
     },
     {
       "description": "Controls the amount of logging to the browser console by level, from all to errors only to nothing at all. Increase the log level when investigating problems.",

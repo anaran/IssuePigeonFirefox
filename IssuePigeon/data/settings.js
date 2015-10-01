@@ -41,14 +41,21 @@
           break;
         }
         case "string": {
-          element.value = data.prefs[prefDefinition.name];
-          element.addEventListener('change', function(event) {
-            self.port.emit('save_setting', {
-              name: prefDefinition.name,
-              value: event.target.value
-            });
+          element.textContent = data.prefs[prefDefinition.name];
+          element.addEventListener('blur', function(event) {
+            try {
+              // parent.window.reportError(event.target);
+              event.target.textContent = JSON.stringify(JSON.parse(event.target.textContent), null, 2);
+              self.port.emit('save_setting', {
+                name: prefDefinition.name,
+                value: event.target.textContent
+              });
+              element.name = prefDefinition.name;
+            }
+            catch (e) {
+              reportError(event.target);
+            }
           });
-          element.name = prefDefinition.name;
           break;
         }
         case "menulist": {

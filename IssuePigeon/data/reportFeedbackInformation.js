@@ -308,7 +308,7 @@
         derived.prototype.constructor = derived;
         if ((new derived()).fly()) {
           // FIXME: this is in fact supported, should not raise a notification!
-          (typeof self !== 'undefined') && self.port.emit('unsupported', 'reported by ' + constr.toString());
+          // (typeof self !== 'undefined') && self.port.emit('unsupported', 'reported by ' + constr.toString());
         }
         else {
           // NOTE: something went wrong for a supported site.
@@ -394,7 +394,7 @@
         menu.style.border = '2px solid';
         var action = menu.appendChild(document.createElement('div')).appendChild(document.createElement('a'));
         // action.textContent = self.options.metadata.title;
-        action.textContent = 'Fly';
+        action.textContent = data.menu.fly;
         action.href = 'Fly';
         // action.style.backgroundColor = (efpBC == 'transparent' ? bodyBC : efpBC);
         // action.title = 'Report issue based on tab and selection(s)';
@@ -411,7 +411,7 @@
         });
         var help = menu.appendChild(document.createElement('div')).appendChild(document.createElement('a'));
         help.style.display = 'inline-block';
-        help.textContent = 'Help';
+        help.textContent = data.menu.help;
         help.href = 'Help';
         // help.style.padding = '2mm';
         help.addEventListener('click', function (event) {
@@ -422,7 +422,7 @@
         });
         var settings = menu.appendChild(document.createElement('div')).appendChild(document.createElement('a'));
         settings.style.display = 'inline-block';
-        settings.textContent = 'Settings';
+        settings.textContent = data.menu.settings;
         settings.href = 'Settings';
         // settings.style.padding = '2mm';
         settings.addEventListener('click', function (event) {

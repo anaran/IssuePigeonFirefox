@@ -147,14 +147,15 @@
     let worker, originPayload = JSON.stringify({ 'known': ko.knownOrigins, 'extensions': sp.prefs['KNOWN_SITES_EXTENSIONS'] }, null, 2);
     // tabs.activeTab.on('ready', function(tab) {
     tabs.on('ready', function(tab) {
-      tab.on('activate', function(tab) {
+      let setupWorkers = function() {
         worker = tab.attach({
           // let worker = tabs.activeTab.attach({
           // contentScriptFile: self.data.url('reportFeedbackInformation.js'),
           contentScriptFile: [
             /*'./settings.js',*/
             './reportFeedbackInformation.js',
-            /*'./extendKnownSites.js',*/
+            /*'./report-json-parse-error.js',
+          './extendKnownSites.js',*/
             './diagnostics_overlay.js'
           ],
           onError: handleErrors
@@ -224,6 +225,7 @@
                 settingsWorker = tab.attach({
                   contentScriptFile: [
                     './settings.js',
+                    './report-json-parse-error.js',
                     './diagnostics_overlay.js'
                   ],
                   onError: handleErrors
@@ -318,6 +320,11 @@
             'extensions': sp.prefs['KNOWN_SITES_EXTENSIONS'],
             'icon': metadata.icon,
             'known': ko.knownOrigins,
+            'menu': {
+              'fly': _('fly_menu_entry'),
+              'help': _('help_menu_entry'),
+              'settings': _('settings_menu_entry')
+            },
             'position': sp.prefs['position'] && JSON.parse(sp.prefs['position']) || {}
           });
         });
@@ -332,7 +339,19 @@
           sp.prefs['position'] = JSON.stringify(data);
         });
         // };
-      });
+      };
+      switch (sp.prefs['loading']) {
+        case "delayed":
+          tab.on('activate', function(tab) {
+            setupWorkers();
+          });
+          break;
+        case "immediate":
+          setupWorkers();
+          break;
+        case "disabled":
+          break;
+      }
     });
     // TODO Place following code where timed section should end.
     if (console.timeEnd) {

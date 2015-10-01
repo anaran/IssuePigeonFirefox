@@ -39,21 +39,23 @@
                          if (box.style.right == '2mm') {
                            box.style.right = '75%';
                            box.style.top = '75%';
-                           close.style.top = '75%';
+                           // close.style.top = '75%';
                          }
                          else {
                            box.style.top = '2mm';
                            box.style.right = '2mm';
-                           close.style.top = '2mm';
+                           // close.style.top = '2mm';
                          }
                        });
                        var close = div.appendChild(document.createElement('span'));
                        // close.href = 'Close Overlay';
                        close.innerHTML = '&times;';
+                       close.style.backgroundColor = 'white';
                        close.style.fontSize = 'x-large';
                        close.style.margin = '0';
+                       close.style.opacity = '0.5';
                        close.style.position = 'fixed';
-                       close.style.left = '4mm';
+                       close.style.left = '22%';
                        close.style.textDecoration = 'none';
                        close.style.top = '75%';
                        // close.style.left = '0';
