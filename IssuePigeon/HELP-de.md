@@ -1,35 +1,38 @@
-# Issue Pigeon Firefox Add-on
+# Issue Pigeon Firefox Add-on Hilfe
+
+gibt aus auch in [English](./HELP.html)
 
 ![Issue Pigeon Logo](icon48.png)
 
-The Issue Pigeon Firefox Add-on knows how to find the home for issues
-and bugs you may find in some well-known projects websites.
+Das Issue Pigeon Firefox Add-on findet für Fehler und
+Wünsche, die du in gut bekannten Projekt Seiten entdeckst,
+selbst den Weg nach Hause.
 
-It will pre-fill bugreports or issue forms with text and feature any
-referenced links based on text selections you make prior to clicking
-the `Issue Pigeon` context menu entry.
+Es trägt im Bericht alle Verweise und Text Passagen in
+von dir selektiertem Text in das jeweilige Formular ein,
+nachdem du im `Issue Pigeon` icon Menü auf "Flieg" drückst.
 
 ## Verwendung
 
-Basic usage is described above.
+Siehe oben.
 
-Furthermore you can specify your own additional project definitions
-based on existing reporting methods defined at
+Des weiteren kann man Anwender-spezifische Erweiterungen der Definitionen in
 [known-origins.js](https://github.com/anaran/IssuePigeonFirefox/blob/master/IssuePigeon/data/known-origins.js)
+über den Menü Eintrag "Einstellungen" vornehemen.
 
-Use the `Extend Issue Pigeon` context menu entry to specify and save
-your own JSON declarations. Declarations will be verified with
-`JSON.parse` prior to saving.
+Siehe die Hilfe dort.
 
-A Help link is also provided, pointing to this user documentation.
+Deine Erweiterungen werden vor dem Abspeichern mit
+`JSON.parse` überprüft und Syntax Fehler im Text markiert.
+
+Der "Hilfe" Verweis unter "Einstellungen" bringt dich hierher zurück.
 
 ## Rückmeldungen
 
-You will be given the opportunity to open github issues (via clickable
-notifications) when `Issue Pigeon` cannot find a way to report your
-issue or detects other problems.
+Sollte die Problemtaube nicht heim findet, so wird sie dir
+über anwählbare Benachrichungen Gelegenheit bieten das Problem auf github zu berichten.
 
 ## Beiträge
 
-See [README-de.md](./README-de.html), trage in
+Siehe [README-de.md](./README-de.html), trage in
 [github](https://github.com/anaran/IssuePigeonFirefox/blob/master/README-de.md) dazu bei.
