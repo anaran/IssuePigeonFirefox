@@ -145,7 +145,6 @@
     };
 
     let worker, originPayload = JSON.stringify({ 'known': ko.knownOrigins, 'extensions': sp.prefs['KNOWN_SITES_EXTENSIONS'] }, null, 2);
-    // tabs.activeTab.on('ready', function(tab) {
     tabs.on('ready', function(tab) {
       let setupWorkers = function() {
         worker = tab.attach({
@@ -160,11 +159,9 @@
           ],
           onError: handleErrors
         });
-        // tab.on('activate', function() {
         worker.port.emit('updateIconPosition', {
           position: sp.prefs['position'] && JSON.parse(sp.prefs['position']) || {}
         });
-        // });
         worker.port.on('help', function (data) {
           // handleErrors({'settings_title': _('settings_title')});
           let originallyActiveTab = tabs.activeTab;
@@ -241,12 +238,6 @@
                     localizedPreferences: localizedPreferences,
                     prefs: sp.prefs
                   });
-                  // if (sp.prefs['diagnostics_overlay']) {
-                  //   settingsWorker.port.emit('reportError', {
-                  //     err: sp.prefs,
-                  //     indent: 2
-                  //   });
-                  // }
                 });
                 settingsWorker.port.on('save_setting', function (data) {
                   sp.prefs[data.name] = data.value;
@@ -260,12 +251,6 @@
                     localizedPreferences: localizedPreferences,
                     prefs: sp.prefs
                   });
-                  // if (sp.prefs['diagnostics_overlay']) {
-                  //   settingsWorker.port.emit('reportError', {
-                  //     err: sp.prefs,
-                  //     indent: 2
-                  //   });
-                  // }
                 });
                 sp.on('position', function(prefName) {
                   settingsWorker.port.emit('load_settings', {
@@ -273,12 +258,6 @@
                     localizedPreferences: localizedPreferences,
                     prefs: sp.prefs
                   });
-                  // if (sp.prefs['diagnostics_overlay']) {
-                  //   settingsWorker.port.emit('reportError', {
-                  //     err: sp.prefs,
-                  //     indent: 2
-                  //   });
-                  // }
                 });
               },
               onClose: function() {
@@ -314,10 +293,6 @@
                 }});
             }});
         });
-        // tab.on('ready', function(tab) {
-        //   // }
-        // Checking tab.readyState causes CPOW
-        // if (tab.readyState == 'complete') {
         worker.port.on('request_feedback', function (data) {
           worker.port.emit('show_feedback', {
             'extensions': sp.prefs['KNOWN_SITES_EXTENSIONS'],
@@ -341,7 +316,6 @@
           // handleErrors(data);
           sp.prefs['position'] = JSON.stringify(data);
         });
-        // };
       };
       switch (sp.prefs['loading']) {
         case "delayed":

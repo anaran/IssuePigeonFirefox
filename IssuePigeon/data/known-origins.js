@@ -14,6 +14,8 @@
 // Firefox Addon Content Script.
 // require is not available in content scripts.
 // let sp = require('sdk/simple-prefs');
+// NOTE: This is not valid JSON so that we can add comments
+// and use unquoted field names and single quotes.
 (function () {
   try {
     let DEBUG_ADDON = false;
