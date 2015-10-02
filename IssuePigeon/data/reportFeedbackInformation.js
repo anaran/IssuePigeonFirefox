@@ -434,7 +434,7 @@
           event.stopPropagation();
           // FIXME: Only works until a new tab receives response.
           // self.port.emit('request_options');
-          self.port.emit('settings');
+          self.port.emit('settings', { url: 'settings.html' });
           // document.body.removeChild(div);
         });
         // var close = div.appendChild(document.createElement('div'));

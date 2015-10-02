@@ -19,7 +19,10 @@
       document.body.removeChild(setting);
     });
     data.localizedPreferences.forEach(function (prefDefinition) {
-      let content = document.querySelector('template.' + prefDefinition.type + '').content;
+      if (prefDefinition.hidden) {
+        return;
+      }
+      let content = document.querySelector('template.' + prefDefinition.type).content;
       let prefUI = document.importNode(content, "deep").firstElementChild;
       let label = prefUI.children[0];
       let element = prefUI.children[1];

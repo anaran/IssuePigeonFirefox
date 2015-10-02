@@ -199,7 +199,13 @@
           let originallyActiveTab = tabs.activeTab;
           let settingsWorker;
           if (settingsTab) {
-            settingsTab.activate();
+            if (settingsTab.url == self.data.url(data.url)) {
+              settingsTab.activate();
+            }
+            else {
+              // Need to reload URL, e.g. after Help link was clicked in Settings tab.
+              settingsTab.url = self.data.url(data.url);
+            }
             settingsTab.on('close', function() {
               settingsTab = false;
               for (let t of tabs) {
@@ -213,8 +219,9 @@
           else {
             tabs.open({
               // inNewWindow: true,
-              url: './settings.html',
+              url: data.url,
               onReady: function(tab) {
+                // console.log('tab.url', tab.url, settingsTab.url, originallyActiveTab.url);
                 settingsTab = tab;
                 settingsWorker = tab.attach({
                   contentScriptFile: [

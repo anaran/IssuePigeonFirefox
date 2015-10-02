@@ -10,7 +10,7 @@
     "gulp": "3.8.11",
     "gulp-marked": "1.0.0"
   },
-  "description": "Try the Issue Pigeon \\\"Fly\\\" menu entry after selecting some broken links or text errors.\nThe Issue Pigeon might just find its way home.\n\nReport issues for supported sites, based on content extracted from text selections in webpages.",
+  "description": "\u2605 Try the Issue Pigeon \"Fly\" menu entry after selecting some broken links or text errors.\nThe Issue Pigeon might just find its way home.\n\n\u2605 Report issues for supported sites, based on content extracted from text selections in webpages.\n\n\u2605 Uset the \"Settings\" menu entry instead of inline options. It works on Android too.",
   "engines": {
     "fennec": "38.0 - 43.0",
     "firefox": "38.0 - 43.0"
@@ -59,45 +59,19 @@
     },
     {
       "description": "This preference shall be hidden, except for debug purposes. It is changed by the user dragging the icon into place.",
-      "hidden": false,
+      "hidden": true,
       "name": "position",
       "title": "Icon Positioning",
       "type": "string",
       "value": ""
     },
     {
-      "description": "User-defined extensions to known sites. By turning on \\\"Show Diagnostic Messages in Overlay\\\" you can copy/paste one of the definitions under the \\\"known\\\" field here and edit it for your needs.",
+      "description": "User-defined extensions to known sites. By turning on \"Show Diagnostic Messages in Overlay\" you can copy/paste one of the definitions under the \"known\" field here and edit it for your needs.",
       "hidden": false,
       "name": "KNOWN_SITES_EXTENSIONS",
       "title": "User-defined extensions to known sites",
       "type": "string",
       "value": "{}"
-    },
-    {
-      "description": "Controls the amount of logging to the browser console by level, from all to errors only to nothing at all. Increase the log level when investigating problems.",
-      "name": "sdk.console.logLevel",
-      "type": "menulist",
-      "title": "Console Logging Level",
-      "value": "off",
-      "options": [{
-        "value": "all",
-        "label": "all"
-      }, {
-        "value": "debug",
-        "label": "debug"
-      }, {
-        "value": "info",
-        "label": "info"
-      }, {
-        "value": "warn",
-        "label": "warn"
-      }, {
-        "value": "error",
-        "label": "error"
-      }, {
-        "value": "off",
-        "label": "off"
-      }]
     },
     {
       "description": "Controls the amount of logging to the browser console by level, from all to errors only to nothing at all. Increase the log level when investigating problems.",
