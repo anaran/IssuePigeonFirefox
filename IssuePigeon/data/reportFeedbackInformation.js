@@ -397,27 +397,24 @@
         menu.style.borderColor = menu.style.color;
         menu.style.border = '2px solid';
         var action = menu.appendChild(document.createElement('div')).appendChild(document.createElement('a'));
-        // action.textContent = self.options.metadata.title;
         action.textContent = data.menu.fly;
         action.href = 'Fly';
-        // action.style.backgroundColor = (efpBC == 'transparent' ? bodyBC : efpBC);
-        // action.title = 'Report issue based on tab and selection(s)';
-        // NOTE: Use margin, instead of padding, to make link hard to hit by accident.
-        // action.style.margin = '2mm';
-        // action.style.position = 'relative';
-        // action.style.top = '0';
-        // action.style.left = '0';
         action.addEventListener('click', function (event) {
           console.log("selection", window.getSelection().toString());
           event.preventDefault();
           event.stopPropagation();
-          reportFeedbackInformation(data);
+          self.port.on('fly_safely', function(data) {
+            reportFeedbackInformation(data);
+          });
+          // NOTE: Now we need to get latest site extensions, which
+          // might have been changed by user since add-on content
+          // script was loaded.
+          self.port.emit('need_flight_data');
         });
         var help = menu.appendChild(document.createElement('div')).appendChild(document.createElement('a'));
         help.style.display = 'inline-block';
         help.textContent = data.menu.help;
         help.href = 'Help';
-        // help.style.padding = '2mm';
         help.addEventListener('click', function (event) {
           event.preventDefault();
           event.stopPropagation();
@@ -435,15 +432,7 @@
           // FIXME: Only works until a new tab receives response.
           // self.port.emit('request_options');
           self.port.emit('settings', { url: 'settings.html' });
-          // document.body.removeChild(div);
         });
-        // var close = div.appendChild(document.createElement('div'));
-        // close.innerHTML = '&cross;';
-        // close.style.padding = '2mm';
-        // close.addEventListener('click', function (event) {
-        //   event.preventDefault();
-        //   document.body.removeChild(div);
-        // });
         div.addEventListener('click', function (event) {
           console.log("selection", window.getSelection().toString());
           event.preventDefault();

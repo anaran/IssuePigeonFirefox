@@ -1,3 +1,4 @@
-/* body {
-  border: 1px solid blue;
-} */
+img[src^=icon] {
+    width: 1em;
+    height: 1em;
+}

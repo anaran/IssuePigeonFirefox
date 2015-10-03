@@ -26,7 +26,7 @@
     "url" : "https://github.com/anaran/IssuePigeonFirefox.git"
   },
   "title": "Issue Pigeon",
-  "version": "0.3.3rc1",
+  "version": "0.3.3rc2",
   "permissions": {
     "multiprocess": true
   },

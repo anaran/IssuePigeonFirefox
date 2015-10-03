@@ -31,10 +31,7 @@
       console.log("jpm", jpm);
     DEBUG_ADDON &&
       console.log('Logging enabled via debugger');
-    const koPath = jpm ? '../data/known-origins.js' : 'data/known-origins.js';
-    const ko = require(koPath);
-    const myCrPath = '../data/my-utils.js';
-    // const myu = require(myCrPath);
+    const ko = require('../data/known-origins.js');
     const self = require('sdk/self');
     // Only available for options natively supported by firefox, i.e. in jpm.
     const metadata = lo.metadata;
@@ -77,18 +74,12 @@
     exports.dummy = dummy;
     exports.testSelfProperty = testSelfProperty;
 
-    // See https://blog.mozilla.org/addons/2013/06/13/jetpack-fennec-and-nativewindow
-    // get a global window reference
-    const utils = require('sdk/window/utils');
-    const recent = utils.getMostRecentBrowserWindow();
     const notifications = require("sdk/notifications");
     const qs = require("sdk/querystring");
     const tabs = require("sdk/tabs");
     var _ = require("sdk/l10n").get;
-    // const ll = require("sdk/l10n/locale");
     let settingsTab, helpTab;
     let sp = require('sdk/simple-prefs');
-    sp.prefs['sdk.console.logLevel'] = 'info';
     // The real one is in reportFeedbackInformation.js
     let bugzilla = function () {};
     let sample = JSON.stringify({
@@ -98,36 +89,17 @@
         type: 'bugzilla'
       }
     }, null, 2);
-
-    // Need to update let extendMenuItem.data from preference.
-    let extendMenuItem, pigeonMenuItem;
     var saveKnownSitesExtensions = function(data) {
       sp.prefs['KNOWN_SITES_EXTENSIONS'] = data;
-      let originPayload = JSON.stringify({ 'known': ko.knownOrigins, 'extensions': data }, null, 2);
-      if (extendMenuItem) {
-        extendMenuItem.data = originPayload;
-      }
-      if (pigeonMenuItem) {
-        pigeonMenuItem.data = originPayload;
-      }
     };
-
     sp.on('KNOWN_SITES_EXTENSIONS', function(prefName) {
       DEBUG_ADDON &&
         console.log('Setting ' + prefName + ' for ' + self.name + ' version ' +
                     self.version + ' to ' + sp.prefs[prefName]);
-      // Keep menu item data attribute in sync.
-      let originPayload = JSON.stringify({ 'known': ko.knownOrigins, 'extensions': sp.prefs[prefName] }, null, 2);
-      if (extendMenuItem) {
-        extendMenuItem.data = originPayload;
-      }
-      if (pigeonMenuItem) {
-        pigeonMenuItem.data = originPayload;
-      }
     });
-
     let handleErrors = function (exception) {
-      // FIXME: Perhaps this should open a styled error page and just post error data to it.
+      // FIXME: Perhaps this should open a styled error page and just
+      // post error data to it.
       tabs.open({
         // inNewWindow: true,
         url: 'data:text/html;charset=utf-8,<html><head><title>' + myTitle
@@ -238,7 +210,6 @@
                 });
                 settingsWorker.port.on('request_settings', function (data) {
                   settingsWorker.port.emit('load_settings', {
-                    known: sp.prefs['diagnostics_overlay'] && ko.knownOrigins,
                     localizedPreferences: localizedPreferences,
                     prefs: sp.prefs
                   });
@@ -252,14 +223,12 @@
                   // document.querySelector('.menulist[name*="sdk"]').value = "error"
                   // document.querySelector('label.radio input[name="sdk.console.logLevel"][value="all"]').checked = true;
                   settingsWorker.port.emit('load_settings', {
-                    known: sp.prefs['diagnostics_overlay'] && ko.knownOrigins,
                     localizedPreferences: localizedPreferences,
                     prefs: sp.prefs
                   });
                 });
                 sp.on('position', function(prefName) {
                   settingsWorker.port.emit('load_settings', {
-                    known: sp.prefs['diagnostics_overlay'] && ko.knownOrigins,
                     localizedPreferences: localizedPreferences,
                     prefs: sp.prefs
                   });
@@ -300,15 +269,19 @@
         });
         worker.port.on('request_feedback', function (data) {
           worker.port.emit('show_feedback', {
-            'extensions': sp.prefs['KNOWN_SITES_EXTENSIONS'],
             'icon': metadata.icon,
-            'known': ko.knownOrigins,
             'menu': {
               'fly': _('fly_menu_entry'),
               'help': _('help_menu_entry'),
               'settings': _('settings_menu_entry')
             },
             'position': sp.prefs['position'] && JSON.parse(sp.prefs['position']) || {}
+          });
+        });
+        worker.port.on('need_flight_data', function (data) {
+          worker.port.emit('fly_safely', {
+            'extensions': sp.prefs['KNOWN_SITES_EXTENSIONS'],
+            'known': ko.knownOrigins
           });
         });
         worker.port.on('request_options', function (data) {
@@ -318,7 +291,6 @@
           });
         });
         worker.port.on('request_position_save', function (data) {
-          // handleErrors(data);
           sp.prefs['position'] = JSON.stringify(data);
         });
       };

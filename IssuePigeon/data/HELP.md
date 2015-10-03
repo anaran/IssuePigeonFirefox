@@ -1,15 +1,13 @@
 # Issue Pigeon Firefox Add-on Help
 
-also available in [Deutsch](./HELP-de.html)
-
-![Issue Pigeon Logo](icon48.png)
+also available in [Deutsch](HELP-de.html)
 
 The Issue Pigeon Firefox Add-on knows how to find the home for issues
-and bugs you may find in some well-known projects websites.
+and bugs you may find in some well-known project websites.
 
 It will pre-fill bugreports or issue forms with text and feature any
 referenced links based on text selections you make prior to clicking
-the `Issue Pigeon` icon menu entry.
+![Issue Pigeon Logo](icon48.png) and then the `Fly` menu entry.
 
 ## Usage
 
@@ -17,11 +15,15 @@ Basic usage is described above.
 
 Furthermore you can specify your own additional project definitions
 based on existing reporting methods defined at
-[known-origins.js](https://github.com/anaran/IssuePigeonFirefox/blob/master/IssuePigeon/data/known-origins.js)
+[Known Site Definitions](known-origins.js).
 
-Use the `Settings` icon menu entry to specify and save
-your own JSON declarations. Declarations will be verified with
-`JSON.parse` prior to saving.
+Click the `Settings` menu entry to specify and save your own JSON
+declarations.
+
+See the description under `Settings`.
+
+Declarations will be verified with
+`JSON.parse` and syntax errors marked prior to saving.
 
 A Help link is also provided, pointing to this user documentation.
 
@@ -33,5 +35,5 @@ issue or detects other problems.
 
 ## Contributing
 
-See [README.md](./README.html), contribute at
-[github](https://github.com/anaran/IssuePigeonFirefox/blob/master/README.md)
+You can contribute to this add-on at
+[github](https://github.com/anaran/IssuePigeonFirefox)

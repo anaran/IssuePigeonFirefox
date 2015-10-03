@@ -11,9 +11,7 @@ var pre =
     '        <meta charset=utf-8>\n' +
     '        <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1, minimum-scale=0.25, maximum-scale=4, user-scalable=yes">\n' +
     '        <title data-l10n-id="help_title">$TITLE$</title>\n' +
-    '        <!--\n' +
-    '<script src="display.js"></script>\n' +
-    '-->\n' +
+    '        <link rel="icon" href="icon48.png" id="favicon" type="image/png">\n' +
     '        <link rel="stylesheet" href="../data/help.css"/>\n' +
     '    </head>\n' +
     '    <body class="help_body">\n' +
@@ -59,7 +57,7 @@ var renderer = (function() {
 
 // Requires https://github.com/lmtm/gulp-marked/pull/15
 gulp.task('md2html', function() {
-  gulp.src(['../*.md', './*.md'])
+  gulp.src(['data/*.md'])
   .pipe(gulpMarked({
     renderer: renderer,
     gfm: true,
@@ -70,5 +68,5 @@ gulp.task('md2html', function() {
     smartLists: true,
     smartypants: false
   }, addTableOfContents))
-  .pipe(gulp.dest('./data/'));
+  .pipe(gulp.dest('data/'));
 });

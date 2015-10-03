@@ -14,6 +14,12 @@
   let DEBUG_ADDON = false;
 
   // self is undefined when using require in jpm test.
+  let tryConvertToJson = function(text) {
+    let json = text.replace(/^\s*\/\/.+\n/gm, '');
+    json = json.replace(/'([^']*)'/g, '"$1"');
+    json = json.replace(/([^"\/])\b(\w(\w|\d)*):/g, '$1"$2":');
+    return json;
+  };
   (typeof self !== 'undefined') && self.port.on('load_settings', function(data) {
     Array.prototype.forEach.call(document.querySelectorAll('div.settings'), function(setting) {
       document.body.removeChild(setting);
@@ -49,7 +55,7 @@
           // https://github.com/jrburke/gaia/commit/204a4b0c55eafbb20dfaa233fbbf2579a8f81915
           element.addEventListener('paste', function(event) {
             event.preventDefault();
-            var text = event.clipboardData.getData('text/plain');
+            var text = tryConvertToJson(event.clipboardData.getData('text/plain'));
             // Only insert if text. If no text, the execCommand fails with an
             // error.
             if (text) {
@@ -58,9 +64,14 @@
           });
           element.addEventListener('blur', function(event) {
             try {
-              if (event.target.textContent.trim().length == 0) {
+              event.target.textContent = event.target.textContent.trim();
+              if (event.target.textContent.length == 0) {
                 event.target.textContent = "{}";
               }
+              // NOTE: This regexp might not catch all cases, so let's just try always
+              // if (/'|:[^\/]|^\s*\/\//.test(event.target.textContent)) {
+              event.target.textContent = tryConvertToJson(event.target.textContent);
+              // }
               event.target.textContent = JSON.stringify(JSON.parse(event.target.textContent), null, 2);
               self.port.emit('save_setting', {
                 name: prefDefinition.name,

@@ -17,8 +17,7 @@ let reportError = function (element) {
   infoDiv.style = 'position: fixed; top: 40%; left: 20%; opacity: 0.2;';
 
   var close = document.createElement('div');
-  // NOTE &Cross; is not available in Firefox for Android.
-  close.innerHTML = '&cross;';
+  close.innerHTML = '&times;';
   close.align = 'left';
   var closeOverlay = function (event) {
     document.body.removeChild(event.target.parentElement);
@@ -96,14 +95,6 @@ let reportError = function (element) {
     infoDiv.appendChild(div);
     return false;
   } catch (e) {
-    var reportProperties = function (propArray) {
-      JSON.stringify(propArray.map(function (expression) {
-        var info = {
-        };
-        info[expression] = eval(expression);
-        return info;
-      }), null, 2);
-    };
     var matches = e.message.match(/\bline (\d+) column (\d+)\b/);
     var line = matches[1];
     var column = matches[2];
@@ -111,35 +102,6 @@ let reportError = function (element) {
     var lineText = txt.split(/\n/) [line - 1];
     var sel = window.getSelection();
     sel.removeAllRanges();
-    // Replace [/^(\s+)([^ \t,]+)(,?)$/] With [$1"$2"$3]
-    // TODO: Does not work. scoping issue?
-    // DEBUG && window.alert(reportProperties([
-    //   'txt.length',
-    //   'charOffset',
-    //   'element.textContent.length',
-    //   // element.firstChild.textContent.length,
-    //   // element.firstElementChild.textContent.length,
-    //   'element.parentElement.childElementCount',
-    //   'element.childElementCount',
-    //   'element.nodeType',
-    //   'element.localName'
-    // ]));
-    DEBUG && window.alert(JSON.stringify([
-      'txt.length',
-      'charOffset',
-      'element.textContent.length',
-      // element.firstChild.textContent.length,
-      // element.firstElementChild.textContent.length,
-      'element.parentElement.childElementCount',
-      'element.childElementCount',
-      'element.nodeType',
-      'element.localName'
-    ].map(function (expression) {
-      var info = {
-      };
-      info[expression] = eval(expression);
-      return info;
-    }), null, 2));
     info.value = e.message + '\nat ';
     info.value += (new Number(charOffset / txt.length * 100)).toFixed(1);
     info.value += '% of data\ncharOffset at line ' + line + ' column ';
@@ -147,24 +109,6 @@ let reportError = function (element) {
     info.value += ') = ' + txt.charCodeAt(charOffset) + '\ncharAt(';
     info.value += charOffset + ') = ' + JSON.stringify(txt.charAt(charOffset));
     if (txt.length > charOffset) {
-      // DEBUG && window.alert(reportProperties(['txt.length',
-      //                                         'charOffset']));
-      DEBUG && window.alert(JSON.stringify([
-        'txt.length',
-        'element.nodeType',
-        'element.firstChild.textContent',
-        'element.firstChild.nodeType',
-        'element.firstChild.nodeName',
-        'txt',
-        'charOffset',
-        'element.textContent',
-        'element.innerHTML'
-      ].map(function (expression) {
-        var info = {
-        };
-        info[expression] = eval(expression);
-        return info;
-      }), null, 2));
       if (element.textContent) {
         var r = document.createRange();
         if (element.firstChild.nodeName != "#text") {
