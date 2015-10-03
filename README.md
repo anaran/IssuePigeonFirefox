@@ -1,6 +1,8 @@
 # Installation
 
-The ![Issue Pigeon Logo](IssuePigeon/data/icon48.png) Firefox Add-on is distributed via addons.mozilla.org.
+The ![][icon] Firefox Add-on is distributed via addons.mozilla.org.
+
+[icon]: IssuePigeon/data/icon48.png "Issue Pigeon"
 
 See [which versions](https://addons.mozilla.org/en-US/firefox/addon/issue-pigeon/versions/) are available right now.
 
