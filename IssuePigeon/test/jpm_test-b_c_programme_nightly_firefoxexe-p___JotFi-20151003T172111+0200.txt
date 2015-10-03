@@ -1,0 +1,372 @@
+(time jpm test -b c:/programme/nightly/firefox.exe -p ../../JotFirefox/jpm_sep_2015 -v) >> jpm_test-b_c_programme_nightly_firefoxexe-p___JotFi-20151003T172111+0200.txt 2>&1 &
+wd: /cygdrive/c/Users/AichnerAd/tmp/mozilla/IssuePigeonFirefox/IssuePigeon
+
+JPM [info] binary set to c:/programme/nightly/firefox.exe
+JPM [info] profile set to ../../JotFirefox/jpm_sep_2015
+JPM [info] verbose set
+JPM [info] Starting jpm test on Issue Pigeon
+JPM [info] Checking compatability bootstrap.js and install.rdf for xpi
+Validating the manifest
+JPM [info] Creating fallbacks if they are necessary..
+Creating XPI
+JPM [info] Creating XPI...
+JPM [info] .jpmignore found
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\data
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\lib
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\locale
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\bootstrap.js
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\install.rdf
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\package.json
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\data\HELP-de.html
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\data\help.css
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\data\HELP.html
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\data\diagnostics_overlay.js
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\data\reportFeedbackInformation.js
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\data\settings.css
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\data\report-json-parse-error.js
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\data\settings.js
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\data\known-origins.js
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\data\icon48.png
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\lib\main.js
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\data\settings.html
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b-v_c_programme_nightly_firefoxexe-p___Jot-20150919T202502+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-20150418T151738+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\locale\en-US.properties
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-p___JotFi-20150927T063715+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\locale\de.properties
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-p___JotFi-20150928T190450+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-p___JotFi-20150930T194304+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-p___JotFi-20151003T032413+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-v-20150401T003644+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-v-20150331T202133+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-v-20150403T163032+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-v-20150407T013457+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-v-20150406T175257+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-p___JotFi-20151002T021919+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-p___JotFi-20151003T154558+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-v.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-v-b_c_programme_nightly_firefoxexe-p___Jot-20150919T183248+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-v-20150417T184100+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-v-b_c_programme_nightly_firefoxexe-p___Jot-20150919T185513+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-b_c_programme_nightly_firefoxexe-v-p___Jot-20150919T202843+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-v-b_c_programme_nightly_firefoxexe-p___Jot-20150919T190216+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_test-v-b_c_programme_nightly_firefoxexe-p___Jot-20150921T114736+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\jpm_xpi-b_c_programme_nightly_firefoxexe-v-20140916T151504+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\test-index.js
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-20140909T143443+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-20140909T144323+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-20140909T144208+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-20140909T144404+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-20140909T143835+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-20140909T144627+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-20140909T145410+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-20140909T145309+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-20140909T143545+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-20140909T145056+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-20140909T150214+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-20140909T150610+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-20140909T150738+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-20140909T151016+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-20140909T151104+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-20140909T151314+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-20140909T153449+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-20140909T152144+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-20140909T153151+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-20140914T222754+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T141400+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T151419+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T153551+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T154751+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T155013+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T142513+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T143215+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T153934+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T155347+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T155559+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T160045+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T164604+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T165030+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T165142+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T165152+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T170353+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T170749+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T172810+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T172916+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T173540+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T173652+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T174028+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T175648+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T172657+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T173323+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T173942+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-v-20140909T182212+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-v-20140914T220614+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-v-20140916T122809+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-v-20140929T155421+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-v-20140916T151530+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-v-20150329T203024+0200.txt
+JPM [info] Adding: C:\Users\AichnerAd\tmp\mozilla\IssuePigeonFirefox\IssuePigeon\test\logs\jpm_test-b_c_programme_nightly_firefoxexe-v-20150330T202013+0200.txt
+JPM [info] XPI created at C:\cygwin\tmp\issue-pigeon@addons.mozilla.org-0.3.3.xpi (1892ms)
+JPM [info] Removing fallbacks if they were necessary..
+Created XPI at C:\cygwin\tmp\issue-pigeon@addons.mozilla.org-0.3.3.xpi
+JPM [info] Copying provided profile:
+JPM [info]     ../../JotFirefox/jpm_sep_2015
+JPM [info] Using temporary profile at
+JPM [info]     C:\cygwin\tmp\f60c7ddc-0606-4e2c-86df-4d6a9b2b65c7-copy
+JPM [info] Executing Firefox binary: c:/programme/nightly/firefox.exe
+JPM [info] Executing Firefox with args: -foreground,-no-remote,-profile,C:\cygwin\tmp\f60c7ddc-0606-4e2c-86df-4d6a9b2b65c7-copy
+1443885695364	addons.manager	DEBUG	Loaded provider scope for resource://gre/modules/addons/XPIProvider.jsm: ["XPIProvider"]
+1443885695367	addons.manager	DEBUG	Loaded provider scope for resource://gre/modules/LightweightThemeManager.jsm: ["LightweightThemeManager"]
+1443885695370	addons.manager	DEBUG	Loaded provider scope for resource://gre/modules/addons/GMPProvider.jsm
+1443885695372	addons.manager	DEBUG	Loaded provider scope for resource://gre/modules/addons/PluginProvider.jsm
+1443885695373	addons.manager	DEBUG	Starting provider: XPIProvider
+1443885695373	addons.xpi	DEBUG	startup
+1443885695374	addons.xpi	INFO	Mapping adbhelper@mozilla.org to C:\cygwin\tmp\f60c7ddc-0606-4e2c-86df-4d6a9b2b65c7-copy\extensions\adbhelper@mozilla.org
+1443885695375	addons.xpi	INFO	Mapping issue-pigeon@addons.mozilla.org to C:\cygwin\tmp\f60c7ddc-0606-4e2c-86df-4d6a9b2b65c7-copy\extensions\issue-pigeon@addons.mozilla.org.xpi
+1443885695375	addons.xpi	INFO	SystemAddonInstallLocation directory is missing
+1443885695377	addons.xpi	INFO	Mapping {e4f94d1e-2f53-401e-8885-681602c0ddd8} to C:\Dokumente und Einstellungen\All Users\Anwendungsdaten\McAfee Security Scan\Extensions\{e4f94d1e-2f53-401e-8885-681602c0ddd8}.xpi
+1443885695378	addons.xpi	INFO	Mapping {972ce4c6-7e08-4474-a285-3208198ce6fd} to c:\programme\nightly\browser\extensions\{972ce4c6-7e08-4474-a285-3208198ce6fd}
+1443885695379	addons.xpi	DEBUG	Skipping unavailable install location app-system-share
+1443885695379	addons.xpi	DEBUG	Skipping unavailable install location app-system-local
+1443885695379	addons.xpi	INFO	Mapping {20a82645-c095-46ed-80e3-08825760534b} to C:\WINDOWS\Microsoft.NET\Framework\v3.5\Windows Presentation Foundation\DotNetAssistantExtension
+1443885695380	addons.xpi	DEBUG	checkForChanges
+1443885695380	addons.xpi	DEBUG	Loaded add-on state from prefs: {"app-profile":{"adbhelper@mozilla.org":{"d":"C:\\Users\\AichnerAd\\tmp\\mozilla\\JotFirefox\\jpm_sep_2015\\extensions\\adbhelper@mozilla.org","e":true,"v":"0.8.0","st":1442873778421,"mt":1442873778031},"issue-pigeon@addons.mozilla.org":{"d":"C:\\Users\\AichnerAd\\tmp\\mozilla\\JotFirefox\\jpm_sep_2015\\extensions\\issue-pigeon@addons.mozilla.org.xpi","e":true,"v":"0.3.3","st":1443528265378}},"winreg-app-user":{"{e4f94d1e-2f53-401e-8885-681602c0ddd8}":{"d":"C:\\Dokumente und Einstellungen\\All Users\\Anwendungsdaten\\McAfee Security Scan\\Extensions\\{e4f94d1e-2f53-401e-8885-681602c0ddd8}.xpi","e":false,"v":"1.0","st":1396607774000}},"app-global":{"{972ce4c6-7e08-4474-a285-3208198ce6fd}":{"d":"C:\\programme\\nightly\\browser\\extensions\\{972ce4c6-7e08-4474-a285-3208198ce6fd}","e":true,"v":"44.0a1","st":1443110276500,"mt":1443110275187}},"winreg-app-global":{"{20a82645-c095-46ed-80e3-08825760534b}":{"d":"C:\\WINDOWS\\Microsoft.NET\\Framework\\v3.5\\Windows Presentation Foundation\\DotNetAssistantExtension","e":false,"v":"0.0.0","st":1247418771468,"mt":1232707720000}}}
+1443885695381	addons.xpi	DEBUG	getModTime: Recursive scan of adbhelper@mozilla.org
+1443885695385	addons.xpi	DEBUG	Changed add-on adbhelper@mozilla.org in app-profile
+1443885695385	addons.xpi	DEBUG	getModTime: Recursive scan of issue-pigeon@addons.mozilla.org
+1443885695386	addons.xpi	DEBUG	Changed add-on issue-pigeon@addons.mozilla.org in app-profile
+1443885695387	addons.xpi	DEBUG	Changed add-on {e4f94d1e-2f53-401e-8885-681602c0ddd8} in winreg-app-user
+1443885695387	addons.xpi	DEBUG	getModTime: Recursive scan of {972ce4c6-7e08-4474-a285-3208198ce6fd}
+1443885695389	addons.xpi	DEBUG	Changed add-on {972ce4c6-7e08-4474-a285-3208198ce6fd} in app-global
+1443885695390	addons.xpi	DEBUG	Changed add-on {20a82645-c095-46ed-80e3-08825760534b} in winreg-app-global
+1443885695390	addons.xpi	DEBUG	getInstallState changed: true, state: {"app-profile":{"adbhelper@mozilla.org":{"d":"C:\\cygwin\\tmp\\f60c7ddc-0606-4e2c-86df-4d6a9b2b65c7-copy\\extensions\\adbhelper@mozilla.org","e":true,"v":"0.8.0","st":1443885676109,"mt":1443885675578},"issue-pigeon@addons.mozilla.org":{"d":"C:\\cygwin\\tmp\\f60c7ddc-0606-4e2c-86df-4d6a9b2b65c7-copy\\extensions\\issue-pigeon@addons.mozilla.org.xpi","e":true,"v":"0.3.3","st":1443885692515}},"winreg-app-user":{"{e4f94d1e-2f53-401e-8885-681602c0ddd8}":{"d":"C:\\Dokumente und Einstellungen\\All Users\\Anwendungsdaten\\McAfee Security Scan\\Extensions\\{e4f94d1e-2f53-401e-8885-681602c0ddd8}.xpi","e":false,"v":"1.0","st":1396607774000}},"app-global":{"{972ce4c6-7e08-4474-a285-3208198ce6fd}":{"d":"c:\\programme\\nightly\\browser\\extensions\\{972ce4c6-7e08-4474-a285-3208198ce6fd}","e":true,"v":"44.0a1","st":1443710283421,"mt":1443710283125}},"winreg-app-global":{"{20a82645-c095-46ed-80e3-08825760534b}":{"d":"C:\\WINDOWS\\Microsoft.NET\\Framework\\v3.5\\Windows Presentation Foundation\\DotNetAssistantExtension","e":false,"v":"0.0.0","st":1247418771468,"mt":1232707720000}}}
+1443885695402	addons.xpi-utils	DEBUG	Opening XPI database C:\cygwin\tmp\f60c7ddc-0606-4e2c-86df-4d6a9b2b65c7-copy\extensions.json
+1443885695404	addons.xpi-utils	DEBUG	Successfully read XPI database
+1443885695404	addons.xpi-utils	DEBUG	Add-on adbhelper@mozilla.org modified in app-profile
+*** Blocklist::_loadBlocklistFromFile: blocklist is disabled
+1443885695450	DeferredSave.extensions.json	DEBUG	Save changes
+1443885695451	DeferredSave.extensions.json	DEBUG	Save changes
+1443885695451	addons.xpi-utils	DEBUG	Add-on issue-pigeon@addons.mozilla.org modified in app-profile
+1443885695459	DeferredSave.extensions.json	DEBUG	Starting timer
+1443885695463	DeferredSave.extensions.json	DEBUG	Save changes
+1443885695463	DeferredSave.extensions.json	DEBUG	Save changes
+1443885695465	addons.xpi-utils	DEBUG	Add-on {972ce4c6-7e08-4474-a285-3208198ce6fd} modified in app-global
+1443885695471	DeferredSave.extensions.json	DEBUG	Save changes
+1443885695472	DeferredSave.extensions.json	DEBUG	Save changes
+1443885695472	addons.xpi-utils	INFO	Hiding the updated system add-ons.
+1443885695473	addons.manager	DEBUG	Registering startup change 'changed' for adbhelper@mozilla.org
+1443885695484	addons.xpi	DEBUG	Loading bootstrap scope from C:\Users\AichnerAd\tmp\mozilla\JotFirefox\jpm_sep_2015\extensions\adbhelper@mozilla.org
+1443885695501	addons.xpi	DEBUG	Calling bootstrap method uninstall on adbhelper@mozilla.org version 0.8.0
+1443885695503	addons.xpi	DEBUG	Loading bootstrap scope from C:\cygwin\tmp\f60c7ddc-0606-4e2c-86df-4d6a9b2b65c7-copy\extensions\adbhelper@mozilla.org
+1443885695506	addons.xpi	DEBUG	Calling bootstrap method install on adbhelper@mozilla.org version 0.8.0
+1443885695506	addons.xpi-utils	DEBUG	Make addon app-profile:adbhelper@mozilla.org visible
+1443885695506	DeferredSave.extensions.json	DEBUG	Save changes
+1443885695506	addons.manager	DEBUG	Registering startup change 'changed' for issue-pigeon@addons.mozilla.org
+1443885695507	addons.xpi	DEBUG	Loading bootstrap scope from C:\Users\AichnerAd\tmp\mozilla\JotFirefox\jpm_sep_2015\extensions\issue-pigeon@addons.mozilla.org.xpi
+1443885695630	addons.xpi	DEBUG	Calling bootstrap method uninstall on issue-pigeon@addons.mozilla.org version 0.3.3
+1443885695631	addons.xpi	DEBUG	Loading bootstrap scope from C:\cygwin\tmp\f60c7ddc-0606-4e2c-86df-4d6a9b2b65c7-copy\extensions\issue-pigeon@addons.mozilla.org.xpi
+1443885695635	addons.xpi	DEBUG	Calling bootstrap method install on issue-pigeon@addons.mozilla.org version 0.3.3
+1443885695635	addons.xpi-utils	DEBUG	Make addon app-profile:issue-pigeon@addons.mozilla.org visible
+1443885695635	DeferredSave.extensions.json	DEBUG	Save changes
+1443885695635	addons.xpi-utils	DEBUG	Make addon winreg-app-user:{e4f94d1e-2f53-401e-8885-681602c0ddd8} visible
+1443885695635	DeferredSave.extensions.json	DEBUG	Save changes
+1443885695636	addons.manager	DEBUG	Registering startup change 'changed' for {972ce4c6-7e08-4474-a285-3208198ce6fd}
+1443885695636	addons.xpi-utils	DEBUG	Make addon app-global:{972ce4c6-7e08-4474-a285-3208198ce6fd} visible
+1443885695636	DeferredSave.extensions.json	DEBUG	Save changes
+1443885695636	addons.xpi-utils	DEBUG	Make addon winreg-app-global:{20a82645-c095-46ed-80e3-08825760534b} visible
+1443885695636	DeferredSave.extensions.json	DEBUG	Save changes
+1443885695637	addons.xpi	DEBUG	Updating XPIState for {"id":"adbhelper@mozilla.org","syncGUID":"rg1KzbJ4SOgd","location":"app-profile","version":"0.8.0","type":"extension","internalName":null,"updateURL":"https://ftp.mozilla.org/pub/mozilla.org/labs/fxos-simulator/adb-helper/win32/update.rdf","updateKey":null,"optionsURL":null,"optionsType":null,"aboutURL":null,"iconURL":null,"icon64URL":null,"defaultLocale":{"name":"ADB Helper","description":"An addon to ease connecting to Firefox OS devices.","creator":"Mozilla & Android Open Source Project","homepageURL":"https://github.com/mozilla/adbhelper"},"visible":true,"active":true,"userDisabled":false,"appDisabled":false,"descriptor":"C:\\cygwin\\tmp\\f60c7ddc-0606-4e2c-86df-4d6a9b2b65c7-copy\\extensions\\adbhelper@mozilla.org","installDate":1442873778421,"updateDate":1443885676109,"applyBackgroundUpdates":1,"bootstrap":true,"size":1317943,"sourceURI":null,"releaseNotesURI":null,"softDisabled":false,"foreignInstall":false,"hasBinaryComponents":false,"strictCompatibility":false,"locales":[],"targetApplications":[{"id":"{ec8030f7-c20a-464f-9b0e-13a3a9e97384}","minVersion":"26.0a1","maxVersion":"42.0a1"}],"targetPlatforms":[],"multiprocessCompatible":false,"signedState":1}
+1443885695637	addons.xpi	DEBUG	Updating XPIState for {"id":"issue-pigeon@addons.mozilla.org","syncGUID":"f9wRlhtEOld5","location":"app-profile","version":"0.3.3","type":"extension","internalName":null,"updateURL":null,"updateKey":null,"optionsURL":"data:text/xml,<placeholder/>","optionsType":"2","aboutURL":null,"iconURL":"resource://issue-pigeon-at-addons-dot-mozilla-dot-org/data/icon48.png","icon64URL":null,"defaultLocale":{"name":"Issue Pigeon","description":"★ Try the Issue Pigeon \"Fly\" menu entry after selecting some broken links or text errors.\nThe Issue Pigeon might just find its way home. ★ Report issues for supported sites, based on content extracted from text selections in webpages. ★ Use the \"Settings\" menu entry instead of inline options. It works on Android too. ★ See https://addons.mozilla.org/en-US/firefox/addon/issue-pigeon/versions/#version-0.3.3 for Release Notes, newer versions.","creator":"anaran","homepageURL":"https://github.com/anaran/IssuePigeonFirefox"},"visible":true,"active":true,"userDisabled":false,"appDisabled":false,"descriptor":"C:\\cygwin\\tmp\\f60c7ddc-0606-4e2c-86df-4d6a9b2b65c7-copy\\extensions\\issue-pigeon@addons.mozilla.org.xpi","installDate":1443528265378,"updateDate":1443885692515,"applyBackgroundUpdates":1,"bootstrap":true,"size":1590775,"sourceURI":null,"releaseNotesURI":null,"softDisabled":false,"foreignInstall":false,"hasBinaryComponents":false,"strictCompatibility":false,"locales":[],"targetApplications":[{"id":"{aa3c5121-dab2-40e2-81ca-7ea25febc110}","minVersion":"38.0","maxVersion":"43.0"},{"id":"{ec8030f7-c20a-464f-9b0e-13a3a9e97384}","minVersion":"38.0","maxVersion":"43.0"}],"targetPlatforms":[],"multiprocessCompatible":true,"signedState":0}
+1443885695638	addons.xpi	DEBUG	Updating XPIState for {"id":"{e4f94d1e-2f53-401e-8885-681602c0ddd8}","syncGUID":"MiknILos9LCo","location":"winreg-app-user","version":"1.0","type":"extension","internalName":null,"updateURL":null,"updateKey":null,"optionsURL":null,"optionsType":null,"aboutURL":null,"iconURL":null,"icon64URL":null,"defaultLocale":{"name":"McAfee Security Scan Plus","description":"This extension allows Adobe installers to detect McAfee Security Scan+ software on your PC.","creator":"McAfee Inc.","homepageURL":null},"visible":true,"active":false,"userDisabled":true,"appDisabled":false,"descriptor":"C:\\Dokumente und Einstellungen\\All Users\\Anwendungsdaten\\McAfee Security Scan\\Extensions\\{e4f94d1e-2f53-401e-8885-681602c0ddd8}.xpi","installDate":1396607774000,"updateDate":1396607774000,"applyBackgroundUpdates":1,"bootstrap":true,"size":17980,"sourceURI":null,"releaseNotesURI":null,"softDisabled":false,"foreignInstall":true,"hasBinaryComponents":false,"strictCompatibility":false,"locales":[],"targetApplications":[{"id":"{ec8030f7-c20a-464f-9b0e-13a3a9e97384}","minVersion":"21.0","maxVersion":"29.0a1"}],"targetPlatforms":[],"multiprocessCompatible":false,"signedState":0}
+1443885695638	addons.xpi	DEBUG	Updating XPIState for {"id":"{972ce4c6-7e08-4474-a285-3208198ce6fd}","syncGUID":"Iw6uQ0MfIPfR","location":"app-global","version":"44.0a1","type":"theme","internalName":"classic/1.0","updateURL":null,"updateKey":null,"optionsURL":null,"optionsType":null,"aboutURL":null,"iconURL":null,"icon64URL":null,"defaultLocale":{"name":"Default","description":"The default theme.","creator":"Mozilla","homepageURL":null,"contributors":["Mozilla Contributors"]},"visible":true,"active":true,"userDisabled":false,"appDisabled":false,"descriptor":"c:\\programme\\nightly\\browser\\extensions\\{972ce4c6-7e08-4474-a285-3208198ce6fd}","installDate":1442590289015,"updateDate":1443710283421,"applyBackgroundUpdates":1,"skinnable":true,"size":24172,"sourceURI":null,"releaseNotesURI":null,"softDisabled":false,"foreignInstall":false,"hasBinaryComponents":false,"strictCompatibility":true,"locales":[],"targetApplications":[{"id":"{ec8030f7-c20a-464f-9b0e-13a3a9e97384}","minVersion":"44.0a1","maxVersion":"44.0a1"}],"targetPlatforms":[]}
+1443885695638	addons.xpi	DEBUG	Updating XPIState for {"id":"{20a82645-c095-46ed-80e3-08825760534b}","syncGUID":"cBDx6dAof3BI","location":"winreg-app-global","version":"0.0.0","type":"extension","internalName":null,"updateURL":null,"updateKey":null,"optionsURL":null,"optionsType":null,"aboutURL":null,"iconURL":null,"icon64URL":null,"defaultLocale":{"name":"Microsoft .NET Framework Assistant","description":"Adds ClickOnce support and the ability to report installed .NET versions to the web server.","creator":"Microsoft","homepageURL":"http://www.windowsclient.net/"},"visible":true,"active":false,"userDisabled":true,"appDisabled":false,"descriptor":"C:\\WINDOWS\\Microsoft.NET\\Framework\\v3.5\\Windows Presentation Foundation\\DotNetAssistantExtension","installDate":1247418771468,"updateDate":1247418771468,"applyBackgroundUpdates":1,"bootstrap":false,"size":42347,"sourceURI":null,"releaseNotesURI":null,"softDisabled":false,"foreignInstall":true,"hasBinaryComponents":false,"strictCompatibility":false,"locales":[],"targetApplications":[{"id":"{ec8030f7-c20a-464f-9b0e-13a3a9e97384}","minVersion":"1.5","maxVersion":"9.*.*"}],"targetPlatforms":[{"os":"WINNT","abi":null}],"multiprocessCompatible":false,"signedState":0}
+1443885695639	DeferredSave.extensions.json	DEBUG	Save changes
+1443885695639	addons.xpi	DEBUG	Updating database with changes to installed add-ons
+1443885695639	addons.xpi-utils	DEBUG	Updating add-on states
+1443885695640	addons.xpi-utils	DEBUG	Writing add-ons list
+1443885695642	addons.xpi	DEBUG	Registering manifest for C:\cygwin\tmp\f60c7ddc-0606-4e2c-86df-4d6a9b2b65c7-copy\extensions\adbhelper@mozilla.org
+1443885695643	addons.xpi	DEBUG	Calling bootstrap method startup on adbhelper@mozilla.org version 0.8.0
+1443885695656	addons.xpi	WARN	Exception running bootstrap method startup on adbhelper@mozilla.org: Module `devtools/toolkit/DevToolsUtils` is not found at resource://gre/modules/devtools/toolkit/DevToolsUtils.js (resource://gre/modules/devtools/shared/Loader.jsm:290) JS Stack trace: DevToolsLoader.prototype.require@Loader.jsm:290:12 < @main.js:11:30 < startup@file:///C:/cygwin/tmp/f60c7ddc-0606-4e2c-86df-4d6a9b2b65c7-copy/extensions/adbhelper@bootstrap.js:92:16 < XPI_callBootstrapMethod@XPIProvider.jsm:4378:9 < XPI_startup@XPIProvider.jsm:2610:13 < callProvider@AddonManager.jsm:221:12 < _startProvider@AddonManager.jsm:828:5 < AMI_startup@AddonManager.jsm:1003:9 < AMP_startup@AddonManager.jsm:2685:5 < AMC_observe@addonManager.js:58:7
+1443885695657	addons.xpi	DEBUG	Registering manifest for C:\cygwin\tmp\f60c7ddc-0606-4e2c-86df-4d6a9b2b65c7-copy\extensions\issue-pigeon@addons.mozilla.org.xpi
+1443885695657	addons.xpi	DEBUG	Calling bootstrap method startup on issue-pigeon@addons.mozilla.org version 0.3.3
+1443885695661	addons.manager	DEBUG	Registering shutdown blocker for XPIProvider
+1443885695661	addons.manager	DEBUG	Provider finished startup: XPIProvider
+1443885695661	addons.manager	DEBUG	Starting provider: LightweightThemeManager
+1443885695661	addons.manager	DEBUG	Registering shutdown blocker for LightweightThemeManager
+1443885695662	addons.manager	DEBUG	Provider finished startup: LightweightThemeManager
+1443885695662	addons.manager	DEBUG	Starting provider: GMPProvider
+1443885695670	addons.manager	DEBUG	Registering shutdown blocker for GMPProvider
+1443885695670	addons.manager	DEBUG	Provider finished startup: GMPProvider
+1443885695670	addons.manager	DEBUG	Starting provider: PluginProvider
+1443885695670	addons.manager	DEBUG	Registering shutdown blocker for PluginProvider
+1443885695670	addons.manager	DEBUG	Provider finished startup: PluginProvider
+1443885695671	addons.manager	DEBUG	Completed startup sequence
+1443885695940	addons.manager	DEBUG	Starting provider: <unnamed-provider>
+1443885695940	addons.manager	DEBUG	Registering shutdown blocker for <unnamed-provider>
+1443885695940	addons.manager	DEBUG	Provider finished startup: <unnamed-provider>
+1443885696020	DeferredSave.extensions.json	DEBUG	Starting write
+1443885696757	addons.manager	DEBUG	Starting provider: PreviousExperimentProvider
+1443885696758	addons.manager	DEBUG	Registering shutdown blocker for PreviousExperimentProvider
+1443885696758	addons.manager	DEBUG	Provider finished startup: PreviousExperimentProvider
+1443885696985	DeferredSave.extensions.json	DEBUG	Write succeeded
+1443885696986	addons.xpi-utils	DEBUG	XPI Database saved, setting schema version preference to 17
+Running tests on Firefox 44.0a1/Gecko 44.0a1 (Build 20151003030225) ({ec8030f7-c20a-464f-9b0e-13a3a9e97384}) under winnt/x86.
+console.log: issue-pigeon: testing addon Issue Pigeon 0.3.3 $Format:%h%d$ loads @resource://gre/modules/commonjs/toolkit/loader.js -> resource://issue-pigeon-at-addons-dot-mozilla-dot-org/test/test-index.js#L23C8
+@resource://gre/modules/commonjs/toolkit/loader.js -> resource://issue-pigeon-at-addons-dot-mozilla-dot-org/test/test-index.js#L10C3
+evaluate@resource://gre/modules/commonjs/toolkit/loader.js#L278C19
+load@resource://gre/modules/commonjs/toolkit/loader.js#L330C5
+main@resource://gre/modules/commonjs/toolkit/loader.js#L747C10
+findTests/</getNextTest@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/deprecated/unit-test-finder.js#L162C25
+findTests/</<.getNext@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/deprecated/unit-test-finder.js#L195C32
+runNextTest@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/deprecated/unit-test.js#L530C14
+startMany@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/deprecated/unit-test.js#L544C12
+findAndRunTests/<@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/deprecated/unit-test.js#L27C1
+Handler.prototype.process@resource://gre/modules/Promise.jsm -> resource://gre/modules/Promise-backend.js#L934C23
+this.PromiseWalker.walkerLoop@resource://gre/modules/Promise.jsm -> resource://gre/modules/Promise-backend.js#L813C7
+Promise*this.PromiseWalker.scheduleWalkerLoop@resource://gre/modules/Promise.jsm -> resource://gre/modules/Promise-backend.js#L744C11
+this.PromiseWalker.schedulePromise@resource://gre/modules/Promise.jsm -> resource://gre/modules/Promise-backend.js#L776C7
+this.PromiseWalker.completePromise@resource://gre/modules/Promise.jsm -> resource://gre/modules/Promise-backend.js#L711C7
+promise callback*this.PromiseWalker.completePromise@resource://gre/modules/Promise.jsm -> resource://gre/modules/Promise-backend.js#L702C1
+Handler.prototype.process@resource://gre/modules/Promise.jsm -> resource://gre/modules/Promise-backend.js#L970C5
+Promise*this.PromiseWalker.scheduleWalkerLoop@resource://gre/modules/Promise.jsm -> resource://gre/modules/Promise-backend.js#L744C11
+this.PromiseWalker.schedulePromise@resource://gre/modules/Promise.jsm -> resource://gre/modules/Promise-backend.js#L776C7
+Promise.prototype.then@resource://gre/modules/Promise.jsm -> resource://gre/modules/Promise-backend.js#L451C5
+this.XPIDatabase.getAddon@resource://gre/modules/addons/XPIProvider.jsm -> resource://gre/modules/addons/XPIProviderUtils.js#L1100C12
+XPIDB_getVisibleAddonForID@resource://gre/modules/addons/XPIProvider.jsm -> resource://gre/modules/addons/XPIProviderUtils.js#L1149C1
+XPI_getAddonByID@resource://gre/modules/addons/XPIProvider.jsm#L3728C5
+callProviderAsync@resource://gre/modules/AddonManager.jsm#L248C12
+promiseCallProvider/<@resource://gre/modules/AddonManager.jsm#L273C53
+Promise@resource://gre/modules/Promise.jsm -> resource://gre/modules/Promise-backend.js#L385C5
+promiseCallProvider@resource://gre/modules/AddonManager.jsm#L272C1
+AMI_getAddonByID@resource://gre/modules/AddonManager.jsm#L2320C47
+AM_getAddonByID@resource://gre/modules/AddonManager.jsm#L3055C5
+getAddon@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/addon/installer.js#L118C3
+getSuites@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/deprecated/unit-test-finder.js#L56C10
+findTests@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/deprecated/unit-test-finder.js#L143C12
+findAndRunTests@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/deprecated/unit-test.js#L26C3
+findAndRunTests@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/test/runner.js#L83C1
+checkForEnd@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/test/harness.js#L402C5
+nextIteration@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/test/harness.js#L393C5
+runTests@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/test/harness.js#L615C5
+runTests/<@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/test/runner.js#L42C1
+notify@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/timers.js#L40C9
+
+console.time: issue-pigeon: 'load time' @ Sat Oct 03 2015 16:21:38 GMT+0100 (Eur)
+console.dir: issue-pigeon: 
+Object
+    - id = issue-pigeon@addons.mozilla.org
+    - isNative = true
+    - checkCompatibility = true
+    - prefixURI = resource://issue-pigeon-at-addons-dot-mozilla-dot-org/
+    - rootURI = resource://issue-pigeon-at-addons-dot-mozilla-dot-org/
+    - name = issue-pigeon
+    - paths = {"":"resource://gre/modules/commonjs/","devtools/":"resource://gre/modules/devtools/","./":"resource://issue-pigeon-at-addons-dot-mozilla-dot-org/"}
+    - manifest = {"// Keep keys in alphabetical order and before preferences.":"This provides for quicker lookup of addon information.","author":"anaran","bugs":{"url":"https://github.com/anaran/IssuePigeonFirefox/issues"},"dependencies":[],"devDependencies":{"gulp":"3.8.11","gulp-marked":"1.0.0"},"description":"★ Try the Issue Pigeon \"Fly\" menu entry after selecting some broken links or text errors.\nThe Issue Pigeon might just find its way home. ★ Report issues for supported sites, based on content extracted from text selections in webpages. ★ Use the \"Settings\" menu entry instead of inline options. It works on Android too. ★ See https://addons.mozilla.org/en-US/firefox/addon/issue-pigeon/versions/#version-0.3.3 for Release Notes, newer versions.","engines":{"fennec":"38.0 - 43.0","firefox":"38.0 - 43.0"},"homepage":"https://github.com/anaran/IssuePigeonFirefox","icon":"resource://issue-pigeon-at-addons-dot-mozilla-dot-org/data/icon48.png","id":"issue-pigeon@addons.mozilla.org","license":"MIT","main":"lib/main.js","name":"issue-pigeon","repository":{"type":"git","url":"https://github.com/anaran/IssuePigeonFirefox.git"},"title":"Issue Pigeon","version":"0.3.3","permissions":{"multiprocess":true},"preferences":[{"description":"Issue Pigeon loading into newly opened tabs can be disabled, immediate, or delayed to when a tab is activated again.","hidden":false,"name":"loading","title":"Loading","value":"immediate","type":"radio","options":[{"value":"disabled","label":"Disabled"},{"value":"immediate","label":"Immediate"},{"value":"delayed","label":"Delayed"}]},{"description":"Diagnostic messages are displayed directly in the current browser tab. This can be useful when the add-on is not working as expected, but will be irritating in regular use.","hidden":false,"name":"diagnostics_overlay","title":"Show Diagnostic Messages in Overlay","type":"bool","value":false},{"description":"This preference shall be hidden, except for debug purposes. It is changed by the user dragging the icon into place.","hidden":true,"name":"position","title":"Icon Positioning","type":"string","value":""},{"description":"User-defined extensions to known sites. By turning on \"Show Diagnostic Messages in Overlay\" you can copy/paste one of the definitions under the \"known\" field here and edit it for your needs.","hidden":false,"name":"KNOWN_SITES_EXTENSIONS","title":"User-defined extensions to known sites","type":"string","value":"{}"},{"description":"Controls the amount of logging to the browser console by level, from all to errors only to nothing at all. Increase the log level when investigating problems.","name":"sdk.console.logLevel","type":"radio","title":"Console Logging Level","value":"off","options":[{"value":"all","label":"all"},{"value":"debug","label":"debug"},{"value":"info","label":"info"},{"value":"warn","label":"warn"},{"value":"error","label":"error"},{"value":"off","label":"off"}]}],"jetpack":{"overrides":{}}}
+    - metadata = {"// Keep keys in alphabetical order and before preferences.":"This provides for quicker lookup of addon information.","author":"anaran","bugs":{"url":"https://github.com/anaran/IssuePigeonFirefox/issues"},"dependencies":[],"devDependencies":{"gulp":"3.8.11","gulp-marked":"1.0.0"},"description":"★ Try the Issue Pigeon \"Fly\" menu entry after selecting some broken links or text errors.\nThe Issue Pigeon might just find its way home. ★ Report issues for supported sites, based on content extracted from text selections in webpages. ★ Use the \"Settings\" menu entry instead of inline options. It works on Android too. ★ See https://addons.mozilla.org/en-US/firefox/addon/issue-pigeon/versions/#version-0.3.3 for Release Notes, newer versions.","engines":{"fennec":"38.0 - 43.0","firefox":"38.0 - 43.0"},"homepage":"https://github.com/anaran/IssuePigeonFirefox","icon":"resource://issue-pigeon-at-addons-dot-mozilla-dot-org/data/icon48.png","id":"issue-pigeon@addons.mozilla.org","license":"MIT","main":"lib/main.js","name":"issue-pigeon","repository":{"type":"git","url":"https://github.com/anaran/IssuePigeonFirefox.git"},"title":"Issue Pigeon","version":"0.3.3","permissions":{"multiprocess":true},"preferences":[{"description":"Issue Pigeon loading into newly opened tabs can be disabled, immediate, or delayed to when a tab is activated again.","hidden":false,"name":"loading","title":"Loading","value":"immediate","type":"radio","options":[{"value":"disabled","label":"Disabled"},{"value":"immediate","label":"Immediate"},{"value":"delayed","label":"Delayed"}]},{"description":"Diagnostic messages are displayed directly in the current browser tab. This can be useful when the add-on is not working as expected, but will be irritating in regular use.","hidden":false,"name":"diagnostics_overlay","title":"Show Diagnostic Messages in Overlay","type":"bool","value":false},{"description":"This preference shall be hidden, except for debug purposes. It is changed by the user dragging the icon into place.","hidden":true,"name":"position","title":"Icon Positioning","type":"string","value":""},{"description":"User-defined extensions to known sites. By turning on \"Show Diagnostic Messages in Overlay\" you can copy/paste one of the definitions under the \"known\" field here and edit it for your needs.","hidden":false,"name":"KNOWN_SITES_EXTENSIONS","title":"User-defined extensions to known sites","type":"string","value":"{}"},{"description":"Controls the amount of logging to the browser console by level, from all to errors only to nothing at all. Increase the log level when investigating problems.","name":"sdk.console.logLevel","type":"radio","title":"Console Logging Level","value":"off","options":[{"value":"all","label":"all"},{"value":"debug","label":"debug"},{"value":"info","label":"info"},{"value":"warn","label":"warn"},{"value":"error","label":"error"},{"value":"off","label":"off"}]}],"jetpack":{"overrides":{}}}
+    - modules = {@test/options:..,sdk/addon/window:.., }
+    - noQuit = false
+    - globals = {"console":{}}
+console.log: issue-pigeon: jpm Issue Pigeon
+console.timeEnd: issue-pigeon: 'load time' 603ms
+console.info: issue-pigeon: executing './test/test-index.test main'
+console.info: issue-pigeon: pass: undefined !== require('../data/reportFeedbackInformation')
+console.info: issue-pigeon: pass: {}
+console.info: issue-pigeon: pass: undefined !== require('../data/known-origins')
+console.info: issue-pigeon: pass: {"knownOrigins":{"http://docs.couchdb.org":{"help":"http://webchat.freenode.net/?channels=couchdb","report":"https://REST_SHOULD_BE_USED_NOT_GET","type":"jira"},"https://developer.mozilla.org":{"help":"https://developer.mozilla.org/en-US/docs/MDN/About#Documentation_errors","report":"https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&product=Developer%20Documentation","type":"bugzilla"},"https://www.mozilla.org":{"help":"https://www.mozilla.org/en-US/contribute/page/","report":"https://bugzilla.mozilla.org/enter_bug.cgi?product=www.mozilla.org&component=Pages%20%26%20Content","type":"bugzilla"},"https://addons.mozilla.org":{"help":"https://addons.mozilla.org/en-US/developers/docs/policies/contact","report":"https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&product=addons.mozilla.org","type":"bugzilla"},"https://addons.allizom.org":{"help":"https://addons.mozilla.org/en-US/developers/docs/policies/contact","report":"https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&product=addons.mozilla.org","type":"bugzilla"},"https://developer.chrome.com/apps":{"help":"https://developer.chrome.com/apps/faq","report":"https://code.google.com/p/chromium/issues/entry?label=Cr-Platform-Apps","type":"chromium"},"https://developer.chrome.com/extensions":{"help":"https://developer.chrome.com/extensions/faq","report":"https://code.google.com/p/chromium/issues/entry?label=Cr-Platform-Extensions","type":"chromium"},"https://github.com":{"type":"github"},"https://www.npmjs.org":{"report":"https://github.com/npm/npm-www/issues/new","type":"github"},"http://dev.w3.org/html5":{"report":"https://www.w3.org/Bugs/Public/enter_bug.cgi?format=__default__&product=HTML%20WG&component=HTML5%20spec","type":"bugzilla"},"http://codemirror.net":{"report":"https://github.com/marijnh/CodeMirror/issues/new","type":"github"},"resource://issue-pigeon-at-addons-dot-mozilla-dot-org":{"help":"https://github.com/anaran/LastScrollChrome/blob/master/contributing.md","report":"https://github.com/anaran/IssuePigeonFirefox/issues/new","type":"github"},"https://en.wikipedia.org":{"help":"https://en.wikipedia.org/wiki/Wikipedia:Contact_us_-_Readers","type":"wikipedia"},"http://www.freenode.net":{"help":"http://www.freenode.net/faq.shtml","report":"mailto:support@freenode.net","type":"mailto"},"https://wiki.mozilla.org":{"help":"https://wiki.mozilla.org/MozillaWiki:Help","report":"https://bugzilla.mozilla.org/enter_bug.cgi?product=Websites&component=wiki.mozilla.org","type":"bugzilla"},"https://support.mozilla.org":{"help":"https://github.com/mozilla/kitsune","report":"https://bugzilla.mozilla.org/enter_bug.cgi?product=support.mozilla.org","type":"bugzilla"}}}
+console.info: issue-pigeon: pass: reportFeedbackInformation shows no runtime errors
+console.info: issue-pigeon: pass: undefined !== require('../data/settings')
+console.info: issue-pigeon: pass: Unit test running!
+console.info: issue-pigeon: pass: This test is done.
+console.info: issue-pigeon: pass: There was a clean UI.
+console.log: issue-pigeon: [JavaScript Error: "DEPRECATION WARNING: FUEL is deprecated, you should use the add-on SDK instead.
+You may find more details about this deprecation at: https://developer.mozilla.org/Add-ons/SDK/
+jar:file:///c:/programme/nightly/browser/omni.ja!/components/fuelApplication.js 1458 Application
+jar:file:///c:/programme/nightly/browser/omni.ja!/components/fuelApplication.js 726 af_ci
+resource://gre/modules/devtools/shared/Console.jsm 135 stringify
+resource://gre/modules/devtools/shared/Console.jsm 276 logProperty
+resource://gre/modules/devtools/shared/Console.jsm 227 log/<
+self-hosted 216 forEach
+resource://gre/modules/devtools/shared/Console.jsm 226 log
+resource://gre/modules/devtools/shared/Console.jsm 498 createMultiLineDumper/</<
+self-hosted 216 forEach
+resource://gre/modules/devtools/shared/Console.jsm 497 createMultiLineDumper/<
+resource://gre/modules/commonjs/toolkit/loader.js -> resource://issue-pigeon-at-addons-dot-mozilla-dot-org/test/test-index.js 37 null
+resource://gre/modules/commonjs/toolkit/loader.js -> resource://issue-pigeon-at-addons-dot-mozilla-dot-org/test/test-index.js 10 null
+resource://gre/modules/commonjs/toolkit/loader.js 278 evaluate
+resource://gre/modules/commonjs/toolkit/loader.js 330 load
+resource://gre/modules/commonjs/toolkit/loader.js 747 main
+resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/deprecated/unit-test-finder.js 162 findTests/</getNextTest
+resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/deprecated/unit-test-finder.js 195 findTests/</<.getNext
+resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/deprecated/unit-test.js 530 runNextTest
+resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/deprecated/unit-test.js 544 startMany
+resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/deprecated/unit-test.js 27 findAndRunTests/<
+resource://gre/modules/Promise.jsm -> resource://gre/modules/Promise-backend.js 934 Handler.prototype.process
+resource://gre/modules/Promise.jsm -> resource://gre/modules/Promise-backend.js 813 this.PromiseWalker.walkerLoop
+null 0 null
+" {file: "resource://gre/modules/Deprecated.jsm" line: 79}]
+console.info: issue-pigeon: executing './test/test-index.test main async'
+console.info: issue-pigeon: pass: async Unit test running!
+console.info: issue-pigeon: pass: This test is done.
+console.info: issue-pigeon: pass: There was a clean UI.
+console.info: issue-pigeon: executing './test/test-index.test self'
+console.info: issue-pigeon: pass: self.id is issue-pigeon@addons.mozilla.org
+console.info: issue-pigeon: pass: This test is done.
+console.info: issue-pigeon: pass: self.name is issue-pigeon
+console.info: issue-pigeon: pass: self.version is 0.3.3
+console.info: issue-pigeon: pass: self.title is undefined
+console.info: issue-pigeon: pass: metadata is [object Object]
+console.info: issue-pigeon: pass: metadata.title is Issue Pigeon
+console.info: issue-pigeon: pass: There was a clean UI.
+console.warn: issue-pigeon: 1 warnings or errors were logged to the platform's nsIConsoleService, which could be of no consequence; however, they could also be indicative of aberrant behavior.
+
+20 of 20 tests passed.
+All tests passed!
+1443885700014	addons.xpi	DEBUG	Calling bootstrap method shutdown on adbhelper@mozilla.org version 0.8.0
+1443885700015	addons.xpi	DEBUG	Calling bootstrap method shutdown on issue-pigeon@addons.mozilla.org version 0.3.3
+JPM [error] JavaScript error: resource:///modules/devtools/client/shared/DeveloperToolbar.jsm, line 609: NS_ERROR_FAILURE: Component returned failure code: 0x80004005 (NS_ERROR_FAILURE) [nsIObserverService.removeObserver]
+
+console.error: 
+JPM [error]   Message: TypeError: typed is undefined
+  Stack:
+    Requisition.prototype.update@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/devtools/gcli/cli.js:1506:7
+DeveloperToolbar.prototype.show/this._showPromise</</<@resource:///modules/devtools/client/shared/DeveloperToolbar.jsm:417:16
+promise callback*DeveloperToolbar.prototype.show/this._showPromise</<@resource:///modules/devtools/client/shared/DeveloperToolbar.jsm:414:14
+Handler.prototype.process@resource://gre/modules/Promise.jsm -> resource://gre/modules/Promise-backend.js:934:23
+Promise*this.PromiseWalker.scheduleWalkerLoop@resource://gre/modules/Promise.jsm -> resource://gre/modules/Promise-backend.js:744:11
+this.PromiseWalker.schedulePromise@resource://gre/modules/Promise.jsm -> resource://gre/modules/Promise-backend.js:776:7
+this.PromiseWalker.completePromise@resource://gre/modules/Promise.jsm -> resource://gre/modules/Promise-backend.js:711:7
+OutputPanel.prototype._init/onload@resource:///modules/devtools/client/shared/DeveloperToolbar.jsm:887:5
+EventListener.handleEvent*OutputPanel.prototype._init@resource:///modules/devtools/client/shared/DeveloperToolbar.jsm:889:3
+OutputPanel.create@resource:///modules/devtools/client/shared/DeveloperToolbar.jsm:814:10
+DeveloperToolbar.prototype.show/this._showPromise<@resource:///modules/devtools/client/shared/DeveloperToolbar.jsm:402:7
+Handler.prototype.process@resource://gre/modules/Promise.jsm -> resource://gre/modules/Promise-backend.js:934:23
+Promise*this.PromiseWalker.scheduleWalkerLoop@resource://gre/modules/Promise.jsm -> resource://gre/modules/Promise-backend.js:744:11
+this.PromiseWalker.schedulePromise@resource://gre/modules/Promise.jsm -> resource://gre/modules/Promise-backend.js:776:7
+Promise.prototype.then@resource://gre/modules/Promise.jsm -> resource://gre/modules/Promise-backend.js:451:5
+DeveloperToolbar.prototype.show@resource:///modules/devtools/client/shared/DeveloperToolbar.jsm:389:23
+gDevToolsBrowser.updateCommandAvailability@resource:///modules/devtools/client/framework/gDevTools.jsm:591:7
+DT_registerBrowserWindow@resource:///modules/devtools/client/framework/gDevTools.jsm:828:5
+gBrowserInit._delayedStartup@chrome://browser/content/browser.js:12438:5
+EventListener.handleEvent*gBrowserInit.onLoad@chrome://browser/content/browser.js:12146:5
+onload@chrome://browser/content/browser.xul:1:1
+
+
+console.error: 
+  Protocol error (noSuchActor): No such actor for ID: server1.conn0.gcliActor11
+1443885700949	addons.manager	DEBUG	shutdown
+1443885700950	addons.manager	DEBUG	Calling shutdown blocker for XPIProvider
+1443885700950	addons.xpi	DEBUG	shutdown
+1443885700950	addons.xpi-utils	DEBUG	shutdown
+1443885700951	addons.manager	DEBUG	Calling shutdown blocker for LightweightThemeManager
+1443885700952	addons.manager	DEBUG	Calling shutdown blocker for GMPProvider
+1443885700953	addons.manager	DEBUG	Calling shutdown blocker for PluginProvider
+1443885700954	addons.manager	DEBUG	Calling shutdown blocker for <unnamed-provider>
+1443885700955	addons.manager	DEBUG	Calling shutdown blocker for PreviousExperimentProvider
+1443885700960	addons.xpi	DEBUG	Notifying XPI shutdown observers
+1443885700965	addons.manager	DEBUG	Async provider shutdown done
+
+real	0m34.438s
+user	0m0.151s
+sys	0m0.154s
