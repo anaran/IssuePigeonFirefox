@@ -1,10 +1,14 @@
+// node v4.1.1 on Windows XP requires double-quotes, no semicolon
+// before, must be first statement.
+"use strict";
+
 // Include gulp
-var gulp = require('gulp');
+const gulp = require('gulp');
 
-var gulpMarked = require('gulp-marked');
-var marked = require('./lib/marked');
+const gulpMarked = require('gulp-marked');
+const marked = require('./lib/marked');
 
-var pre =
+const pre =
     '<!DOCTYPE html>\n' +
     '<html lang="en">\n' +
     '    <head>\n' +
@@ -16,14 +20,14 @@ var pre =
     '    </head>\n' +
     '    <body class="help_body">\n' +
     '        <div class="help_div">\n';
-var post =
+const post =
     '        </div>\n' +
     '    </body>\n' +
     '</html>\n';
 
-var toc = [];
-var addTableOfContents = function (err, out) {
-  var tocHTML = '<h1 id="table-of-contents">Index</h1>\n<ul>';
+let toc = [];
+const addTableOfContents = function (err, out) {
+  let tocHTML = '<h1 id="table-of-contents">Index</h1>\n<ul>';
   toc.forEach(function (entry) {
     tocHTML += '<li><a href="#'+entry.anchor+'">'+entry.text+'</a></li>\n';
   });
@@ -32,10 +36,10 @@ var addTableOfContents = function (err, out) {
   return pre + out + tocHTML + post;
 };
 
-var renderer = (function() {
-  var renderer = new marked.Renderer();
+const renderer = (function() {
+  let renderer = new marked.Renderer();
   renderer.heading = function(text, level, raw) {
-    var anchor = this.options.headerPrefix + raw.toLowerCase().replace(/[^\w]+/g, '-');
+    let anchor = this.options.headerPrefix + raw.toLowerCase().replace(/[^\w]+/g, '-');
     toc.push({
       anchor: anchor,
       level: level,
@@ -52,8 +56,19 @@ var renderer = (function() {
     + '>\n'
     + '<a href="#table-of-contents">Index</a>\n';
   };
+  renderer.link = function(href, title, text) {
+    let out = '<a href="' + href.replace(/\.md$/, outputExtension) + '"';
+  if (title) {
+    out += ' title="' + title + '"';
+  }
+  out += '>' + text + '</a>';
+  return out;
+  };
   return renderer;
 })();
+
+// NOTE: Currently an implied assumption:
+const outputExtension = '.html';
 
 // Requires https://github.com/lmtm/gulp-marked/pull/15
 gulp.task('md2html', function() {

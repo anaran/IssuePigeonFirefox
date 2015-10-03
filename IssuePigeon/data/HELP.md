@@ -1,6 +1,6 @@
 # Issue Pigeon Firefox Add-on Help
 
-also available in [Deutsch](HELP-de.html)
+also available in [Deutsch](HELP-de.md)
 
 The Issue Pigeon Firefox Add-on knows how to find the home for issues
 and bugs you may find in some well-known project websites.

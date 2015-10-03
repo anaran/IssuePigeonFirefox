@@ -1,6 +1,6 @@
 # Issue Pigeon Firefox Add-on Hilfe
 
-gibt es auch in [English](HELP.html)
+gibt es auch in [English](HELP.md)
 
 Das Issue Pigeon Firefox Add-on findet für Fehler und
 Wünsche, die du in gut bekannten Projekt Seiten entdeckst,
