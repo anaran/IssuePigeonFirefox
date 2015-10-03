@@ -5,7 +5,9 @@
 // Include gulp
 const gulp = require('gulp');
 
-const gulpMarked = require('gulp-marked');
+// FIXME: Does not wrk due to
+// https://github.com/sindresorhus/gulp-markdown/issues/8
+const gulpMarked = require('gulp-markdown');
 const marked = require('./lib/marked');
 
 const pre =
