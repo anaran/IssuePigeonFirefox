@@ -1,0 +1,136 @@
+JPM [info] binary set to /usr/bin/firefox
+JPM [info] verbose set
+JPM [info] Starting jpm test on Issue Pigeon
+JPM [info] Checking compatability bootstrap.js and install.rdf for xpi
+Validating the manifest
+JPM [info] Creating fallbacks if they are necessary..
+Creating XPI
+JPM [info] Creating XPI...
+JPM [info] .jpmignore found
+JPM [info] Adding: /var/tmp/IssuePigeonFirefox/IssuePigeon/data
+JPM [info] Adding: /var/tmp/IssuePigeonFirefox/IssuePigeon/lib
+JPM [info] Adding: /var/tmp/IssuePigeonFirefox/IssuePigeon/locale
+JPM [info] Adding: /var/tmp/IssuePigeonFirefox/IssuePigeon/test
+JPM [info] Adding: /var/tmp/IssuePigeonFirefox/IssuePigeon/bootstrap.js
+JPM [info] Adding: /var/tmp/IssuePigeonFirefox/IssuePigeon/install.rdf
+JPM [info] Adding: /var/tmp/IssuePigeonFirefox/IssuePigeon/package.json
+JPM [info] Adding: /var/tmp/IssuePigeonFirefox/IssuePigeon/test-firefox-trunk-var-data.txt
+JPM [info] Adding: /var/tmp/IssuePigeonFirefox/IssuePigeon/test-firefox-var-data.txt
+JPM [info] Adding: /var/tmp/IssuePigeonFirefox/IssuePigeon/data/HELP-de.html
+JPM [info] Adding: /var/tmp/IssuePigeonFirefox/IssuePigeon/data/HELP.html
+JPM [info] Adding: /var/tmp/IssuePigeonFirefox/IssuePigeon/data/diagnostics_overlay.js
+JPM [info] Adding: /var/tmp/IssuePigeonFirefox/IssuePigeon/data/help.css
+JPM [info] Adding: /var/tmp/IssuePigeonFirefox/IssuePigeon/data/icon48.png
+JPM [info] Adding: /var/tmp/IssuePigeonFirefox/IssuePigeon/data/known-origins.js
+JPM [info] Adding: /var/tmp/IssuePigeonFirefox/IssuePigeon/data/report-json-parse-error.js
+JPM [info] Adding: /var/tmp/IssuePigeonFirefox/IssuePigeon/data/reportFeedbackInformation.js
+JPM [info] Adding: /var/tmp/IssuePigeonFirefox/IssuePigeon/data/settings.html
+JPM [info] Adding: /var/tmp/IssuePigeonFirefox/IssuePigeon/data/settings.css
+JPM [info] Adding: /var/tmp/IssuePigeonFirefox/IssuePigeon/data/settings.js
+JPM [info] Adding: /var/tmp/IssuePigeonFirefox/IssuePigeon/lib/main.js
+JPM [info] Adding: /var/tmp/IssuePigeonFirefox/IssuePigeon/locale/de.properties
+JPM [info] Adding: /var/tmp/IssuePigeonFirefox/IssuePigeon/test/jpm_test-b_c_programme_nightly_firefoxexe-p___JotFi-20151002T021919+0200.txt
+JPM [info] Adding: /var/tmp/IssuePigeonFirefox/IssuePigeon/locale/en-US.properties
+JPM [info] Adding: /var/tmp/IssuePigeonFirefox/IssuePigeon/test/jpm_test-b_c_programme_nightly_firefoxexe-p___JotFi-20151003T032413+0200.txt
+JPM [info] Adding: /var/tmp/IssuePigeonFirefox/IssuePigeon/test/jpm_test-b_c_programme_nightly_firefoxexe-p___JotFi-20151003T172111+0200.txt
+JPM [info] Adding: /var/tmp/IssuePigeonFirefox/IssuePigeon/test/jpm_test-b_c_programme_nightly_firefoxexe-v.txt
+JPM [info] Adding: /var/tmp/IssuePigeonFirefox/IssuePigeon/test/test-index.js
+JPM [info] XPI created at /tmp/issue-pigeon@addons.mozilla.org-0.3.4.xpi (481ms)
+JPM [info] Removing fallbacks if they were necessary..
+Created XPI at /tmp/issue-pigeon@addons.mozilla.org-0.3.4.xpi
+JPM [info] Creating a new profile
+JPM [info] Using temporary profile at
+JPM [info]     /tmp/4945b7ae-daa5-414a-bfcd-9f49a516f030
+JPM [info] Executing Firefox binary: /usr/bin/firefox
+JPM [info] Executing Firefox with args: -foreground,-no-remote,-profile,/tmp/4945b7ae-daa5-414a-bfcd-9f49a516f030
+JPM [error] 
+(process:6135): GLib-CRITICAL **: g_slice_set_config: assertion 'sys_page_size == 0' failed
+
+Running tests on Firefox 41.0.1/Gecko 41.0.1 (Build 20151001175629) ({ec8030f7-c20a-464f-9b0e-13a3a9e97384}) under linux/x86_64.
+console.log: issue-pigeon: testing addon Issue Pigeon 0.3.4 $Format:%h%d$ loads @resource://gre/modules/commonjs/toolkit/loader.js -> resource://issue-pigeon-at-addons-dot-mozilla-dot-org/test/test-index.js#L23C8
+@resource://gre/modules/commonjs/toolkit/loader.js -> resource://issue-pigeon-at-addons-dot-mozilla-dot-org/test/test-index.js#L10C3
+evaluate@resource://gre/modules/commonjs/toolkit/loader.js#L276C19
+load@resource://gre/modules/commonjs/toolkit/loader.js#L328C5
+main@resource://gre/modules/commonjs/toolkit/loader.js#L736C10
+findTests/</getNextTest@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/deprecated/unit-test-finder.js#L164C25
+findTests/</<.getNext@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/deprecated/unit-test-finder.js#L197C32
+runNextTest@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/deprecated/unit-test.js#L518C14
+startMany@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/deprecated/unit-test.js#L532C12
+findAndRunTests/<@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/deprecated/unit-test.js#L28C1
+Handler.prototype.process@resource://gre/modules/Promise.jsm -> resource://gre/modules/Promise-backend.js#L922C23
+this.PromiseWalker.walkerLoop@resource://gre/modules/Promise.jsm -> resource://gre/modules/Promise-backend.js#L801C7
+this.PromiseWalker.scheduleWalkerLoop/<@resource://gre/modules/Promise.jsm -> resource://gre/modules/Promise-backend.js#L740C39
+
+console.time: issue-pigeon: 'load time' @ Mon Oct 12 2015 21:42:57 GMT+0200 (CEST)
+console.dir: issue-pigeon: 
+Object
+    - id = issue-pigeon@addons.mozilla.org
+    - isNative = true
+    - checkCompatibility = true
+    - prefixURI = resource://issue-pigeon-at-addons-dot-mozilla-dot-org/
+    - rootURI = resource://issue-pigeon-at-addons-dot-mozilla-dot-org/
+    - name = issue-pigeon
+    - paths = {"":"resource://gre/modules/commonjs/","devtools/":"resource://gre/modules/devtools/","./":"resource://issue-pigeon-at-addons-dot-mozilla-dot-org/"}
+    - manifest = {"// Keep keys in alphabetical order and before preferences.":"This provides for quicker lookup of addon information.","author":"anaran","bugs":{"url":"https://github.com/anaran/IssuePigeonFirefox/issues"},"dependencies":[],"devDependencies":{"gulp":"3.8.11","gulp-marked":"1.0.0"},"description":"★ Try the Issue Pigeon \"Fly\" menu entry after selecting some broken links or text errors.\nThe Issue Pigeon might just find its way home. ★ Report issues for supported sites, based on content extracted from text selections in webpages. ★ Use the \"Settings\" menu entry instead of inline options. It works on Android too. ★ See https://addons.mozilla.org/en-US/firefox/addon/issue-pigeon/versions/#version-0.3.3 for Release Notes, newer versions.","engines":{"fennec":"38.0 - 44.0","firefox":"38.0 - 44.0"},"homepage":"https://github.com/anaran/IssuePigeonFirefox","icon":"resource://issue-pigeon-at-addons-dot-mozilla-dot-org/data/icon48.png","id":"issue-pigeon@addons.mozilla.org","license":"MIT","main":"lib/main.js","name":"issue-pigeon","repository":{"type":"git","url":"https://github.com/anaran/IssuePigeonFirefox.git"},"title":"Issue Pigeon","version":"0.3.4","permissions":{"multiprocess":true},"preferences":[{"description":"Issue Pigeon loading into newly opened tabs can be disabled, immediate, or delayed to when a tab is activated again.","hidden":false,"name":"loading","title":"Loading","value":"immediate","type":"radio","options":[{"value":"disabled","label":"Disabled"},{"value":"immediate","label":"Immediate"},{"value":"delayed","label":"Delayed"}]},{"description":"Diagnostic messages are displayed directly in the current browser tab. This can be useful when the add-on is not working as expected, but will be irritating in regular use.","hidden":false,"name":"diagnostics_overlay","title":"Show Diagnostic Messages in Overlay","type":"bool","value":false},{"description":"This preference shall be hidden, except for debug purposes. It is changed by the user dragging the icon into place.","hidden":true,"name":"position","title":"Icon Positioning","type":"string","value":""},{"description":"User-defined extensions to known sites. By turning on \"Show Diagnostic Messages in Overlay\" you can copy/paste one of the definitions under the \"known\" field here and edit it for your needs.","hidden":false,"name":"KNOWN_SITES_EXTENSIONS","title":"User-defined extensions to known sites","type":"string","value":"{}"},{"description":"Controls the amount of logging to the browser console by level, from all to errors only to nothing at all. Increase the log level when investigating problems.","name":"sdk.console.logLevel","type":"radio","title":"Console Logging Level","value":"off","options":[{"value":"all","label":"all"},{"value":"debug","label":"debug"},{"value":"info","label":"info"},{"value":"warn","label":"warn"},{"value":"error","label":"error"},{"value":"off","label":"off"}]}],"jetpack":{"overrides":{}}}
+    - metadata = {"// Keep keys in alphabetical order and before preferences.":"This provides for quicker lookup of addon information.","author":"anaran","bugs":{"url":"https://github.com/anaran/IssuePigeonFirefox/issues"},"dependencies":[],"devDependencies":{"gulp":"3.8.11","gulp-marked":"1.0.0"},"description":"★ Try the Issue Pigeon \"Fly\" menu entry after selecting some broken links or text errors.\nThe Issue Pigeon might just find its way home. ★ Report issues for supported sites, based on content extracted from text selections in webpages. ★ Use the \"Settings\" menu entry instead of inline options. It works on Android too. ★ See https://addons.mozilla.org/en-US/firefox/addon/issue-pigeon/versions/#version-0.3.3 for Release Notes, newer versions.","engines":{"fennec":"38.0 - 44.0","firefox":"38.0 - 44.0"},"homepage":"https://github.com/anaran/IssuePigeonFirefox","icon":"resource://issue-pigeon-at-addons-dot-mozilla-dot-org/data/icon48.png","id":"issue-pigeon@addons.mozilla.org","license":"MIT","main":"lib/main.js","name":"issue-pigeon","repository":{"type":"git","url":"https://github.com/anaran/IssuePigeonFirefox.git"},"title":"Issue Pigeon","version":"0.3.4","permissions":{"multiprocess":true},"preferences":[{"description":"Issue Pigeon loading into newly opened tabs can be disabled, immediate, or delayed to when a tab is activated again.","hidden":false,"name":"loading","title":"Loading","value":"immediate","type":"radio","options":[{"value":"disabled","label":"Disabled"},{"value":"immediate","label":"Immediate"},{"value":"delayed","label":"Delayed"}]},{"description":"Diagnostic messages are displayed directly in the current browser tab. This can be useful when the add-on is not working as expected, but will be irritating in regular use.","hidden":false,"name":"diagnostics_overlay","title":"Show Diagnostic Messages in Overlay","type":"bool","value":false},{"description":"This preference shall be hidden, except for debug purposes. It is changed by the user dragging the icon into place.","hidden":true,"name":"position","title":"Icon Positioning","type":"string","value":""},{"description":"User-defined extensions to known sites. By turning on \"Show Diagnostic Messages in Overlay\" you can copy/paste one of the definitions under the \"known\" field here and edit it for your needs.","hidden":false,"name":"KNOWN_SITES_EXTENSIONS","title":"User-defined extensions to known sites","type":"string","value":"{}"},{"description":"Controls the amount of logging to the browser console by level, from all to errors only to nothing at all. Increase the log level when investigating problems.","name":"sdk.console.logLevel","type":"radio","title":"Console Logging Level","value":"off","options":[{"value":"all","label":"all"},{"value":"debug","label":"debug"},{"value":"info","label":"info"},{"value":"warn","label":"warn"},{"value":"error","label":"error"},{"value":"off","label":"off"}]}],"jetpack":{"overrides":{}}}
+    - modules = {@test/options:..,sdk/addon/window:.., }
+    - noQuit = false
+    - globals = {"console":{}}
+console.log: issue-pigeon: jpm Issue Pigeon
+console.warn: issue-pigeon: Plural form unknown for locale "null"
+console.timeEnd: issue-pigeon: 'load time' 327ms
+console.info: issue-pigeon: executing './test/test-index.test main'
+console.info: issue-pigeon: pass: undefined !== require('../data/reportFeedbackInformation')
+console.info: issue-pigeon: pass: {}
+console.info: issue-pigeon: pass: undefined !== require('../data/known-origins')
+console.info: issue-pigeon: pass: {"knownOrigins":{"http://docs.couchdb.org":{"help":"http://webchat.freenode.net/?channels=couchdb","report":"https://REST_SHOULD_BE_USED_NOT_GET","type":"jira"},"https://developer.mozilla.org":{"help":"https://developer.mozilla.org/en-US/docs/MDN/About#Documentation_errors","report":"https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&product=Developer%20Documentation","type":"bugzilla"},"https://www.mozilla.org":{"help":"https://www.mozilla.org/en-US/contribute/page/","report":"https://bugzilla.mozilla.org/enter_bug.cgi?product=www.mozilla.org&component=Pages%20%26%20Content","type":"bugzilla"},"https://addons.mozilla.org":{"help":"https://addons.mozilla.org/en-US/developers/docs/policies/contact","report":"https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&product=addons.mozilla.org","type":"bugzilla"},"https://addons.allizom.org":{"help":"https://addons.mozilla.org/en-US/developers/docs/policies/contact","report":"https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&product=addons.mozilla.org","type":"bugzilla"},"https://developer.chrome.com/apps":{"help":"https://developer.chrome.com/apps/faq","report":"https://code.google.com/p/chromium/issues/entry?label=Cr-Platform-Apps","type":"chromium"},"https://developer.chrome.com/extensions":{"help":"https://developer.chrome.com/extensions/faq","report":"https://code.google.com/p/chromium/issues/entry?label=Cr-Platform-Extensions","type":"chromium"},"https://github.com":{"type":"github"},"https://www.npmjs.org":{"report":"https://github.com/npm/npm-www/issues/new","type":"github"},"http://dev.w3.org/html5":{"report":"https://www.w3.org/Bugs/Public/enter_bug.cgi?format=__default__&product=HTML%20WG&component=HTML5%20spec","type":"bugzilla"},"http://codemirror.net":{"report":"https://github.com/marijnh/CodeMirror/issues/new","type":"github"},"resource://issue-pigeon-at-addons-dot-mozilla-dot-org":{"help":"https://github.com/anaran/LastScrollChrome/blob/master/contributing.md","report":"https://github.com/anaran/IssuePigeonFirefox/issues/new","type":"github"},"https://en.wikipedia.org":{"help":"https://en.wikipedia.org/wiki/Wikipedia:Contact_us_-_Readers","type":"wikipedia"},"http://www.freenode.net":{"help":"http://www.freenode.net/faq.shtml","report":"mailto:support@freenode.net","type":"mailto"},"https://wiki.mozilla.org":{"help":"https://wiki.mozilla.org/MozillaWiki:Help","report":"https://bugzilla.mozilla.org/enter_bug.cgi?product=Websites&component=wiki.mozilla.org","type":"bugzilla"},"https://support.mozilla.org":{"help":"https://github.com/mozilla/kitsune","report":"https://bugzilla.mozilla.org/enter_bug.cgi?product=support.mozilla.org","type":"bugzilla"}}}
+console.info: issue-pigeon: pass: reportFeedbackInformation shows no runtime errors
+console.info: issue-pigeon: pass: undefined !== require('../data/settings')
+console.info: issue-pigeon: pass: Unit test running!
+console.log: issue-pigeon: [JavaScript Warning: "TypeError: useless expression" {file: "resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/util/sequence.js" line: 333}]
+console.log: issue-pigeon: [JavaScript Error: "DEPRECATION WARNING: FUEL is deprecated, you should use the add-on SDK instead.
+You may find more details about this deprecation at: https://developer.mozilla.org/Add-ons/SDK/
+jar:file:///usr/lib/firefox/browser/omni.ja!/components/fuelApplication.js 1458 Application
+jar:file:///usr/lib/firefox/browser/omni.ja!/components/fuelApplication.js 726 af_ci
+resource://gre/modules/devtools/Console.jsm 135 stringify
+resource://gre/modules/devtools/Console.jsm 276 logProperty
+resource://gre/modules/devtools/Console.jsm 227 log/<
+self-hosted 210 forEach
+resource://gre/modules/devtools/Console.jsm 226 log
+resource://gre/modules/devtools/Console.jsm 498 createMultiLineDumper/</<
+self-hosted 210 forEach
+resource://gre/modules/devtools/Console.jsm 497 createMultiLineDumper/<
+resource://gre/modules/commonjs/toolkit/loader.js -> resource://issue-pigeon-at-addons-dot-mozilla-dot-org/test/test-index.js 37 null
+resource://gre/modules/commonjs/toolkit/loader.js -> resource://issue-pigeon-at-addons-dot-mozilla-dot-org/test/test-index.js 10 null
+resource://gre/modules/commonjs/toolkit/loader.js 276 evaluate
+resource://gre/modules/commonjs/toolkit/loader.js 328 load
+resource://gre/modules/commonjs/toolkit/loader.js 736 main
+resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/deprecated/unit-test-finder.js 164 findTests/</getNextTest
+resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/deprecated/unit-test-finder.js 197 findTests/</<.getNext
+resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/deprecated/unit-test.js 518 runNextTest
+resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/deprecated/unit-test.js 532 startMany
+resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/deprecated/unit-test.js 28 findAndRunTests/<
+resource://gre/modules/Promise.jsm -> resource://gre/modules/Promise-backend.js 922 Handler.prototype.process
+resource://gre/modules/Promise.jsm -> resource://gre/modules/Promise-backend.js 801 this.PromiseWalker.walkerLoop
+resource://gre/modules/Promise.jsm -> resource://gre/modules/Promise-backend.js 740 this.PromiseWalker.scheduleWalkerLoop/<
+null 0 null
+" {file: "resource://gre/modules/Deprecated.jsm" line: 79}]
+console.log: issue-pigeon: [JavaScript Warning: "TypeError: variable data redeclares argument" {file: "resource://gre/modules/commonjs/toolkit/loader.js -> resource://issue-pigeon-at-addons-dot-mozilla-dot-org/data/reportFeedbackInformation.js" line: 280 column: 10 source: "      var data = {
+"}]
+console.info: issue-pigeon: executing './test/test-index.test main async'
+console.info: issue-pigeon: pass: async Unit test running!
+console.info: issue-pigeon: executing './test/test-index.test self'
+console.info: issue-pigeon: pass: self.id is issue-pigeon@addons.mozilla.org
+console.info: issue-pigeon: pass: self.name is issue-pigeon
+console.info: issue-pigeon: pass: self.version is 0.3.4
+console.info: issue-pigeon: pass: self.title is undefined
+console.info: issue-pigeon: pass: metadata is [object Object]
+console.info: issue-pigeon: pass: metadata.title is Issue Pigeon
+console.error: issue-pigeon: 
+  warnings and/or errors were logged.
+
+14 of 15 tests passed.
+There were test failures...
+
+The following tests failed:
+
