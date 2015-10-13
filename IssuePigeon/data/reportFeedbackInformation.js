@@ -277,7 +277,7 @@
       Array.prototype.forEach.call(typeof document !== 'undefined' && document.querySelectorAll('a[href^="https://plus.google.com/"]'), function (value) {
         gpluses.push(value.href);
       });
-      var data = {
+      var reportData = {
         knownOrigins: Object.getOwnPropertyNames(PigeonDispatcher.knownOrigins),
         copyright: copyright && copyright.content,
         keywords: keywords && keywords.content,
@@ -310,7 +310,7 @@
         }
         else {
           // NOTE: something went wrong for a supported site.
-          (typeof self !== 'undefined') && self.port.emit('unsupported', JSON.stringify(data, null, 2));
+          (typeof self !== 'undefined') && self.port.emit('unsupported', JSON.stringify(reportData, null, 2));
         }
         return aTestLocation;
       }

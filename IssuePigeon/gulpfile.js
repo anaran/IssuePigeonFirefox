@@ -6,7 +6,7 @@
 const gulp = require('gulp');
 
 const gulpMarked = require('gulp-marked');
-const marked = require('./lib/marked');
+const marked = require('marked');
 
 const pre =
     '<!DOCTYPE html>\n' +

@@ -8,8 +8,7 @@ html/
 lib/marked.js
 lib/*-jpm.js
 lib/*-cfx.js
-jpm_run*.txt
-jpm_test*.txt
+*.txt
 node_modules/
 test/
 tmp/
