@@ -31,7 +31,7 @@
       console.log("jpm", jpm);
     DEBUG_ADDON &&
       console.log('Logging enabled via debugger');
-    const ko = require('../data/known-origins.js');
+    const ko = require('./data/known-origins.js');
     const self = require('sdk/self');
     // Only available for options natively supported by firefox, i.e. in jpm.
     const metadata = lo.metadata;
@@ -60,7 +60,7 @@
         console.profile('addon ' + self.name + ' ' + self.version + 'profile');
     }
 
-    // to see how to test this function, look at ../test/test-main.js
+    // to see how to test this function, look at ./test/test-main.js
     var testSelfProperty = function(property, callback) {
       callback(self[property]);
     };
@@ -100,6 +100,7 @@
     let handleErrors = function (exception) {
       // FIXME: Perhaps this should open a styled error page and just
       // post error data to it.
+      if (false) {
       tabs.open({
         // inNewWindow: true,
         url: 'data:text/html;charset=utf-8,<html><head><title>' + myTitle
@@ -114,6 +115,11 @@
         onClose: function() {
           tabs.activeTab.activate();
         }});
+      }
+      else {
+        console.error((JSON.stringify(exception,
+                                      Object.getOwnPropertyNames(exception), 2)));
+      }
     };
 
     let worker, originPayload = JSON.stringify({ 'known': ko.knownOrigins, 'extensions': sp.prefs['KNOWN_SITES_EXTENSIONS'] }, null, 2);
@@ -123,6 +129,8 @@
           // let worker = tabs.activeTab.attach({
           // contentScriptFile: self.data.url('reportFeedbackInformation.js'),
           contentScriptFile: [
+            './anaran-jetpack-content/setup_icon.js',
+            './anaran-jetpack-content/setup_menu_item.js',
             './reportFeedbackInformation.js',
             './diagnostics_overlay.js'
           ],
@@ -197,7 +205,7 @@
                 settingsTab = tab;
                 settingsWorker = tab.attach({
                   contentScriptFile: [
-                    './settings.js',
+                    './anaran-jetpack-content/settings.js',
                     './report-json-parse-error.js',
                     './diagnostics_overlay.js'
                   ],

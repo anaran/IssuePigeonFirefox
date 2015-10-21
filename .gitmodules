@@ -1,0 +1,3 @@
+[submodule "IssuePigeon/data/anaran-jetpack-content"]
+	path = IssuePigeon/data/anaran-jetpack-content
+	url = git@github.com:anaran/anaran-jetpack-content.git

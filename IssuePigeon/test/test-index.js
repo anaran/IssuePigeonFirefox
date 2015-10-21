@@ -8,7 +8,7 @@
 // Author: adrian.aichner@gmail.com
 //
 ;(function() {
-  let DEBUG_ADDON = true;
+  let DEBUG_ADDON = false;
   let sp = require('sdk/simple-prefs');
   // See https://github.com/mozilla-jetpack/jpm/issues/339
   sp.prefs['sdk.console.logLevel'] = 'info';
@@ -34,10 +34,12 @@
       console.profile('addon ' + self.name + ' ' + self.version + 'profile');
   }
   var lo = require("@loader/options");
-  console.dir(lo);
+  DEBUG_ADDON &&
+    console.dir(lo);
   const jpm = lo && lo.metadata.title;
-  console.log("jpm", jpm);
-  const mainPath = jpm ? '../lib/main' : 'lib/main';
+  DEBUG_ADDON &&
+    console.log("jpm", jpm);
+  const mainPath = jpm ? '../' : 'lib/main';
   var main = require(mainPath);
   exports["test main"] = function(assert) {
     // Content scripts cannot export anything, but we can check for
@@ -62,9 +64,12 @@
     // let PigeonDispatcher object is undefined
     // console.log('rfi.PigeonDispatcher', rfi.PigeonDispatcher);
     assert.ok(rfi.reportFeedbackInformation(originPayload, testLocation), "reportFeedbackInformation shows no runtime errors");
-    const settingsPath = jpm ? '../data/settings' : 'data/settings';
+    const settingsPath = jpm ? '../data/anaran-jetpack-content/settings' : 'data/settings';
     let settings = require(settingsPath);
     assert.notEqual(typeof settings, "undefined", "undefined !== require('"+settingsPath+"')");
+    let setup_icon_path = '../data/anaran-jetpack-content/setup_icon';
+    let setup_icon = require(setup_icon_path);
+    assert.notEqual(typeof setup_icon, "undefined", "undefined !== require('" + setup_icon_path + "')");
     assert.pass("Unit test running!");
   };
 

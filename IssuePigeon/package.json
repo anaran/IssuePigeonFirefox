@@ -19,14 +19,14 @@
   "icon": "resource://issue-pigeon-at-addons-dot-mozilla-dot-org/data/icon48.png",
   "id": "issue-pigeon@addons.mozilla.org",
   "license": "MIT",
-  "main": "lib/main.js",
+  "main": "index.js",
   "name": "issue-pigeon",
   "repository" : {
     "type" : "git",
     "url" : "https://github.com/anaran/IssuePigeonFirefox.git"
   },
   "title": "Issue Pigeon",
-  "version": "0.3.4",
+  "version": "0.4.0rc1",
   "permissions": {
     "multiprocess": true
   },
