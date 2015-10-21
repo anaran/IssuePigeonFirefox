@@ -323,25 +323,8 @@
     DEBUG_ADDON &&
       console.log("self.port is true", self);
     self.port.on('show_feedback', function (data) {
-      let div = window.setupIcon('show_feedback', 'request_position_save', data, function (event) {
-        console.log("selection", window.getSelection().toString());
-        event.preventDefault();
-        event.stopPropagation();
-        if (this.firstElementChild.style.display == 'none') {
-          this.firstElementChild.style.display = 'inline-block';
-        }
-        else {
-          this.firstElementChild.style.display = 'none';
-        }
-      });
-      var menu = div.appendChild(document.createElement('div'));
-      menu.className = 'menu';
-      menu.style.display = 'none';
-      menu.style.opacity = 0.7;
-      // menu.style.backgroundColor = (efpBC == 'transparent' ? bodyBC : efpBC);
-      menu.style.borderRadius = '3px';
-      menu.style.borderColor = menu.style.color;
-      menu.style.border = '2px solid';
+      let div = window.setupIcon('show_feedback', 'request_position_save', data);
+      let menu = window.setupMenu(div, data);
       window.setupMenuItem(menu, 'fly', data.menu.fly, function (event) {
         console.log("selection", window.getSelection().toString());
         event.preventDefault();
