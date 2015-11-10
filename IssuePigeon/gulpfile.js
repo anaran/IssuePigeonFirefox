@@ -2,9 +2,7 @@
 // before, must be first statement.
 "use strict";
 
-// Include gulp
 const gulp = require('gulp');
-
 const gulpMarked = require('gulp-marked');
 const marked = require('marked');
 

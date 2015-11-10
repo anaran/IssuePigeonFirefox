@@ -1,7 +1,10 @@
 {
   "// Keep keys in alphabetical order and before preferences.":
   "This provides for quicker lookup of addon information.",
-  "author": "anaran",
+  "author": {
+    "name": "anaran",
+    "email": "adrian.aichner@gmail.com"
+  },
   "bugs": {
     "url" : "https://github.com/anaran/IssuePigeonFirefox/issues"
   },
