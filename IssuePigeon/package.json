@@ -15,8 +15,8 @@
   },
   "description": "\u2605 Try the Issue Pigeon \"Fly\" menu entry after selecting some broken links or text errors.\nThe Issue Pigeon might just find its way home. \u2605 Report issues for supported sites, based on content extracted from text selections in webpages. \u2605 Use the \"Settings\" menu entry instead of inline options. It works on Android too. \u2605 See https://addons.mozilla.org/en-US/firefox/addon/issue-pigeon/versions/#version-0.3.3 for Release Notes, newer versions.",
   "engines": {
-    "fennec": "38.0 - 44.0",
-    "firefox": "38.0 - 44.0"
+    "fennec": "38.0 - 45.0",
+    "firefox": "38.0 - 45.0"
   },
   "homepage": "https://github.com/anaran/IssuePigeonFirefox",
   "icon": "resource://issue-pigeon-at-addons-dot-mozilla-dot-org/data/icon48.png",
