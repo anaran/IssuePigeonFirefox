@@ -35,8 +35,8 @@
     const self = require('sdk/self');
     // Only available for options natively supported by firefox, i.e. in jpm.
     const metadata = lo.metadata;
+    const ps = require("sdk/preferences/service");
     if (!lo || !lo.metadata.title) {
-      let ps = require("sdk/preferences/service");
       ps.reset('extensions.issue-pigeon@addons.mozilla.org.sdk.baseURI');
       ps.reset('extensions.issue-pigeon@addons.mozilla.org.sdk.rootURI');
       ps.reset('extensions.issue-pigeon@addons.mozilla.org.sdk.version');
@@ -80,6 +80,31 @@
     var _ = require("sdk/l10n").get;
     let settingsTab, helpTab;
     let sp = require('sdk/simple-prefs');
+    // extensions.issue-pigeon@addons.mozilla.org.KNOWN_SITES_EXTENSIONS;{}
+    if (ps.isSet('extensions.issue-pigeon@addons.mozilla.org.KNOWN_SITES_EXTENSIONS')) {
+      sp.prefs['JSON_KNOWN_SITES_EXTENSIONS'] = sp.prefs['KNOWN_SITES_EXTENSIONS'];
+      let title = self.name + ': Migration of preference KNOWN_SITES_EXTENSIONS';
+      let text = "\nPreference KNOWN_SITES_EXTENSIONS has been migrated to JSON_KNOWN_SITES_EXTENSIONS.";
+      text += "\nThe former will be reset.\n\nKNOWN_SITES_EXTENSIONS = " + sp.prefs['KNOWN_SITES_EXTENSIONS']
+      notifications.notify({
+        title: title,
+        text: text,
+        data: qs.stringify({
+          title:
+          title + ' in ' + self.version,
+          body:
+          "(Please review for any private data you may want to remove before submitting)\n\n" + text
+        }),
+        onClick: function (data) {
+          tabs.open({
+            inNewWindow: true,
+            url: 'https://github.com/anaran/IssuePigeonFirefox/issues/new?' + data,
+            onClose: function() {
+              require("sdk/tabs").activeTab.activate();
+            }});
+        }});
+      ps.reset('extensions.issue-pigeon@addons.mozilla.org.KNOWN_SITES_EXTENSIONS');
+    }
     // The real one is in reportFeedbackInformation.js
     let bugzilla = function () {};
     let sample = JSON.stringify({
@@ -90,9 +115,9 @@
       }
     }, null, 2);
     var saveKnownSitesExtensions = function(data) {
-      sp.prefs['KNOWN_SITES_EXTENSIONS'] = data;
+      sp.prefs['JSON_KNOWN_SITES_EXTENSIONS'] = data;
     };
-    sp.on('KNOWN_SITES_EXTENSIONS', function(prefName) {
+    sp.on('JSON_KNOWN_SITES_EXTENSIONS', function(prefName) {
       DEBUG_ADDON &&
         console.log('Setting ' + prefName + ' for ' + self.name + ' version ' +
                     self.version + ' to ' + sp.prefs[prefName]);
@@ -122,7 +147,7 @@
       }
     };
 
-    let worker, originPayload = JSON.stringify({ 'known': ko.knownOrigins, 'extensions': sp.prefs['KNOWN_SITES_EXTENSIONS'] }, null, 2);
+    let worker, originPayload = JSON.stringify({ 'known': ko.knownOrigins, 'extensions': sp.prefs['JSON_KNOWN_SITES_EXTENSIONS'] }, null, 2);
     tabs.on('ready', function(tab) {
       let setupWorkers = function() {
         worker = tab.attach({
@@ -294,14 +319,14 @@
         });
         worker.port.on('need_flight_data', function (data) {
           worker.port.emit('fly_safely', {
-            'extensions': sp.prefs['KNOWN_SITES_EXTENSIONS'],
+            'extensions': sp.prefs['JSON_KNOWN_SITES_EXTENSIONS'],
             'known': ko.knownOrigins
           });
         });
         worker.port.on('request_options', function (data) {
           worker.port.emit('show_options', {
             'known': ko.knownOrigins,
-            'extensions': sp.prefs['KNOWN_SITES_EXTENSIONS']
+            'extensions': sp.prefs['JSON_KNOWN_SITES_EXTENSIONS']
           });
         });
         worker.port.on('request_position_save', function (data) {
