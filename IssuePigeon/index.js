@@ -101,20 +101,20 @@
       // FIXME: Perhaps this should open a styled error page and just
       // post error data to it.
       if (false) {
-      tabs.open({
-        // inNewWindow: true,
-        url: 'data:text/html;charset=utf-8,<html><head><title>' + myTitle
-        + ' Error</title></head><body><h1>' + myTitle
-        + ' Error</h1><pre>'
-        + (JSON.stringify(exception,
-                          Object.getOwnPropertyNames(exception), 2))
-        .replace(/(:\d+)+/g, '$&\n')
-        .replace(/->/g, '\n$&')
-        .replace(/\n/g, '%0a')
-        + '</pre>',
-        onClose: function() {
-          tabs.activeTab.activate();
-        }});
+        tabs.open({
+          // inNewWindow: true,
+          url: 'data:text/html;charset=utf-8,<html><head><title>' + myTitle
+          + ' Error</title></head><body><h1>' + myTitle
+          + ' Error</h1><pre>'
+          + (JSON.stringify(exception,
+                            Object.getOwnPropertyNames(exception), 2))
+          .replace(/(:\d+)+/g, '$&\n')
+          .replace(/->/g, '\n$&')
+          .replace(/\n/g, '%0a')
+          + '</pre>',
+          onClose: function() {
+            tabs.activeTab.activate();
+          }});
       }
       else {
         console.error((JSON.stringify(exception,
