@@ -222,11 +222,13 @@
                     prefs: sp.prefs,
                     links: [
                       {
+                        textContent: _('help_menu_entry'),
+                        href: self.data.url(_('help_path')),
                         id: 'help_link',
-                        href: self.data.url(_('help_path'))
                       }, {
+                        textContent: _('known_origins'),
+                        href: self.data.url(_('known_origins_path')),
                         id: 'known_origins_link',
-                        href: self.data.url(_('known_origins_path'))
                       }
                     ]
                   });
