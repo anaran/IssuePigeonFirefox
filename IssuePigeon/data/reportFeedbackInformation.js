@@ -322,7 +322,7 @@
     // if (typeof self !== 'undefined' && self.port) {
     DEBUG_ADDON &&
       console.log("self.port is true", self);
-    self.port.on('show_feedback', function (data) {
+    "body" in document && self.port.on('show_feedback', function (data) {
       let div = window.setupIcon('show_feedback', 'request_position_save', data);
       let menu = window.setupMenu(div, data);
       window.setupMenuItem(menu, 'fly', data.menu.fly, function (event) {
