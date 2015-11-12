@@ -1,3 +1,7 @@
+# IssuePigeonFirefox
+
+Issue Pigeon Add-on for Desktop and Mobile Firefox 
+
 # Installation
 
 The ![][icon] Firefox Add-on is distributed via addons.mozilla.org.
