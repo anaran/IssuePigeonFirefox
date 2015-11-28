@@ -54,6 +54,11 @@
         report: 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&product=addons.mozilla.org',
         type: 'bugzilla'
       },
+      'https://bugzilla.mozilla.org': {
+        help: 'https://bmo.readthedocs.org/en/latest/',
+        report: 'https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&product=bugzilla.mozilla.org',
+        type: 'bugzilla'
+      },
       'https://developer.chrome.com/apps': {
         help: 'https://developer.chrome.com/apps/faq',
         report: 'https://code.google.com/p/chromium/issues/entry?label=Cr-Platform-Apps',
