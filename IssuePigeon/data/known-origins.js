@@ -74,8 +74,14 @@
       'https://github.com': {
         type: 'github'
       },
+      // See https://github.com/anaran/IssuePigeonFirefox/issues/17
       'https://www.npmjs.org': {
         report: 'https://github.com/npm/npm-www/issues/new',
+        type: 'github'
+      },
+      'https://www.npmjs.com': {
+        report: 'https://github.com/npm/newww/issues/new',
+        help: 'https://github.com/npm/newww/wiki',
         type: 'github'
       },
       'http://dev.w3.org/html5': {

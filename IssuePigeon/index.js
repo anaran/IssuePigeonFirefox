@@ -287,15 +287,15 @@
           }
         });
         worker.port.on('unsupported', function (data) {
-          let title = self.name + ': Cannot fly home';
+          let title = data.title || 'Cannot fly home';
           notifications.notify({
-            title: title,
-            text: "\nClick to report this\n" + data,
+            title: self.name + ': ' + title,
+            text: "\nClick to report this\n" + JSON.stringify(data, null, 2),
             data: qs.stringify({
               title:
               title + ' in ' + self.version,
               body:
-              "(Please review for any private data you may want to remove before submitting)\n\n" + data
+              "(Please review for any private data you may want to remove before submitting)\n\n" + JSON.stringify(data, null, 2)
             }),
             onClick: function (data) {
               tabs.open({

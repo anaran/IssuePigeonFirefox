@@ -104,7 +104,16 @@
           this.report = options.report;
         },
         github = function GithubReporter(aLocation, options) {
-          let base = aLocation.pathname.match(options.matcher || /^\/[^/]+\/[^/#?]+/)[0];
+          let match = aLocation.pathname.match(options.matcher || /^\/[^/]+\/[^/#?]+/);
+          if (!match || !match.length) {
+            self.port.emit('unsupported', {
+              title: 'Cannot match github project at ' + aLocation.href,
+              aLocation: aLocation,
+              match: match,
+              options: options
+            });
+          }
+          let base = match[0];
           this.help = options.help || aLocation.origin + base + '/wiki';
           this.report = options.report || aLocation.origin + base + '/issues/new';
         },
@@ -310,13 +319,20 @@
         }
         else {
           // NOTE: something went wrong for a supported site.
-          (typeof self !== 'undefined') && self.port.emit('unsupported', JSON.stringify(reportData, null, 2));
+          (typeof self !== 'undefined') && self.port.emit('unsupported', {
+            reportData: reportData,
+            title: 'Cannot fly from supported site ' + myLocation.href
+          });
         }
         return aTestLocation;
       }
       else {
         // This site is indeed not supported. Report it to possibly get support.
-        (typeof self !== 'undefined') && self.port.emit('unsupported', JSON.stringify(data, null, 2));
+        (typeof self !== 'undefined') && self.port.emit('unsupported', {
+          reportData: reportData,
+          title: 'Cannot fly from unsupported site ' + myLocation.href,
+          data: data
+        });
       }
     };
     // if (typeof self !== 'undefined' && self.port) {
