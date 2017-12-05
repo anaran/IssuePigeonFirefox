@@ -1,0 +1,67 @@
+{
+  "// Keep keys in alphabetical order and before preferences.":
+  "This provides for quicker lookup of addon information.",
+  "author": "adrian.aichner@gmail.com",
+  "bugs": {
+    "url" : "https://github.com/anaran/IssuePigeonFirefox/issues"
+  },
+  "dependencies": [],
+  "devDependencies": {
+    "gulp": "3.8.11",
+    "gulp-marked": "1.0.0"
+  },
+  "description": "\u2605 Try the Issue Pigeon \"Fly\" menu entry after selecting some broken links or text errors.\nThe Issue Pigeon might just find its way home. \u2605 Report issues for supported sites, based on content extracted from text selections in webpages. \u2605 Use the \"Settings\" menu entry instead of inline options. It works on Android too. \u2605 See https://addons.mozilla.org/en-US/firefox/addon/issue-pigeon/versions/#version-0.3.3 for Release Notes, newer versions.",
+  "engines": {
+    "fennec": "38.0 - 49.0",
+    "firefox": "38.0 - 49.0"
+  },
+  "homepage": "https://github.com/anaran/IssuePigeonFirefox",
+  "icons": {
+    "48": "data/icon48.png"
+  },
+  "web_accessible_resources": [
+    "data/icon48.png"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "name": "issue-pigeon",
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/anaran/IssuePigeonFirefox.git"
+  },
+  "title": "Issue Pigeon",
+  "manifest_version": 2,
+  "version": "1.0.0alpha1",
+  "applications": {
+    "gecko": {
+      "id": "issue-pigeon@addons.mozilla.org"
+    }
+  },
+  "permissions": [
+    "tabs"
+  ],
+  "background": {
+    "scripts": [
+        "jpm-preferences.js",
+      "data/known-origins.js",
+      "data/reportFeedbackInformation.js"
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": [
+          "<all_urls>"
+      ],
+      "js": [
+        "data/diagnostics_overlay.js",
+        "data/anaran-jetpack-content/setup_icon.js",
+        "data/anaran-jetpack-content/setup_menu_item.js",
+        "index.js"
+      ]
+    }
+  ],
+  "options_ui": {
+    "page": "data/anaran-jetpack-content/settings.html"
+  },
+  "default_locale": "en"
+}

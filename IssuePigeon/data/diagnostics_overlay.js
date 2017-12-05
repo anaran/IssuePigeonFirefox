@@ -75,13 +75,22 @@
       }
     }
   };
-  if (typeof self !== 'undefined') {
-    self.port.on('reportError', showDiagnosticsOverlay);
-  }
-  if (typeof exports !== 'undefined') {
-    exports.showDiagnosticsOverlay = showDiagnosticsOverlay;
-  }
-  else if (typeof window !== 'undefined') {
+
+  // function handleMessages(message, sender, sendResponse) {
+  //   // message, sender, sendResponse are all <unavailable>|
+  //   console.log("cs handleMessages gets", message, sender, sendResponse);
+  //   sendResponse({type: "response",
+  //       	  sender: sender,
+  //       	  original: message});
+  //   // return true from the event listener to indicate you wish to
+  //   // send a response asynchronously (this will keep the message
+  //   // channel open to the other end until sendResponse is called).
+  //   // See https://developer.chrome.com/extensions/runtime#event-onMessage
+  //   return true;
+  // }
+  // 
+  // chrome.runtime.onMessage.addListener(handleMessages);
+  if (typeof window !== 'undefined') {
     window.showDiagnosticsOverlay = showDiagnosticsOverlay;
   }
 })();

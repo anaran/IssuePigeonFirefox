@@ -1,0 +1,68 @@
+{
+  "help_title": {
+    "message": "Issue Pigeon Help"
+  },
+  "settings_title": {
+    "message": "Issue Pigeon Settings"
+  },
+  "fly_menu_entry": {
+    "message": "Fly"
+  },
+  "help_menu_entry": {
+    "message": "Help"
+  },
+  "help_path": {
+    "message": "data/HELP.html"
+  },
+  "settings_menu_entry": {
+    "message": "Settings"
+  },
+  "known_origins": {
+    "message": "Known Site Definitions"
+  },
+  "known_origins_path": {
+    "message": "data/known-origins.js"
+  },
+  "addon_description": {
+    "message": "\u2605 Try the Issue Pigeon \"Fly\" menu entry after selecting some broken links or text errors.  The Issue Pigeon might just find its way home. \u2605 Report issues for supported sites, based on content extracted from text selections in webpages. \u2605 Use the \"Settings\" menu entry instead of inline options. It works on Android too. \u2605 See https://addons.mozilla.org/en-US/firefox/addon/issue-pigeon/versions/#version-0.3.3 for Release Notes, newer versions."
+  },
+  "addon_homepage": {
+    "message": "https://github.com/anaran/IssuePigeonFirefox"
+  },
+  "addon_name": {
+    "message": "issue-pigeon"
+  },
+  "addon_title": {
+    "message": "Issue Pigeon"
+  },
+  "loading_description": {
+    "message": "Issue Pigeon loading into newly opened tabs can be disabled, immediate, or delayed to when a tab is activated again."
+  },
+  "loading_title": {
+    "message": "Loading"
+  },
+  "diagnostics_overlay_description": {
+    "message": "Diagnostic messages are displayed directly in the current browser tab. This can be useful when the add-on is not working as expected, but will be irritating in regular use."
+  },
+  "diagnostics_overlay_title": {
+    "message": "Show Diagnostic Messages in Overlay"
+  },
+  "position_description": {
+    "message": "This preference shall be hidden, except for debug purposes. It is changed by the user dragging the icon into place."
+  },
+  "position_title": {
+    "message": "Icon Positioning"
+  },
+  "JSON_KNOWN_SITES_EXTENSIONS_description": {
+    "message": "User-defined extensions to known sites make it possible to send issues to private Bugzilla installations, etc.. Copy entries from the link \"Known Site Definitions\" and adjust them here for your needs. Copied entries are converted to JSON syntax automatically."
+  },
+  "JSON_KNOWN_SITES_EXTENSIONS_title": {
+    "message": "User-defined extensions to known sites"
+  },
+  "sdk.console.logLevel_description": {
+    "message": "Controls the amount of logging to the browser console by level, from all to errors only to nothing at all. Increase the log level when investigating problems."
+  },
+  "sdk.console.logLevel_title": {
+    "message": "Console Logging Level"
+  }
+}
