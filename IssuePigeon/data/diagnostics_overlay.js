@@ -1,4 +1,3 @@
-;
 'use strict';
 //
 // Replace /\b(const|let)\B/ with "$1 "

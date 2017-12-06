@@ -25,7 +25,6 @@
       // debugger;
     }
     let _ = (key) => {
-      // return key;
       return browser.i18n.getMessage(key);
     };
     let avoidCircular4 = function (element, indent) {
@@ -434,10 +433,26 @@
                   console.log (changeInfo.status, tabInfo);
                   if (changeInfo && (changeInfo.status == 'complete')
                       && (tabInfo.url == settingsURL)) {
-                    let executing = browser.tabs.executeScript(
+                    browser.tabs.executeScript(
                       tabId,
                       {
                         file: "/localize.js"
+                      }
+                    ).then(() => {
+                      // browser.tabs.onUpdated.removeListener(listener);
+                    });
+                    browser.tabs.executeScript(
+                      tabId,
+                      {
+                        file: "/data/diagnostics_overlay.js"
+                      }
+                    ).then(() => {
+                      // browser.tabs.onUpdated.removeListener(listener);
+                    });
+                    browser.tabs.executeScript(
+                      tabId,
+                      {
+                        file: "/data/report-json-parse-error.js"
                       }
                     ).then(() => {
                       // browser.tabs.onUpdated.removeListener(listener);
