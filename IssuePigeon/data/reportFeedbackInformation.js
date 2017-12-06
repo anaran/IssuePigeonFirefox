@@ -8,9 +8,7 @@
 //
 // Author: adrian.aichner@gmail.com
 //
-// Firefox Addon Content Script.
-// require is not available in content scripts.
-// let sp = require('sdk/simple-prefs');
+// Firefox Webextension Background Script.
 (function() {
   let DEBUG_ADDON = true;
   DEBUG_ADDON && console.log(new Error('just kidding'));
@@ -18,59 +16,8 @@
     // NOTE Set "DEBUG_ADDON = true" in the debugger before continuing to get console messages logged.
     // Make sure option "Console Logging Level" is not set to "off".
     //
-    if (DEBUG_ADDON) {
-      // debugger is statement, not expression.
-      // DEBUG_ADDON && debugger;
-      // causes exception.
-      // debugger;
-    }
     let _ = (key) => {
       return browser.i18n.getMessage(key);
-    };
-    let avoidCircular4 = function (element, indent) {
-      let seen = {
-      };
-      return JSON.stringify(element, function (key, value) {
-        if (key) {
-          if (value === element) {
-            console.error('reference to top-level');
-            return 'reference to top-level';
-          }
-          if (value === this) {
-            console.error('reference to self');
-            return 'reference to self';
-          }
-          if (value && value.hasOwnProperty('prototype')) {
-            if (typeof value == 'function') {
-              if (value.name) {
-                if (value.prototype.constructor && value.prototype.constructor.name) {
-                  console.log(value.name, 'has prototype.constructor', value.prototype.constructor.name);
-                  return 'constructor ' + value.prototype.constructor.name;
-                } else {
-                  console.log(value.name, 'has prototype', value.prototype.constructor.name);
-                  return 'anon constructor ' + value.prototype.constructor.toSource().substring(0, 80);
-                }
-              } else {
-                // console.log(value.toSource().substring(0, 80), 'has prototype', value.prototype.toSource().substring(0, 80));
-              }
-            } else {
-              console.error(value.prototype);
-            }
-          }
-          if (typeof value == "function") {
-            if (value.name) {
-              console.log('value.name', value.name);
-              return value.toSource().substring(0, 80);
-            } else {
-              console.log('value.toSource().substring(0, 80)', value.toSource().substring(0, 80));
-            }
-          }
-          return value;
-        } else {
-          console.log('-----------------------------------------');
-          return value;
-        }
-      }, indent);
     };
     DEBUG_ADDON &&
       console.log('Logging enabled via debugger');
@@ -92,6 +39,29 @@
       DEBUG_ADDON &&
         console.profile('content script profile');
     }
+      const manifest = browser.runtime.getManifest();
+      let title = 'Cannot fly home';
+      // Leading space gets removed from instructions before use.
+      let instructions = `
+          <!-- Please describe: -->
+
+# What did you do?
+
+        <!-- 1. steps to reproduce -->
+
+# What happened?
+
+        <!-- actual results -->
+
+# What should have happened?
+
+        <!-- expected results -->
+
+# What Issue Pigeon knows already:
+      
+        <!-- Please review text below for any private data you may want to remove before submitting (like this comment) -->
+        
+      `;
     // Causes the same warning like all cross-site links opened programmatically.
     // let strWindowFeatures = undefined,
     let strWindowFeatures = 'resizable=yes,scrollbars=yes,toolbar=yes',
@@ -110,12 +80,37 @@
         github = function GithubReporter(aLocation, options) {
           let match = aLocation.pathname.match(options.matcher || /^\/[^/]+\/[^/#?]+/);
           if (!match || !match.length) {
-            self.port.emit('unsupported', {
-              title: 'Cannot match github project at ' + aLocation.href,
-              aLocation: aLocation,
-              match: match,
-              options: options
+            browser.notifications.clear('notifyUnsupported');
+            browser.notifications.create('notifyUnsupported', {
+              "type": "basic",
+              "iconUrl": chrome.extension.getURL(manifest.icons["48"]),
+              "title": `${title} in ${manifest.version}`,
+              "message": `Cannot match github project at ${aLocation.href}\n\nClick to create issue if this project should be supported in a future version.\n` + JSON.stringify({
+                aLocation: aLocation,
+                match: match,
+                options: options
+              }, null, 2)
             });
+            let searchParams = new URLSearchParams();
+            searchParams.set("title", `${title} in ${manifest.version}`);
+            searchParams.set("body", instructions.replace(/^\s+/mg, '')
+                             + JSON.stringify({
+                               aLocation: aLocation,
+                               match: match,
+                               options: options
+                             }, null, 2));
+            let listener = function(notificationId) {
+              switch (notificationId) {
+              case 'notifyUnsupported': {
+                openWindow ('https://github.com/anaran/IssuePigeonFirefox/issues/new?'
+                            + searchParams, '_blank', strWindowFeatures);
+                break;
+              }
+              }
+              browser.notifications.onClicked.removeListener(listener);
+            };
+            browser.notifications.onClicked.addListener(listener);
+            // return;
           }
           let base = match[0];
           this.help = options.help || aLocation.origin + base + '/wiki';
@@ -140,6 +135,24 @@
         PigeonDispatcher = {
           knownOrigins: {}
         };
+    let openWindow = (url, name, features) => {
+      browser.tabs.query({
+        currentWindow: true,
+        active: true
+      }).then(tabs => {
+        DEBUG_ADDON && console.log('openWindow', tabs, tabs[0].id);
+        browser.tabs.sendMessage(tabs[0].id, {
+          type: 'open',
+          url: url,
+          name: name,
+          features: features
+        }).then(res => {
+          DEBUG_ADDON && console.log(res); 
+        }).catch(err => {
+          DEBUG_ADDON && console.log(err);
+        });
+      });
+    };
     jira.prototype.fly = function (data) {
       // See https://developer.atlassian.com/display/JIRADEV/JIRA+REST+API+Example+-+Create+Issue#JIRARESTAPIExample-CreateIssue-Exampleofcreatinganissueusingprojectkeysandfieldnames.
       // Request
@@ -160,24 +173,6 @@
       // }
       return true;
     };
-    let openWindow = (url, name, features) => {
-      browser.tabs.query({
-        currentWindow: true,
-        active: true
-      }).then(tabs => {
-        console.log('openWindow', tabs, tabs[0].id)
-        browser.tabs.sendMessage(tabs[0].id, {
-          type: 'open',
-          url: url,
-          name: name,
-          features: features
-        }).then(res => {
-          console.log(res); 
-        }).catch(err => {
-          console.log(err);
-        });
-      });
-    };
     bugzilla.prototype.fly = function (data) {
       this.help && openWindow(this.help, '_blank', strWindowFeatures);
       var link = this.report && this.report + '&comment='
@@ -185,7 +180,7 @@
                                        + data.rangeLinks.join('\n') + '\n\n  referenced from\n\n' : 'See:\n\n') + data.location.href + '\n\nDetails:\n\n' + data.selection + '\n\nhttp://mzl.la/1vxCDgA\n\n')
           + '&bug_file_loc=' + window.encodeURIComponent(data.location.href)
           + '&short_desc=' + window.encodeURIComponent('Summarise issue or request about ' + document.title);
-      DEBUG_ADDON &&       console.log(this, link);
+      DEBUG_ADDON && console.log(this, link);
       this.report && openWindow(link, '_blank', strWindowFeatures);
       return true;
     };
@@ -237,117 +232,114 @@
             + data.location.href + '\n\nDetails:\n\n' + data.selection + '\n\nhttp://mzl.la/1vxCDgA\n\n'
             + '\n\n';
         let win = openWindow(this.report, '_blank', strWindowFeatures);
-        avoidCircular4(win, 2);
-        //         let onReady = function (event) {
-        //           DEBUG_ADDON &&       console.log(event.target);
-        //           if (event.target.readyState !== 'complete') {
-        //             return;
-        //           }
         setTimeout(function () {
           let ta = win.document.querySelector('textarea#wpTextbox1.mw-ui-input');
           if (ta) {
             ta.value = addition + ta.value;
           }
         }, 3000);
-        //         };
-        //         win.onload = function () {
-        //         win.addEventListener('readystatechange', onReady, false);
       }
       return true;
     };
-    var reportFeedbackInformation = function (data) {
-      let copyright = typeof document !== 'undefined' && document.querySelector('meta[name=copyright]'),
-          keywords = typeof document !== 'undefined' && document.querySelector('meta[name=keywords]'),
-          description = typeof document !== 'undefined' && document.querySelector('meta[name=description]'),
-          author = typeof document !== 'undefined' && document.querySelector('meta[name=author]'),
-          generator = typeof document !== 'undefined' && document.querySelector('meta[name=generator]'),
-          mailtos = [
-          ];
-      // data.location = 'location' in data ? data.location : aTestLocation;
+    var reportFeedbackInformation = function (message) {
+      // message.location = 'location' in message ? message.location : aTestLocation;
       try {
         PigeonDispatcher.knownOrigins = window.knownOrigins;
-        PigeonDispatcher.rangeLinks = data.rangeLinks;
-        PigeonDispatcher.selection = data.selection;
-        if ('extensions' in data) {
-          let additionalSites = JSON.parse(data.extensions);
+        PigeonDispatcher.rangeLinks = message.rangeLinks;
+        PigeonDispatcher.selection = message.selection;
+        if ('extensions' in message) {
+          let additionalSites = JSON.parse(message.extensions);
           Object.keys(additionalSites).forEach(function (key) {
             if (PigeonDispatcher.knownOrigins.hasOwnProperty(key)) {
-              console.warn('user overrides definition for',  key);
+              DEBUG_ADDON && console.warn('user overrides definition for',  key);
             }
             PigeonDispatcher.knownOrigins[key] = additionalSites[key];
           });
         }
       } catch (exception) {
-        console.error(exception);
+        DEBUG_ADDON && console.error(exception);
       }
-      // TODO Please see
-      // http://www.w3.org/TR/2011/REC-css3-selectors-20110929/#attribute-substrings
-      Array.prototype.forEach.call(typeof document !== 'undefined' && document.querySelectorAll('a[href^="mailto:"]'), function (value) {
-        mailtos.push(value.href);
-      });
-      var gpluses = [
-      ];
-      Array.prototype.forEach.call(typeof document !== 'undefined' && document.querySelectorAll('a[href^="https://plus.google.com/"]'), function (value) {
-        gpluses.push(value.href);
-      });
-      var reportData = {
-        knownOrigins: Object.getOwnPropertyNames(PigeonDispatcher.knownOrigins),
-        copyright: copyright && copyright.content,
-        keywords: keywords && keywords.content,
-        description: description && description.content,
-        author: author && author.content,
-        generator: generator && generator.content,
-        mailtos: mailtos,
-        gpluses: gpluses,
-        url: data.location.href,
-        selection: data.selection,
-        rangeLinks: data.rangeLinks
-      };
 
-      var handler = PigeonDispatcher.knownOrigins[data.location.origin]
+      var handler = PigeonDispatcher.knownOrigins[message.location.origin]
           || PigeonDispatcher.knownOrigins[
-            data.location.origin
-              + data.location.pathname.split("/", 2).join("/")];
-      // if (handler.type)
+            message.location.origin
+              + message.location.pathname.split("/", 2).join("/")];
       if (handler && handler.type) {
         let constr = constructors[handler.type];
         let derived = function DerivedReporter() {
-          constr.call(this, data.location, handler);
+          constr.call(this, message.location, handler);
         };
         derived.prototype = Object.create(constr.prototype);
         derived.prototype.constructor = derived;
-        if ((new derived()).fly(data)) {
+        if ((new derived()).fly(message)) {
           // FIXME: this is in fact supported, should not raise a notification!
-          // (typeof self !== 'undefined') && self.port.emit('unsupported', 'reported by ' + constr.toString());
         }
         else {
           // NOTE: something went wrong for a supported site.
-          (typeof self !== 'undefined') && self.port.emit('unsupported', {
-            reportData: reportData,
-            title: 'Cannot fly from supported site ' + data.location.href
+          browser.notifications.clear('notifyUnsupported');
+          browser.notifications.create('notifyUnsupported', {
+            "type": "basic",
+            "iconUrl": chrome.extension.getURL(manifest.icons["48"]),
+            "title": `${title} in ${manifest.version}`,
+            "message": `Cannot fly from supported site ${message.location.href}\n\nClick to create issue if this use case should be supported in a future version.\n` + JSON.stringify(message, null, 2)
           });
+          let searchParams = new URLSearchParams();
+          searchParams.set("title", `${title} in ${manifest.version}`);
+          searchParams.set("body", instructions.replace(/^\s+/mg, '')
+                           + JSON.stringify(message, null, 2));
+          let listener = function(notificationId) {
+            switch (notificationId) {
+            case 'notifyUnsupported': {
+              openWindow ('https://github.com/anaran/IssuePigeonFirefox/issues/new?'
+                          + searchParams, '_blank', strWindowFeatures);
+              break;
+            }
+            }
+            browser.notifications.onClicked.removeListener(listener);
+          };
+          browser.notifications.onClicked.addListener(listener);
         }
         // return aTestLocation;
       }
       else {
         // This site is indeed not supported. Report it to possibly get support.
-        (typeof self !== 'undefined') && self.port.emit('unsupported', {
-          reportData: reportData,
-          title: 'Cannot fly from unsupported site ' + data.location.href,
-          data: data
+        browser.notifications.clear('notifyUnsupported');
+        browser.notifications.create('notifyUnsupported', {
+          "type": "basic",
+          "iconUrl": chrome.extension.getURL(manifest.icons["48"]),
+          "title": `${title} in ${manifest.version}`,
+          "message": `Cannot fly from unsupported site ${message.location.href}\n\nClick to create issue if this site should be supported in a future version.\n` + JSON.stringify(message, null, 2)
         });
+        let searchParams = new URLSearchParams();
+        searchParams.set("title", `${title} in ${manifest.version}`);
+        searchParams.set("body", instructions.replace(/^\s+/mg, '')
+                         + JSON.stringify(message, null, 2));
+        let listener = function(notificationId) {
+          switch (notificationId) {
+          case 'notifyUnsupported': {
+            openWindow ('https://github.com/anaran/IssuePigeonFirefox/issues/new?'
+                        + searchParams, '_blank', strWindowFeatures);
+            break;
+          }
+          }
+          browser.notifications.onClicked.removeListener(listener);
+        };
+        browser.notifications.onClicked.addListener(listener);
       }
     };
-    // if (typeof self !== 'undefined' && self.port) {
-    DEBUG_ADDON &&
-      console.log("self.port is true", self);
+
     function handleMessages(message, sender, sendResponse) {
-      console.log(browser.runtime.id + " bg handleMessages");
-      console.log("bg handleMessages gets", message, sender, sendResponse);
+      DEBUG_ADDON && console.log(browser.runtime.id + " bg handleMessages");
+      DEBUG_ADDON && console.log("bg handleMessages gets", message, sender, sendResponse);
       switch (message.type) {
 
       case 'fly_safely': {
-        reportFeedbackInformation(message);
+        browser.storage.local.get('JSON_KNOWN_SITES_EXTENSIONS').then(res => {
+          if (res) {
+            message.extensions = res['JSON_KNOWN_SITES_EXTENSIONS'];
+          }
+          reportFeedbackInformation(message);
+        });
         break;
       }
 
@@ -377,7 +369,7 @@
             }).then(tab => {
               if (tab) {
                 let listener = (tabId, changeInfo, tabInfo) => {
-                  console.log (changeInfo.status, tabInfo);
+                  DEBUG_ADDON && console.log (changeInfo.status, tabInfo);
                   if (changeInfo && (changeInfo.status == 'complete'
                                      && (tabInfo.url == helpURL))) {
                     let executing = browser.tabs.executeScript(
@@ -397,7 +389,7 @@
                 };
                 browser.tabs.onUpdated.addListener(listener);
               }
-              console.log('browser.tabs.create', tabs);
+              DEBUG_ADDON && console.log('browser.tabs.create', tabs);
             });
           }
         });
@@ -430,7 +422,7 @@
             }).then(tab => {
               if (tab) {
                 let listener = (tabId, changeInfo, tabInfo) => {
-                  console.log (changeInfo.status, tabInfo);
+                  DEBUG_ADDON && console.log (changeInfo.status, tabInfo);
                   if (changeInfo && (changeInfo.status == 'complete')
                       && (tabInfo.url == settingsURL)) {
                     browser.tabs.executeScript(
@@ -466,7 +458,7 @@
                 };
                 browser.tabs.onUpdated.addListener(listener);
               }
-              console.log('browser.tabs.create', tabs);
+              DEBUG_ADDON && console.log('browser.tabs.create', tabs);
             });
           }
         });
@@ -474,7 +466,7 @@
       }
 
       default: {
-        console.log('bg handleMessages defaults, returns true');
+        DEBUG_ADDON && console.log('bg handleMessages defaults, returns true');
         return true;
       }
 
@@ -505,47 +497,7 @@
                   ]
                 });
               };
-              // sp.on('position', function(prefName) {
-              //   emitLoadSettings();
-              // });
-    function handleMessages2(message, sender, sendResponse) {
-      console.log(browser.runtime.id + "bg handleMessages2");
-      console.log("bg handleMessages2 gets", message, sender, sendResponse);
-      switch (message.type) {
-        
-        // case 'open': {
-        //   window.open(message.url, message.name, message.features);
-        //   return false;
-        // }
-
-      case 'request_settings': {
-        emitLoadSettings();
-        break;
-      }
-
-      case 'save_setting': {
-        console.log(`sp.prefs[${message.name}] = `, message.value);
-        // NOTE: We don't need this as long as we don't incrementally update the settings UI.
-        // Need a way to address pref selection in UI, e.g.
-        // label.radio input[name="sdk.console.logLevel"][value="off"]
-        // This works:
-        // document.querySelector('.menulist[name*="sdk"]').value = "error"
-        // document.querySelector('label.radio input[name="sdk.console.logLevel"][value="all"]').checked = true;
-        // emitLoadSettings();
-        break;
-      }
-        
-      default: {
-        console.log('bg handleMessages defaults');
-        return false;
-      }
-        
-      }
-      sendResponse ('bg handleMessages ' + message.type);
-    }
-    
     browser.runtime.onMessage.addListener(handleMessages);
-    browser.runtime.onMessage.addListener(handleMessages2);
     // TODO Place following code where timed section should end.
     if (console.timeEnd) {
       DEBUG_ADDON &&
@@ -557,8 +509,6 @@
       DEBUG_ADDON &&
         console.profileEnd();
     }
-    // self.port.emit('request_feedback');
-    // exports.PigeonDispatcher = PigeonDispatcher;
   }
   catch (exception) {
     // DEBUG_ADDON &&
