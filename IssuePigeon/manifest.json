@@ -38,11 +38,12 @@
     }
   },
   "permissions": [
+    "storage",
     "tabs"
   ],
   "background": {
     "scripts": [
-        "jpm-preferences.js",
+      "jpm-preferences.js",
       "data/known-origins.js",
       "data/reportFeedbackInformation.js"
     ]
