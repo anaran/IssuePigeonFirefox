@@ -10,7 +10,7 @@
 // require is not available in content scripts.
 // let sp = require('sdk/simple-prefs');
 (function() {
-  //  let DEBUG_ADDON = false;
+  //  const DEBUG_ADDON = false;
   //  return {
   let showDiagnosticsOverlay = function (data) {
     if (typeof document != 'undefined') {

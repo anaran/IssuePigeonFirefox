@@ -24,7 +24,7 @@
 //
 (function () {
   try {
-    let DEBUG_ADDON = true;
+    const DEBUG_ADDON = false;
     DEBUG_ADDON && console.log(new Error('just kidding'));
     window.knownOrigins = {
       // Start of 'SITE': { ... } Definitions:

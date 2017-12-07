@@ -83,33 +83,33 @@
             browser.notifications.clear('notifyUnsupported');
             browser.notifications.create('notifyUnsupported', {
               "type": "basic",
-              "iconUrl": chrome.extension.getURL(manifest.icons["48"]),
-              "title": `${title} in ${manifest.version}`,
-              "message": `Cannot match github project at ${aLocation.href}\n\nClick to create issue if this project should be supported in a future version.\n` + JSON.stringify({
+              "iconUrl": browser.extension.getURL(manifest.icons["48"]),
+              "title": `Report ${manifest.name} Github Project`,
+              "message": `Cannot match github project at ${aLocation.href}\n` + JSON.stringify({
                 aLocation: aLocation,
                 match: match,
                 options: options
               }, null, 2)
             });
-            let searchParams = new URLSearchParams();
-            searchParams.set("title", `${title} in ${manifest.version}`);
-            searchParams.set("body", instructions.replace(/^\s+/mg, '')
-                             + JSON.stringify({
-                               aLocation: aLocation,
-                               match: match,
-                               options: options
-                             }, null, 2));
-            let listener = function(notificationId) {
-              switch (notificationId) {
-              case 'notifyUnsupported': {
-                openWindow ('https://github.com/anaran/IssuePigeonFirefox/issues/new?'
-                            + searchParams, '_blank', strWindowFeatures);
-                break;
-              }
-              }
-              browser.notifications.onClicked.removeListener(listener);
-            };
-            browser.notifications.onClicked.addListener(listener);
+            // let searchParams = new URLSearchParams();
+            // searchParams.set("title", `${title} in ${manifest.version}`);
+            // searchParams.set("body", instructions.replace(/^\s+/mg, '')
+            //                  + JSON.stringify({
+            //                    aLocation: aLocation,
+            //                    match: match,
+            //                    options: options
+            //                  }, null, 2));
+            // let listener = function(notificationId) {
+            //   switch (notificationId) {
+            //   case 'notifyUnsupported': {
+            //     openWindow ('https://github.com/anaran/IssuePigeonFirefox/issues/new?'
+            //                 + searchParams, '_blank', strWindowFeatures);
+            //     break;
+            //   }
+            //   }
+            //   browser.notifications.onClicked.removeListener(listener);
+            // };
+            // browser.notifications.onClicked.addListener(listener);
             // return;
           }
           let base = match[0];
@@ -279,8 +279,8 @@
           browser.notifications.clear('notifyUnsupported');
           browser.notifications.create('notifyUnsupported', {
             "type": "basic",
-            "iconUrl": chrome.extension.getURL(manifest.icons["48"]),
-            "title": `${title} in ${manifest.version}`,
+            "iconUrl": browser.extension.getURL(manifest.icons["48"]),
+            "title": `Report ${manifest.name} Supported Site`,
             "message": `Cannot fly from supported site ${message.location.href}\n\nClick to create issue if this use case should be supported in a future version.\n` + JSON.stringify(message, null, 2)
           });
           let searchParams = new URLSearchParams();
@@ -306,8 +306,8 @@
         browser.notifications.clear('notifyUnsupported');
         browser.notifications.create('notifyUnsupported', {
           "type": "basic",
-          "iconUrl": chrome.extension.getURL(manifest.icons["48"]),
-          "title": `${title} in ${manifest.version}`,
+          "iconUrl": browser.extension.getURL(manifest.icons["48"]),
+          "title": `Report ${manifest.name} Unsupported Site`,
           "message": `Cannot fly from unsupported site ${message.location.href}\n\nClick to create issue if this site should be supported in a future version.\n` + JSON.stringify(message, null, 2)
         });
         let searchParams = new URLSearchParams();
