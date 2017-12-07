@@ -28,7 +28,7 @@ let DEBUG_ADDON = true;
     };
 
     function handleMessages(message, sender, sendResponse) {
-      console.log(chrome.runtime.id + "cs handleMessages");
+      console.log(browser.runtime.id + "cs handleMessages");
       console.log("cs handleMessages gets", message, sender, sendResponse);
       switch (message.type) {
         
