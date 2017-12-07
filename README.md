@@ -8,7 +8,13 @@ The ![][icon] Firefox Add-on is distributed via addons.mozilla.org.
 
 [icon]: IssuePigeon/data/icon48.png "Issue Pigeon"
 
+## Released Versions
+
 See [which versions](https://addons.mozilla.org/en-US/firefox/addon/issue-pigeon/versions/) are available right now.
+
+## Beta Versions
+
+These [beta versions](https://addons.mozilla.org/en-US/firefox/addon/issue-pigeon/versions/beta) are used by a smaller number of people for development and testing of new versions.
 
 # README for Developers
 
