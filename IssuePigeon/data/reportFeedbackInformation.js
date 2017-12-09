@@ -10,7 +10,7 @@
 //
 // Firefox Webextension Background Script.
 (function() {
-  let DEBUG_ADDON = true;
+  const DEBUG_ADDON = false;
   DEBUG_ADDON && console.log(new Error('just kidding'));
   try {
     // NOTE Set "DEBUG_ADDON = true" in the debugger before continuing to get console messages logged.

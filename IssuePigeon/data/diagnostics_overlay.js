@@ -12,6 +12,19 @@
 (function() {
   //  const DEBUG_ADDON = false;
   //  return {
+
+  function getAllPropertyNames(obj, props = []) {
+    // console.log(obj.constructor.name, props);
+    if (obj.constructor.name == 'Object') {
+      // console.log(obj.constructor.name, props);
+      return props.length ? props : null;
+      // return props;
+    } else {
+      // console.log(obj, props);
+      return getAllPropertyNames(Object.getPrototypeOf(obj), props.concat(Object.getOwnPropertyNames(obj)));
+    }
+  }
+
   let showDiagnosticsOverlay = function (data) {
     if (typeof document != 'undefined') {
       var box = document.querySelector('.err-box') || (function() {
@@ -65,7 +78,7 @@
         return box;
       })();
       var entry = document.createElement('pre');
-      entry.textContent = (JSON.stringify(data.err, null, data.indent || 0));
+      entry.textContent = (JSON.stringify(data.err, getAllPropertyNames(data.err), data.indent || 0));
       if (box.firstElementChild) {
         box.insertBefore(entry, box.firstElementChild);
       }
@@ -75,20 +88,6 @@
     }
   };
 
-  // function handleMessages(message, sender, sendResponse) {
-  //   // message, sender, sendResponse are all <unavailable>|
-  //   console.log("cs handleMessages gets", message, sender, sendResponse);
-  //   sendResponse({type: "response",
-  //       	  sender: sender,
-  //       	  original: message});
-  //   // return true from the event listener to indicate you wish to
-  //   // send a response asynchronously (this will keep the message
-  //   // channel open to the other end until sendResponse is called).
-  //   // See https://developer.chrome.com/extensions/runtime#event-onMessage
-  //   return true;
-  // }
-  // 
-  // chrome.runtime.onMessage.addListener(handleMessages);
   if (typeof window !== 'undefined') {
     window.showDiagnosticsOverlay = showDiagnosticsOverlay;
   }

@@ -24,7 +24,7 @@
     "message": "data/known-origins.js"
   },
   "addon_description": {
-    "message": "\u2605 Try the Issue Pigeon \"Fly\" menu entry after selecting some broken links or text errors.  The Issue Pigeon might just find its way home. \u2605 Report issues for supported sites, based on content extracted from text selections in webpages. \u2605 Use the \"Settings\" menu entry instead of inline options. It works on Android too. \u2605 See https://addons.mozilla.org/en-US/firefox/addon/issue-pigeon/versions/#version-0.3.3 for Release Notes, newer versions."
+    "message": "\u2605 Try the Issue Pigeon \"Fly\" menu entry after selecting some broken links or text errors.  The Issue Pigeon might just find its way home. \u2605 Report issues for supported sites, based on content extracted from text selections in webpages."
   },
   "addon_homepage": {
     "message": "https://github.com/anaran/IssuePigeonFirefox"

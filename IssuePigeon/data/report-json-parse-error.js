@@ -5,7 +5,7 @@
 
 (function() {
   window.reportError = function reportError(element) {
-    var DEBUG = false;
+    const DEBUG = false;
     // window.scrollTo(0, 0);
     for (var oldText of document.body.querySelectorAll('div.report-json-error')) {
       document.body.removeChild(oldText);

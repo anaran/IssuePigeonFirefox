@@ -9,7 +9,7 @@
 // Author: adrian.aichner@gmail.com
 //
 (function() {
-let DEBUG_ADDON = true;
+  const DEBUG_ADDON = false;
   try {
     // NOTE Change Function Scope variable DEBUG_ADDON from false to
     // true in the debugger variables panel before continuing to get
@@ -51,8 +51,6 @@ let DEBUG_ADDON = true;
     let menu = window.setupMenu(div, data);
     window.setupMenuItem(menu, 'fly', data.menu.fly, function (event) {
       console.log("selection", window.getSelection().toString());
-      event.preventDefault();
-      event.stopPropagation();
       let extractLinksFromSelection = () => {
         let s = typeof window !== 'undefined' && window.getSelection();
         let rangeLinks = {
@@ -80,6 +78,10 @@ let DEBUG_ADDON = true;
       Array.prototype.forEach.call(document.querySelectorAll('a[href^="https://plus.google.com/"]'), function (value) {
         gpluses.push(value.href);
       });
+      let meta = [];
+      Array.prototype.forEach.call(document.querySelectorAll('meta[name]'), node => {
+        meta[node.name] = node.content;
+      });
       let message = {
         type: 'fly_safely',
         // document.location has methods too, like 'assign'
@@ -90,11 +92,7 @@ let DEBUG_ADDON = true;
         },
         selection: window.getSelection().toString(),
         rangeLinks: extractLinksFromSelection(),
-        copyright: document.querySelector('meta[name=copyright]'),
-        keywords: document.querySelector('meta[name=keywords]'),
-        description: ((desc) => desc && desc.content)(document.querySelector('meta[name=description]')),
-        author: document.querySelector('meta[name=author]'),
-        generator: document.querySelector('meta[name=generator]'),
+        meta: meta,
         mailtos: mailtos,
         gpluses: gpluses
       };
@@ -116,9 +114,9 @@ let DEBUG_ADDON = true;
         console.profileEnd();
     }
   }
-catch (exception) {
-  DEBUG_ADDON && console.error(exception);
-  DEBUG_ADDON && window.alert(exception.message + '\n\n' + exception.stack);
-  // handleErrors(exception);
-}
+  catch (exception) {
+    DEBUG_ADDON && console.error(exception);
+    DEBUG_ADDON && window.alert(exception.message + '\n\n' + exception.stack);
+    // handleErrors(exception);
+  }
 })();
