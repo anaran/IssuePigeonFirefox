@@ -50,7 +50,7 @@
     let div = window.setupIcon('show_feedback', 'request_position_save', data);
     let menu = window.setupMenu(div, data);
     window.setupMenuItem(menu, 'fly', data.menu.fly, function (event) {
-      console.log("selection", window.getSelection().toString());
+      DEBUG_ADDON && console.log("selection", window.getSelection().toString());
       let extractLinksFromSelection = () => {
         let s = typeof window !== 'undefined' && window.getSelection();
         let rangeLinks = {

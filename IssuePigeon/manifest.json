@@ -32,7 +32,7 @@
 
   "default_locale": "en",
 
-  "description": "\u2605 Try the Issue Pigeon \"Fly\" menu entry after selecting some broken links or text errors.\nThe Issue Pigeon might just find its way home. \u2605 Report issues for supported sites, based on content extracted from text selections in webpages. \u2605 Use the \"Settings\" menu entry instead of inline options. It works on Android too. \u2605 See https://addons.mozilla.org/en-US/firefox/addon/issue-pigeon/versions/#version-0.3.3 for Release Notes, newer versions.",
+  "description": "__MSG_addon_description__",
 
   "developer": {
     "name": "adrian.aichner@gmail.com",
@@ -45,7 +45,7 @@
 
   "manifest_version": 2,
 
-  "name": "Issue Pigeon",
+  "name": "__MSG_addon_title__",
 
   "options_ui": {
     "page": "data/anaran-jetpack-content/settings.html"
@@ -57,7 +57,7 @@
     "tabs"
   ],
 
-  "version": "1.0.2",
+  "version": "1.0.4",
 
   "web_accessible_resources": [
     "data/icon48.png"
