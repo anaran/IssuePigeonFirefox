@@ -1,0 +1,68 @@
+{
+  "help_title": {
+    "message": "Issue Pigeon Hilfe"
+  },
+  "settings_title": {
+    "message": "Issue Pigeon Einstellungen"
+  },
+  "fly_menu_entry": {
+    "message": "Flieg"
+  },
+  "help_menu_entry": {
+    "message": "Hilfe"
+  },
+  "help_path": {
+    "message": "data/HELP-de.html"
+  },
+  "settings_menu_entry": {
+    "message": "Einstellungen"
+  },
+  "known_origins": {
+    "message": "Definition Bekannter Projekte"
+  },
+  "known_origins_path": {
+    "message": "data/known-origins.js"
+  },
+  "addon_description": {
+    "message": "\u2605 Probier den Issue Pigeon \"Flieg\" Menü Eintrag, nachdem du einige defekte Links oder Schreibfehler markiert hast. Die Problem Taube findet vielleicht nach Hause. \u2605 Berichte Probleme mit unterstützen Projekten, nachdem du relevanten Text auf der Seite markiert hast. "
+  },
+  "addon_homepage": {
+    "message": "https://github.com/anaran/IssuePigeonFirefox"
+  },
+  "addon_name": {
+    "message": "issue-pigeon"
+  },
+  "addon_title": {
+    "message": "Issue Pigeon"
+  },
+  "loading_description": {
+    "message": "Issue Pigeon kann in ein neu geöffnetes Tab garnicht, sofort oder später, wenn dieses wieder aktiviert wird, geladen werden."
+  },
+  "loading_title": {
+    "message": "Laden"
+  },
+  "diagnostics_overlay_description": {
+    "message": "Diagnosemeldungen werden direkt im browser tab angezeigt. Das kann nützlich sein wenn das add-on nicht wie erwartet funktioniert, irritiert aber im regulären Gebrauch."
+  },
+  "diagnostics_overlay_title": {
+    "message": "Zeige Diagnose Meldungen in überlagertem Element"
+  },
+  "position_description": {
+    "message": "Diese Einstellung wird, bis auf Testzwecke, in offizielen Versionen versteckt sein. Sie speichert wie weit vom nahegelegensten Rand der Anwender das Icon positioniert hat."
+  },
+  "position_title": {
+    "message": "Icon Positionierung"
+  },
+  "JSON_KNOWN_SITES_EXTENSIONS_description": {
+    "message": "Definitionen zu Anwender-spezifischen Projekten erlauben es, Problem an private Installationen von Bugzilla, etc. zu senden. Kopiere Eintäge aus dem Verweis \"Definition Bekannter Projekte\" und passe sie hier für deine Zwecke an. Die kopierten Einträge werden automatisch in JSON syntax umgewandelt."
+  },
+  "JSON_KNOWN_SITES_EXTENSIONS_title": {
+    "message": "Anwender-spezifische Projekte"
+  },
+  "sdk.console.logLevel_description": {
+    "message": "Kontrolliert die Menge der Meldungen in der Konsole nach Level, von allen Meldungen, über Fehler, bis garnichts. Erhöhe den Level bei der Suche nach Problemen mit dem add-on."
+  },
+  "sdk.console.logLevel_title": {
+    "message": "Konsole Logging Level"
+  }
+}

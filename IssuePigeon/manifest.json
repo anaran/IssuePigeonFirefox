@@ -1,0 +1,66 @@
+{
+
+  "// Keep keys in alphabetical order and before preferences.":  "This provides for quicker lookup of addon information.",
+
+  "applications": {
+    "gecko": {
+      "id": "issue-pigeon@addons.mozilla.org"
+    }
+  },
+
+  "background": {
+    "scripts": [
+      "jpm-preferences.js",
+      "data/known-origins.js",
+      "data/reportFeedbackInformation.js"
+    ]
+  },
+
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "data/diagnostics_overlay.js",
+        "data/anaran-jetpack-content/setup_icon.js",
+        "data/anaran-jetpack-content/setup_menu_item.js",
+        "index.js"
+      ]
+    }
+  ],
+
+  "default_locale": "en",
+
+  "description": "__MSG_addon_description__",
+
+  "developer": {
+    "name": "adrian.aichner@gmail.com",
+    "url" : "https://github.com/anaran/IssuePigeonFirefox"
+  },
+
+  "icons": {
+    "48": "data/icon48.png"
+  },
+
+  "manifest_version": 2,
+
+  "name": "__MSG_addon_title__",
+
+  "options_ui": {
+    "page": "data/anaran-jetpack-content/settings.html"
+  },
+
+  "permissions": [
+    "notifications",
+    "storage",
+    "tabs"
+  ],
+
+  "version": "1.0.4",
+
+  "web_accessible_resources": [
+    "data/icon48.png"
+  ]
+
+}

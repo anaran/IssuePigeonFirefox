@@ -1,8 +1,7 @@
+'use strict';
 /* -*- indent-tabs-mode: nil; js-indent-level: 2 -*- */
 /*jslint browser: true, devel: true */
 /*global findRegExpBar: false, chrome: false, console: false, require: false, document: false */
-;
-'use strict';
 //
 // Replace /\b(const|let)\B/ with "$1 "
 // Replace [/^( *)function (\w+)/] with [$1var $2 = function]
@@ -25,8 +24,9 @@
 //
 (function () {
   try {
-    let DEBUG_ADDON = false;
-    exports.knownOrigins = {
+    const DEBUG_ADDON = false;
+    DEBUG_ADDON && console.log(new Error('just kidding'));
+    window.knownOrigins = {
       // Start of 'SITE': { ... } Definitions:
       'http://docs.couchdb.org': {
         help: 'http://webchat.freenode.net/?channels=couchdb',

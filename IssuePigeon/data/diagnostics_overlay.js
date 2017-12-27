@@ -1,4 +1,3 @@
-;
 'use strict';
 //
 // Replace /\b(const|let)\B/ with "$1 "
@@ -11,8 +10,21 @@
 // require is not available in content scripts.
 // let sp = require('sdk/simple-prefs');
 (function() {
-  //  let DEBUG_ADDON = false;
+  //  const DEBUG_ADDON = false;
   //  return {
+
+  function getAllPropertyNames(obj, props = []) {
+    // console.log(obj.constructor.name, props);
+    if (obj.constructor.name == 'Object') {
+      // console.log(obj.constructor.name, props);
+      return props.length ? props : null;
+      // return props;
+    } else {
+      // console.log(obj, props);
+      return getAllPropertyNames(Object.getPrototypeOf(obj), props.concat(Object.getOwnPropertyNames(obj)));
+    }
+  }
+
   let showDiagnosticsOverlay = function (data) {
     if (typeof document != 'undefined') {
       var box = document.querySelector('.err-box') || (function() {
@@ -66,7 +78,7 @@
         return box;
       })();
       var entry = document.createElement('pre');
-      entry.textContent = (JSON.stringify(data.err, null, data.indent || 0));
+      entry.textContent = (JSON.stringify(data.err, getAllPropertyNames(data.err), data.indent || 0));
       if (box.firstElementChild) {
         box.insertBefore(entry, box.firstElementChild);
       }
@@ -75,13 +87,8 @@
       }
     }
   };
-  if (typeof self !== 'undefined') {
-    self.port.on('reportError', showDiagnosticsOverlay);
-  }
-  if (typeof exports !== 'undefined') {
-    exports.showDiagnosticsOverlay = showDiagnosticsOverlay;
-  }
-  else if (typeof window !== 'undefined') {
+
+  if (typeof window !== 'undefined') {
     window.showDiagnosticsOverlay = showDiagnosticsOverlay;
   }
 })();
